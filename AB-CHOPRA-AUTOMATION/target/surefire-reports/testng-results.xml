@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="8" passed="8" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2026-01-12T22:57:19 GMT-08:00" name="Surefire suite" finished-at="2026-01-12T23:08:51 GMT-08:00" duration-ms="691756">
+    <groups>
+    </groups>
+    <test started-at="2026-01-12T22:57:19 GMT-08:00" name="Surefire test" finished-at="2026-01-12T23:08:51 GMT-08:00" duration-ms="691756">
+      <class name="com.automation.tests.SignInTest">
+        <test-method is-config="true" signature="setupReport()[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T22:57:19 GMT-08:00" name="setupReport" finished-at="2026-01-12T22:57:19 GMT-08:00" duration-ms="86" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setupReport -->
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T22:57:19 GMT-08:00" name="setup" finished-at="2026-01-12T22:57:21 GMT-08:00" duration-ms="2256" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.tests.SignInTest.testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String) throws java.lang.InterruptedException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method is-config="true" signature="navigateToSignInPageBeforeTest()[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T22:57:21 GMT-08:00" name="navigateToSignInPageBeforeTest" finished-at="2026-01-12T22:57:22 GMT-08:00" duration-ms="836" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- navigateToSignInPageBeforeTest -->
+        <test-method signature="testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T22:57:22 GMT-08:00" name="testNegativeSignIn" data-provider="negativeLoginData" finished-at="2026-01-12T22:58:51 GMT-08:00" duration-ms="88753" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Invalid Password]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[testuser@example.com]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[WrongPass]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNegativeSignIn -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T22:58:51 GMT-08:00" name="tearDown" finished-at="2026-01-12T22:58:54 GMT-08:00" duration-ms="3128" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testNegativeSignIn status=SUCCESS method=SignInTest.testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.SignInTest@1df82230] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T22:58:54 GMT-08:00" name="setup" finished-at="2026-01-12T22:58:56 GMT-08:00" duration-ms="1835" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.tests.SignInTest.testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String) throws java.lang.InterruptedException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method is-config="true" signature="navigateToSignInPageBeforeTest()[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T22:58:56 GMT-08:00" name="navigateToSignInPageBeforeTest" finished-at="2026-01-12T22:58:56 GMT-08:00" duration-ms="224" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- navigateToSignInPageBeforeTest -->
+        <test-method signature="testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T22:58:56 GMT-08:00" name="testNegativeSignIn" data-provider="negativeLoginData" finished-at="2026-01-12T23:00:24 GMT-08:00" duration-ms="88447" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Invalid Email Format]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[testuser]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Password@123]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNegativeSignIn -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:00:24 GMT-08:00" name="tearDown" finished-at="2026-01-12T23:00:28 GMT-08:00" duration-ms="3086" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testNegativeSignIn status=SUCCESS method=SignInTest.testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.SignInTest@1df82230] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:00:28 GMT-08:00" name="setup" finished-at="2026-01-12T23:00:29 GMT-08:00" duration-ms="1886" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.tests.SignInTest.testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String) throws java.lang.InterruptedException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method is-config="true" signature="navigateToSignInPageBeforeTest()[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:00:29 GMT-08:00" name="navigateToSignInPageBeforeTest" finished-at="2026-01-12T23:00:30 GMT-08:00" duration-ms="807" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- navigateToSignInPageBeforeTest -->
+        <test-method signature="testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:00:30 GMT-08:00" name="testNegativeSignIn" data-provider="negativeLoginData" finished-at="2026-01-12T23:01:59 GMT-08:00" duration-ms="88836" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Non-existent Account]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[notfound@example.com]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Password@123]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNegativeSignIn -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:01:59 GMT-08:00" name="tearDown" finished-at="2026-01-12T23:02:02 GMT-08:00" duration-ms="3098" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testNegativeSignIn status=SUCCESS method=SignInTest.testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.SignInTest@1df82230] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:02:02 GMT-08:00" name="setup" finished-at="2026-01-12T23:02:04 GMT-08:00" duration-ms="1977" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.tests.SignInTest.testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String) throws java.lang.InterruptedException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method is-config="true" signature="navigateToSignInPageBeforeTest()[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:02:04 GMT-08:00" name="navigateToSignInPageBeforeTest" finished-at="2026-01-12T23:02:05 GMT-08:00" duration-ms="827" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- navigateToSignInPageBeforeTest -->
+        <test-method signature="testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:02:05 GMT-08:00" name="testNegativeSignIn" data-provider="negativeLoginData" finished-at="2026-01-12T23:03:26 GMT-08:00" duration-ms="81551" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Empty Email]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Password@123]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNegativeSignIn -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:03:26 GMT-08:00" name="tearDown" finished-at="2026-01-12T23:03:30 GMT-08:00" duration-ms="3060" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testNegativeSignIn status=SUCCESS method=SignInTest.testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.SignInTest@1df82230] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:03:30 GMT-08:00" name="setup" finished-at="2026-01-12T23:03:31 GMT-08:00" duration-ms="1856" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.tests.SignInTest.testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String) throws java.lang.InterruptedException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method is-config="true" signature="navigateToSignInPageBeforeTest()[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:03:31 GMT-08:00" name="navigateToSignInPageBeforeTest" finished-at="2026-01-12T23:03:32 GMT-08:00" duration-ms="825" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- navigateToSignInPageBeforeTest -->
+        <test-method signature="testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:03:32 GMT-08:00" name="testNegativeSignIn" data-provider="negativeLoginData" finished-at="2026-01-12T23:05:01 GMT-08:00" duration-ms="88931" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Very Short Password]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[testuser@example.com]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[123]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNegativeSignIn -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:05:01 GMT-08:00" name="tearDown" finished-at="2026-01-12T23:05:04 GMT-08:00" duration-ms="3102" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testNegativeSignIn status=SUCCESS method=SignInTest.testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.SignInTest@1df82230] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:05:04 GMT-08:00" name="setup" finished-at="2026-01-12T23:05:06 GMT-08:00" duration-ms="1854" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.tests.SignInTest.testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String) throws java.lang.InterruptedException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method is-config="true" signature="navigateToSignInPageBeforeTest()[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:05:06 GMT-08:00" name="navigateToSignInPageBeforeTest" finished-at="2026-01-12T23:05:07 GMT-08:00" duration-ms="835" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- navigateToSignInPageBeforeTest -->
+        <test-method signature="testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:05:07 GMT-08:00" name="testNegativeSignIn" data-provider="negativeLoginData" finished-at="2026-01-12T23:06:28 GMT-08:00" duration-ms="81336" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Both Empty]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNegativeSignIn -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:06:28 GMT-08:00" name="tearDown" finished-at="2026-01-12T23:06:31 GMT-08:00" duration-ms="3095" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testNegativeSignIn status=SUCCESS method=SignInTest.testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.SignInTest@1df82230] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:06:31 GMT-08:00" name="setup" finished-at="2026-01-12T23:06:33 GMT-08:00" duration-ms="1865" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.tests.SignInTest.testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String) throws java.lang.InterruptedException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method is-config="true" signature="navigateToSignInPageBeforeTest()[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:06:33 GMT-08:00" name="navigateToSignInPageBeforeTest" finished-at="2026-01-12T23:06:33 GMT-08:00" duration-ms="222" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- navigateToSignInPageBeforeTest -->
+        <test-method signature="testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:06:33 GMT-08:00" name="testNegativeSignIn" data-provider="negativeLoginData" finished-at="2026-01-12T23:08:02 GMT-08:00" duration-ms="88925" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Special Characters Email]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[test@#$%@example.com]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Password@123]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testNegativeSignIn -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:08:02 GMT-08:00" name="tearDown" finished-at="2026-01-12T23:08:05 GMT-08:00" duration-ms="3083" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testNegativeSignIn status=SUCCESS method=SignInTest.testNegativeSignIn(java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.SignInTest@1df82230] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:08:06 GMT-08:00" name="setup" finished-at="2026-01-12T23:08:07 GMT-08:00" duration-ms="1887" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.tests.SignInTest.testPositiveSignIn() throws java.lang.InterruptedException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method is-config="true" signature="navigateToSignInPageBeforeTest()[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:08:07 GMT-08:00" name="navigateToSignInPageBeforeTest" finished-at="2026-01-12T23:08:08 GMT-08:00" duration-ms="834" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- navigateToSignInPageBeforeTest -->
+        <test-method signature="testPositiveSignIn()[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:08:08 GMT-08:00" name="testPositiveSignIn" finished-at="2026-01-12T23:08:48 GMT-08:00" duration-ms="39322" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testPositiveSignIn -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:08:48 GMT-08:00" name="tearDown" finished-at="2026-01-12T23:08:51 GMT-08:00" duration-ms="3122" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testPositiveSignIn status=SUCCESS method=SignInTest.testPositiveSignIn()[pri:0, instance:com.automation.tests.SignInTest@1df82230] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="tearDownReport()[pri:0, instance:com.automation.tests.SignInTest@1df82230]" started-at="2026-01-12T23:08:51 GMT-08:00" name="tearDownReport" finished-at="2026-01-12T23:08:51 GMT-08:00" duration-ms="153" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownReport -->
+      </class> <!-- com.automation.tests.SignInTest -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>
