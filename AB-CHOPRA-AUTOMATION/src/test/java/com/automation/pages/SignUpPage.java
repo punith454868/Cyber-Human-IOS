@@ -42,13 +42,13 @@ public class SignUpPage {
     }
 
     // Locators
-    private final String nameFieldXpath = "//android.widget.EditText[@hint='Name']";
-    private final String emailFieldXpath = "//android.widget.EditText[@hint='Email']";
-    private final String countryButtonXpath = "//android.widget.ImageView[@content-desc='Country']";
-    private final String passwordFieldXpath = "//android.view.View[@content-desc='Password']//android.widget.EditText[@password='true']";
-    private final String confirmPasswordFieldXpath = "//android.view.View[@content-desc='Confirm Password']//android.widget.EditText[@password='true']";
-    private final String continueBtnXpath = "//android.widget.Button[@content-desc='CONTINUE']";
-    private final String signInLinkXpath = "//android.widget.Button[@content-desc=\"Already have an account? Sign in\"]";
+    private final String nameFieldXpath = "//XCUIElementTypeTextField[@name='Name']";
+    private final String emailFieldXpath = "//XCUIElementTypeTextField[@name='Email']";
+    private final String countryButtonXpath = "//XCUIElementTypeButton[@name='Country']";
+    private final String passwordFieldXpath = "//XCUIElementTypeOther[@name='Password']";
+    private final String confirmPasswordFieldXpath = "//XCUIElementTypeOther[@name='Confirm Password']";
+    private final String continueBtnXpath = "//XCUIElementTypeButton[@name='CONTINUE']";
+    private final String signInLinkXpath = "//XCUIElementTypeButton[@name=\"Already have an account? Sign in\"]";
 
     /**
      * Enter name in the Name field
@@ -148,13 +148,13 @@ public class SignUpPage {
             // Wait for dropdown to appear and select first option
             Thread.sleep(1000); // Allow dropdown to render
 
-            // Try to find and click Afghanistan button using content-desc
+            // Try to find and click Afghanistan button
             WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
-            // Look for Afghanistan button by content-desc (primary method)
+            // Look for Afghanistan button by name (primary method)
             try {
                 WebElement afghanistanBtn = shortWait.until(ExpectedConditions.elementToBeClickable(
-                        By.xpath("//android.widget.Button[@content-desc='Afghanistan']")));
+                        By.xpath("//XCUIElementTypeButton[@name='Afghanistan']")));
                 afghanistanBtn.click();
             } catch (Exception e1) {
                 // Fallback: try Button with accessibility ID
@@ -165,7 +165,7 @@ public class SignUpPage {
                 } catch (Exception e2) {
                     // Fallback: try first clickable Button
                     WebElement firstOption = shortWait.until(ExpectedConditions.elementToBeClickable(
-                            By.xpath("(//android.widget.Button[@clickable='true'])[1]")));
+                            By.xpath("(//XCUIElementTypeButton[@enabled='true'])[1]")));
                     firstOption.click();
                 }
             }
@@ -179,7 +179,8 @@ public class SignUpPage {
      * This is required before clicking Continue button in tests
      */
     public void clickSignUpHeading() {
-        String signUpHeadingXpath = "//android.view.View[@content-desc='SIGN UP']";
+        // Validate by name first: @name="SIGN UP", then xpath as fallback
+        String signUpHeadingXpath = "//XCUIElementTypeStaticText[@name='SIGN UP']";
         try {
             WebElement heading = findElementWithFallback(null, signUpHeadingXpath, null);
             heading.click();
@@ -192,102 +193,80 @@ public class SignUpPage {
      * RUNTIME-BASED VALIDATION DETECTION (NO HARDCODED MESSAGES)
      * 
      * Checks at runtime if ANY validation element is visible:
-     * - Validation message via content-desc (android.view.View)
-     * - Toast message
+     * - Password validation message (8+ chars requirement)
+     * - Validation message via name attribute
+     * - Alert/error view
      * - Inline error text
-     * - EditText with error state
      * 
      * @return true if ANY validation is detected, false if NONE found
      */
     public boolean isAnyValidationVisible() {
         WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));
 
-        // Check 1: Validation message via content-desc (android.view.View)
-        // This validation message appears between Confirm Password field and "Already
-        // have an account? Sign in" button
+        // Check 1: Password validation message (8+ chars requirement)
+        try {
+            WebElement passwordValidation = shortWait.until(ExpectedConditions.presenceOfElementLocated(
+                    By.xpath("//XCUIElementTypeStaticText[@name='Use at least 8 characters with uppercase, lowercase, number, and special symbol.']")));
+            if (passwordValidation != null) {
+                return true;
+            }
+        } catch (Exception ignored) {
+        }
+
+        // Check 2: Validation message via name attribute (XCUIElementTypeOther)
         try {
             WebElement validationView = shortWait.until(ExpectedConditions.presenceOfElementLocated(
                     By.xpath(
-                            "//android.view.View[@content-desc and (contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'invalid') or "
+                            "//XCUIElementTypeOther[@name and (contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'invalid') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'error') or "
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'error') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'required') or "
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'required') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'weak') or "
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'weak') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'match') or "
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'match') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'please') or "
-                                    +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'check') or "
-                                    +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'credentials') or "
-                                    +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'empty') or "
-                                    +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'field'))]")));
-            String contentDesc = validationView.getAttribute("content-desc");
-            if (contentDesc != null && !contentDesc.trim().isEmpty()) {
-                return true; // Validation message detected via content-desc
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'please'))]")));
+            String name = validationView.getAttribute("name");
+            if (name != null && !name.trim().isEmpty()) {
+                return true;
             }
         } catch (Exception ignored) {
         }
 
-        // Check 2: Android Toast Message
-        try {
-            WebElement toast = shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//android.widget.Toast[1]")));
-            if (toast != null && toast.getText() != null && !toast.getText().trim().isEmpty()) {
-                return true; // Toast detected
-            }
-        } catch (Exception ignored) {
-        }
-
-        // Check 3: Inline Error Text (TextView with error keywords)
+        // Check 3: Static Text with error keywords
         try {
             WebElement errorKeyword = shortWait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath("//android.widget.TextView[" +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'invalid') or "
+                    By.xpath("//XCUIElementTypeStaticText[" +
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'invalid') or "
                             +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'error') or "
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'error') or "
                             +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'required') or "
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'required') or "
                             +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'weak') or "
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'weak') or "
                             +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'match') or "
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'match') or "
                             +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'please')]")));
-            String text = errorKeyword.getText();
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'please')]")));
+            String text = errorKeyword.getAttribute("name");
             if (text != null && !text.trim().isEmpty()) {
-                return true; // Error keyword detected
+                return true;
             }
         } catch (Exception ignored) {
         }
 
-        // Check 4: TextView with error resource-id
+        // Check 4: Alert dialog
         try {
-            WebElement errorById = shortWait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath(
-                            "//android.widget.TextView[contains(@resource-id, 'error') or contains(@resource-id, 'validation')]")));
-            if (errorById != null && errorById.getText() != null && !errorById.getText().trim().isEmpty()) {
-                return true; // Error by resource-id detected
+            WebElement alert = shortWait.until(ExpectedConditions.presenceOfElementLocated(
+                    By.xpath("//XCUIElementTypeAlert")));
+            if (alert != null) {
+                return true;
             }
         } catch (Exception ignored) {
         }
 
-        // Check 5: EditText with error attribute (red error box)
-        try {
-            WebElement editTextError = shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//android.widget.EditText[@error='true' or @focused='true']")));
-            if (editTextError != null) {
-                return true; // EditText error state detected
-            }
-        } catch (Exception ignored) {
-        }
-
-        // No validation detected
         return false;
     }
 
@@ -299,112 +278,83 @@ public class SignUpPage {
      * whatever text is shown by the app.
      * 
      * Priority order for message capture:
-     * 1. Validation message from content-desc (android.view.View) - appears between
-     * Confirm Password and Sign In link
-     * 2. Toast message text
-     * 3. Inline error TextView text
-     * 4. TextView with error keywords
-     * 5. EditText error attribute
-     * 6. Disabled Continue button state
+     * 1. Validation message from name attribute (XCUIElementTypeOther)
+     * 2. Static text with error keywords
+     * 3. Alert message
+     * 4. Disabled Continue button state
      * 
      * @return The actual validation message text, or null if no validation found
      */
     public String getValidationMessage() {
         WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));
 
-        // Priority 1: Validation message via content-desc (android.view.View)
-        // This validation message appears between Confirm Password field and "Already
-        // have an account? Sign in" button
-        // Example from XML: <android.view.View content-desc="Invalid email. Please
-        // check your credentials." bounds="[52,1100][668,1132]" />
+        // Priority 1: Password validation message (8+ chars requirement)
         try {
-            // Look for android.view.View elements with content-desc that contain validation
-            // keywords
+            WebElement passwordValidation = shortWait.until(ExpectedConditions.presenceOfElementLocated(
+                    By.xpath("//XCUIElementTypeStaticText[@name='Use at least 8 characters with uppercase, lowercase, number, and special symbol.']")));
+            String message = passwordValidation.getAttribute("name");
+            if (message != null && !message.trim().isEmpty()) {
+                return message;
+            }
+        } catch (Exception ignored) {
+        }
+
+        // Priority 2: Validation message via name attribute (XCUIElementTypeOther)
+        try {
             WebElement validationView = shortWait.until(ExpectedConditions.presenceOfElementLocated(
                     By.xpath(
-                            "//android.view.View[@content-desc and (contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'invalid') or "
+                            "//XCUIElementTypeOther[@name and (contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'invalid') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'error') or "
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'error') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'required') or "
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'required') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'weak') or "
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'weak') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'match') or "
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'match') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'please') or "
-                                    +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'check') or "
-                                    +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'credentials') or "
-                                    +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'empty') or "
-                                    +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'field'))]")));
-            String contentDesc = validationView.getAttribute("content-desc");
-            if (contentDesc != null && !contentDesc.trim().isEmpty()) {
-                return contentDesc;
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'please'))]")));
+            String name = validationView.getAttribute("name");
+            if (name != null && !name.trim().isEmpty()) {
+                return name;
             }
         } catch (Exception ignored) {
         }
 
-        // Priority 2: Android Toast Message
-        try {
-            WebElement toast = shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//android.widget.Toast[1]")));
-            String toastText = toast.getText();
-            if (toastText != null && !toastText.trim().isEmpty()) {
-                return toastText;
-            }
-        } catch (Exception ignored) {
-        }
-
-        // Priority 3: Any TextView with error keywords
+        // Priority 3: Static text with error keywords
         try {
             WebElement errorKeyword = shortWait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath("//android.widget.TextView[" +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'invalid') or "
+                    By.xpath("//XCUIElementTypeStaticText[" +
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'invalid') or "
                             +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'error') or "
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'error') or "
                             +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'required') or "
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'required') or "
                             +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'weak') or "
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'weak') or "
                             +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'match') or "
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'match') or "
                             +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'please')]")));
-            String text = errorKeyword.getText();
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'please')]")));
+            String text = errorKeyword.getAttribute("name");
             if (text != null && !text.trim().isEmpty()) {
                 return text;
             }
         } catch (Exception ignored) {
         }
 
-        // Priority 4: TextView with error resource-id
+        // Priority 4: Alert dialog
         try {
-            WebElement errorById = shortWait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath(
-                            "//android.widget.TextView[contains(@resource-id, 'error') or contains(@resource-id, 'validation')]")));
-            String text = errorById.getText();
-            if (text != null && !text.trim().isEmpty()) {
-                return text;
+            WebElement alert = shortWait.until(ExpectedConditions.presenceOfElementLocated(
+                    By.xpath("//XCUIElementTypeAlert")));
+            String alertText = alert.getText();
+            if (alertText != null && !alertText.trim().isEmpty()) {
+                return alertText;
             }
         } catch (Exception ignored) {
         }
 
-        // Priority 5: EditText error attribute
-        try {
-            WebElement editTextError = shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//android.widget.EditText[@error='true']")));
-            String errorAttr = editTextError.getAttribute("error");
-            if (errorAttr != null && !errorAttr.trim().isEmpty()) {
-                return errorAttr;
-            }
-        } catch (Exception ignored) {
-        }
-
-        // Priority 6: Disabled Continue button (for empty fields)
+        // Priority 5: Disabled Continue button (for empty fields)
         try {
             WebElement btn = findElementWithFallback(null, continueBtnXpath, "CONTINUE");
             if (!btn.isEnabled()) {
@@ -413,7 +363,6 @@ public class SignUpPage {
         } catch (Exception ignored) {
         }
 
-        // No validation message found
         return null;
     }
 
@@ -422,8 +371,8 @@ public class SignUpPage {
      */
     public boolean isSignUpPageDisplayed() {
         try {
-            // Check for SIGN UP heading
-            WebElement heading = findElementWithFallback(null, "//android.view.View[@content-desc='SIGN UP']", null);
+            // Validate by name first: @name="SIGN UP", then xpath as fallback
+            WebElement heading = findElementWithFallback(null, "//XCUIElementTypeStaticText[@name='SIGN UP']", null);
             return heading.isDisplayed();
         } catch (Exception e) {
             return false;
@@ -435,8 +384,9 @@ public class SignUpPage {
      */
     public boolean isConsentPageDisplayed() {
         try {
+            // Validate by name first, then xpath as fallback
             WebElement consentElement = findElementWithFallback(null,
-                    "//android.view.View[@content-desc='I accept the terms and conditions of AB Chopra services']",
+                    "//XCUIElementTypeStaticText[@name='I accept the terms and conditions of AB Chopra services']",
                     "I accept the terms and conditions of AB Chopra services");
             return consentElement.isDisplayed();
         } catch (Exception e) {
@@ -449,7 +399,7 @@ public class SignUpPage {
      */
     public void clickTermsOfUse() {
         WebElement termsLink = findElementWithFallback(null,
-                "//android.view.View[@content-desc='Terms of Use']",
+                "//XCUIElementTypeOther[@name='Terms of Use']",
                 "Terms of Use");
         termsLink.click();
     }
@@ -460,7 +410,7 @@ public class SignUpPage {
     public boolean isTermsOfUsePageDisplayed() {
         try {
             WebElement termsHeading = findElementWithFallback(null,
-                    "//android.view.View[@content-desc='TERMS & CONDITIONS']",
+                    "//XCUIElementTypeStaticText[@name='TERMS & CONDITIONS']",
                     "TERMS & CONDITIONS");
             return termsHeading.isDisplayed();
         } catch (Exception e) {
@@ -473,7 +423,7 @@ public class SignUpPage {
      */
     public void clickPrivacyPolicy() {
         WebElement privacyLink = findElementWithFallback(null,
-                "//android.view.View[@content-desc='Privacy Policy']",
+                "//XCUIElementTypeOther[@name='Privacy Policy']",
                 "Privacy Policy");
         privacyLink.click();
     }
@@ -484,7 +434,7 @@ public class SignUpPage {
     public boolean isPrivacyPolicyPageDisplayed() {
         try {
             WebElement privacyHeading = findElementWithFallback(null,
-                    "//android.view.View[@content-desc='PRIVACY POLICY']",
+                    "//XCUIElementTypeStaticText[@name='PRIVACY POLICY']",
                     "PRIVACY POLICY");
             return privacyHeading.isDisplayed();
         } catch (Exception e) {
@@ -493,13 +443,51 @@ public class SignUpPage {
     }
 
     /**
-     * Click back button (ImageView)
+     * Click back button
+     * Tries multiple strategies to find and click the back button
      */
     public void clickBackButton() {
-        WebElement backBtn = findElementWithFallback(null,
-                "//android.widget.ImageView",
-                null);
-        backBtn.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        
+        try {
+            // Strategy 1: Try back button by name
+            try {
+                WebElement backBtn = wait.until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("//XCUIElementTypeButton[@name='Back']")));
+                backBtn.click();
+                return;
+            } catch (Exception ignored) {
+            }
+
+            // Strategy 2: Try first button (usually back button on iOS navigation)
+            try {
+                WebElement firstBtn = wait.until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("(//XCUIElementTypeButton)[1]")));
+                firstBtn.click();
+                return;
+            } catch (Exception ignored) {
+            }
+
+            // Strategy 3: Try button with common back indicators
+            try {
+                WebElement backBtn = wait.until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("//XCUIElementTypeButton[contains(@name, 'back') or contains(@name, 'Back')]")));
+                backBtn.click();
+                return;
+            } catch (Exception ignored) {
+            }
+
+            // Strategy 4: Any clickable button (fallback)
+            try {
+                WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("//XCUIElementTypeButton[@enabled='true']")));
+                btn.click();
+            } catch (Exception e) {
+                System.out.println("Could not click back button: " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.out.println("Back button click failed: " + e.getMessage());
+        }
     }
 
     /**
@@ -507,7 +495,7 @@ public class SignUpPage {
      */
     public void clickCheckbox1() {
         WebElement checkbox = findElementWithFallback(null,
-                "//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View[1]/android.view.View/android.view.View/android.view.View[1]",
+                "//XCUIElementTypeApplication[@name=\"AB Chopra\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]",
                 null);
         checkbox.click();
     }
@@ -517,7 +505,7 @@ public class SignUpPage {
      */
     public void clickCheckbox2() {
         WebElement checkbox = findElementWithFallback(null,
-                "//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View[1]/android.view.View/android.view.View/android.view.View[3]",
+                "//XCUIElementTypeApplication[@name=\"AB Chopra\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]",
                 null);
         checkbox.click();
     }
@@ -527,7 +515,7 @@ public class SignUpPage {
      */
     public void clickCheckbox3() {
         WebElement checkbox = findElementWithFallback(null,
-                "//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View[1]/android.view.View/android.view.View/android.view.View[5]",
+                "//XCUIElementTypeApplication[@name=\"AB Chopra\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[4]",
                 null);
         checkbox.click();
     }
@@ -537,7 +525,7 @@ public class SignUpPage {
      */
     public void clickCheckbox4() {
         WebElement checkbox = findElementWithFallback(null,
-                "//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View[1]/android.view.View/android.view.View/android.view.View[7]",
+                "//XCUIElementTypeApplication[@name=\"AB Chopra\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[5]",
                 null);
         checkbox.click();
     }
@@ -548,7 +536,7 @@ public class SignUpPage {
     public boolean isConfirmEmailPageDisplayed() {
         try {
             WebElement confirmEmailHeading = findElementWithFallback(null,
-                    "//android.view.View[@content-desc='CONFIRM YOUR EMAIL']",
+                    "//XCUIElementTypeStaticText[@name='CONFIRM YOUR EMAIL']",
                     "CONFIRM YOUR EMAIL");
             return confirmEmailHeading.isDisplayed();
         } catch (Exception e) {
@@ -561,7 +549,7 @@ public class SignUpPage {
      */
     public void enterOTP(String otp) {
         WebElement otpField = findElementWithFallback(null,
-                "//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[1]",
+                "//XCUIElementTypeApplication[@name=\"AB Chopra\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeTextField[1]",
                 null);
         otpField.click();
         otpField.clear();
@@ -573,7 +561,7 @@ public class SignUpPage {
      */
     public void clickVerifyButton() {
         WebElement verifyBtn = findElementWithFallback(null,
-                "//android.widget.Button[@content-desc='VERIFY']",
+                "//XCUIElementTypeButton[@name='VERIFY']",
                 "VERIFY");
         verifyBtn.click();
     }
@@ -584,9 +572,9 @@ public class SignUpPage {
     public String getIncorrectOTPError() {
         try {
             WebElement errorMsg = findElementWithFallback(null,
-                    "//android.view.View[@content-desc='Incorrect code. Please try again.']",
+                    "//XCUIElementTypeStaticText[@name='Incorrect code. Please try again.']",
                     "Incorrect code. Please try again.");
-            return errorMsg.getAttribute("content-desc");
+            return errorMsg.getAttribute("name");
         } catch (Exception e) {
             return null;
         }
@@ -597,7 +585,7 @@ public class SignUpPage {
      */
     public void clickGetNewCode() {
         WebElement newCodeBtn = findElementWithFallback(null,
-                "//android.view.View[@content-desc='Get a new code']",
+                "//XCUIElementTypeStaticText[@name='Get a new code']",
                 "Get a new code");
         newCodeBtn.click();
     }
@@ -608,7 +596,7 @@ public class SignUpPage {
     public boolean isResendSuccessfulDialogDisplayed() {
         try {
             WebElement resendDialog = findElementWithFallback(null,
-                    "//android.view.View[@content-desc='RESEND SUCCESSFUL']",
+                    "//XCUIElementTypeStaticText[@name='RESEND SUCCESSFUL']",
                     "RESEND SUCCESSFUL");
             return resendDialog.isDisplayed();
         } catch (Exception e) {
@@ -622,9 +610,9 @@ public class SignUpPage {
     public String getResendSuccessfulMessage() {
         try {
             WebElement successMsg = findElementWithFallback(null,
-                    "//android.view.View[@content-desc='Verification code has been sent successfully.']",
+                    "//XCUIElementTypeStaticText[@name='Verification code has been sent successfully.']",
                     "Verification code has been sent successfully.");
-            return successMsg.getAttribute("content-desc");
+            return successMsg.getAttribute("name");
         } catch (Exception e) {
             return null;
         }
@@ -635,7 +623,7 @@ public class SignUpPage {
      */
     public void clickOKButton() {
         WebElement okBtn = findElementWithFallback(null,
-                "//android.widget.Button[@content-desc='OK']",
+                "//XCUIElementTypeButton[@name='OK']",
                 "OK");
         okBtn.click();
     }

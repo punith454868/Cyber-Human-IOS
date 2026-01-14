@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.automation.tests.SignInTest" time="692.196" tests="8" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.automation.tests.SignUpTest" time="785.75" tests="12" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -13,10 +13,10 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="IN"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire/surefirebooter-20260112225719098_3.jar /Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire 2026-01-12T22-57-19_062-jvmRun1 surefire-20260112225719098_1tmp surefire_0-20260112225719098_2tmp"/>
+    <property name="sun.java.command" value="/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire/surefirebooter-20260113033142564_3.jar /Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire 2026-01-13T03-31-42_525-jvmRun1 surefire-20260113033142564_1tmp surefire_0-20260113033142564_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
-    <property name="test" value="SignInTest"/>
+    <property name="test" value="SignUpTest"/>
     <property name="surefire.test.class.path" value="/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/test-classes:/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/classes:/Users/nd-admin/.m2/repository/io/appium/java-client/8.6.0/java-client-8.6.0.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-api/4.13.0/selenium-api-4.13.0.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-remote-driver/4.13.0/selenium-remote-driver-4.13.0.jar:/Users/nd-admin/.m2/repository/com/google/auto/service/auto-service-annotations/1.1.1/auto-service-annotations-1.1.1.jar:/Users/nd-admin/.m2/repository/com/google/guava/guava/32.1.2-jre/guava-32.1.2-jre.jar:/Users/nd-admin/.m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar:/Users/nd-admin/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/nd-admin/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/Users/nd-admin/.m2/repository/org/checkerframework/checker-qual/3.33.0/checker-qual-3.33.0.jar:/Users/nd-admin/.m2/repository/com/google/errorprone/error_prone_annotations/2.18.0/error_prone_annotations-2.18.0.jar:/Users/nd-admin/.m2/repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar:/Users/nd-admin/.m2/repository/io/netty/netty-buffer/4.1.96.Final/netty-buffer-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-codec-http/4.1.96.Final/netty-codec-http-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-codec/4.1.96.Final/netty-codec-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-handler/4.1.96.Final/netty-handler-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-common/4.1.96.Final/netty-common-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-transport-classes-epoll/4.1.96.Final/netty-transport-classes-epoll-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-transport-classes-kqueue/4.1.96.Final/netty-transport-classes-kqueue-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-transport-native-epoll/4.1.96.Final/netty-transport-native-epoll-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-transport-native-kqueue/4.1.96.Final/netty-transport-native-kqueue-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-transport-native-unix-common/4.1.96.Final/netty-transport-native-unix-common-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-transport/4.1.96.Final/netty-transport-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-resolver/4.1.96.Final/netty-resolver-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-api/1.28.0/opentelemetry-api-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-context/1.28.0/opentelemetry-context-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-exporter-logging/1.28.0/opentelemetry-exporter-logging-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-sdk-metrics/1.28.0/opentelemetry-sdk-metrics-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-extension-incubator/1.28.0-alpha/opentelemetry-extension-incubator-1.28.0-alpha.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-sdk-logs/1.28.0/opentelemetry-sdk-logs-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-sdk-common/1.28.0/opentelemetry-sdk-common-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-sdk-extension-autoconfigure-spi/1.28.0/opentelemetry-sdk-extension-autoconfigure-spi-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-sdk-extension-autoconfigure/1.28.0/opentelemetry-sdk-extension-autoconfigure-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-api-events/1.28.0-alpha/opentelemetry-api-events-1.28.0-alpha.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-sdk-trace/1.28.0/opentelemetry-sdk-trace-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-sdk/1.28.0/opentelemetry-sdk-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-semconv/1.28.0-alpha/opentelemetry-semconv-1.28.0-alpha.jar:/Users/nd-admin/.m2/repository/net/bytebuddy/byte-buddy/1.14.5/byte-buddy-1.14.5.jar:/Users/nd-admin/.m2/repository/org/asynchttpclient/async-http-client/2.12.3/async-http-client-2.12.3.jar:/Users/nd-admin/.m2/repository/org/asynchttpclient/async-http-client-netty-utils/2.12.3/async-http-client-netty-utils-2.12.3.jar:/Users/nd-admin/.m2/repository/io/netty/netty-codec-socks/4.1.60.Final/netty-codec-socks-4.1.60.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-handler-proxy/4.1.60.Final/netty-handler-proxy-4.1.60.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-transport-native-epoll/4.1.60.Final/netty-transport-native-epoll-4.1.60.Final-linux-x86_64.jar:/Users/nd-admin/.m2/repository/io/netty/netty-transport-native-kqueue/4.1.60.Final/netty-transport-native-kqueue-4.1.60.Final-osx-x86_64.jar:/Users/nd-admin/.m2/repository/com/typesafe/netty/netty-reactive-streams/2.0.4/netty-reactive-streams-2.0.4.jar:/Users/nd-admin/.m2/repository/com/sun/activation/jakarta.activation/1.2.2/jakarta.activation-1.2.2.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-http/4.13.0/selenium-http-4.13.0.jar:/Users/nd-admin/.m2/repository/dev/failsafe/failsafe/3.3.2/failsafe-3.3.2.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-json/4.13.0/selenium-json-4.13.0.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-manager/4.13.0/selenium-manager-4.13.0.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-os/4.13.0/selenium-os-4.13.0.jar:/Users/nd-admin/.m2/repository/org/apache/commons/commons-exec/1.3/commons-exec-1.3.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-support/4.13.0/selenium-support-4.13.0.jar:/Users/nd-admin/.m2/repository/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar:/Users/nd-admin/.m2/repository/org/apache/commons/commons-lang3/3.13.0/commons-lang3-3.13.0.jar:/Users/nd-admin/.m2/repository/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-java/4.16.1/selenium-java-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-chrome-driver/4.16.1/selenium-chrome-driver-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-chromium-driver/4.16.1/selenium-chromium-driver-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v118/4.16.1/selenium-devtools-v118-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v119/4.16.1/selenium-devtools-v119-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v120/4.16.1/selenium-devtools-v120-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v85/4.16.1/selenium-devtools-v85-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-edge-driver/4.16.1/selenium-edge-driver-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-firefox-driver/4.16.1/selenium-firefox-driver-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-ie-driver/4.16.1/selenium-ie-driver-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-safari-driver/4.16.1/selenium-safari-driver-4.16.1.jar:/Users/nd-admin/.m2/repository/org/testng/testng/7.8.0/testng-7.8.0.jar:/Users/nd-admin/.m2/repository/com/beust/jcommander/1.82/jcommander-1.82.jar:/Users/nd-admin/.m2/repository/org/webjars/jquery/3.6.1/jquery-3.6.1.jar:/Users/nd-admin/.m2/repository/com/aventstack/extentreports/5.1.1/extentreports-5.1.1.jar:/Users/nd-admin/.m2/repository/io/reactivex/rxjava3/rxjava/3.1.6/rxjava-3.1.6.jar:/Users/nd-admin/.m2/repository/org/reactivestreams/reactive-streams/1.0.4/reactive-streams-1.0.4.jar:/Users/nd-admin/.m2/repository/org/freemarker/freemarker/2.3.32/freemarker-2.3.32.jar:/Users/nd-admin/.m2/repository/org/projectlombok/lombok/1.18.26/lombok-1.18.26.jar:/Users/nd-admin/.m2/repository/commons-io/commons-io/2.15.1/commons-io-2.15.1.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="/Users/nd-admin"/>
@@ -31,7 +31,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire/surefirebooter-20260112225719098_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire/surefirebooter-20260113033142564_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="25.0.1"/>
@@ -61,48 +61,56 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="testNegativeSignIn[Invalid Password, testuser@example.com, WrongPass](1)" classname="com.automation.tests.SignInTest" time="88.759">
-    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for SignInTest - uses custom navigation
-✓ Already on Sign In page
+  <testcase name="testNegativeSignUp[Invalid Email Format, John Doe, invalidemail, Password@123, Password@123](1)" classname="com.automation.tests.SignUpTest" time="55.91">
+    <system-out><![CDATA[✓ App state reset: App restarted successfully
 ]]></system-out>
     <system-err><![CDATA[SLF4J: No SLF4J providers were found.
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
 ]]></system-err>
   </testcase>
-  <testcase name="testNegativeSignIn[Invalid Email Format, testuser, Password@123](2)" classname="com.automation.tests.SignInTest" time="88.449">
-    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for SignInTest - uses custom navigation
-✓ Already on Sign In page
+  <testcase name="testNegativeSignUp[Empty Name Field, , test@example.com, Password@123, Password@123](2)" classname="com.automation.tests.SignUpTest" time="55.063">
+    <system-out><![CDATA[✓ App state reset: App restarted successfully
 ]]></system-out>
   </testcase>
-  <testcase name="testNegativeSignIn[Non-existent Account, notfound@example.com, Password@123](3)" classname="com.automation.tests.SignInTest" time="88.835">
-    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for SignInTest - uses custom navigation
-✓ Already on Sign In page
+  <testcase name="testNegativeSignUp[Empty Email Field, John Doe, , Password@123, Password@123](3)" classname="com.automation.tests.SignUpTest" time="54.618">
+    <system-out><![CDATA[✓ App state reset: App restarted successfully
 ]]></system-out>
   </testcase>
-  <testcase name="testNegativeSignIn[Empty Email, , Password@123](4)" classname="com.automation.tests.SignInTest" time="81.554">
-    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for SignInTest - uses custom navigation
-✓ Already on Sign In page
+  <testcase name="testNegativeSignUp[Empty Password Field, John Doe, test@example.com, , Password@123](4)" classname="com.automation.tests.SignUpTest" time="29.418">
+    <system-out><![CDATA[✓ App state reset: App restarted successfully
 ]]></system-out>
   </testcase>
-  <testcase name="testNegativeSignIn[Very Short Password, testuser@example.com, 123](5)" classname="com.automation.tests.SignInTest" time="88.934">
-    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for SignInTest - uses custom navigation
-✓ Already on Sign In page
+  <testcase name="testNegativeSignUp[Empty Confirm Password, John Doe, test@example.com, Password@123, ](5)" classname="com.automation.tests.SignUpTest" time="54.478">
+    <system-out><![CDATA[✓ App state reset: App restarted successfully
 ]]></system-out>
   </testcase>
-  <testcase name="testNegativeSignIn[Both Empty, , ](6)" classname="com.automation.tests.SignInTest" time="81.338">
-    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for SignInTest - uses custom navigation
-✓ Already on Sign In page
+  <testcase name="testNegativeSignUp[Password Mismatch, John Doe, test@example.com, Password@123, DifferentPass@123](6)" classname="com.automation.tests.SignUpTest" time="55.585">
+    <system-out><![CDATA[✓ App state reset: App restarted successfully
 ]]></system-out>
   </testcase>
-  <testcase name="testNegativeSignIn[Special Characters Email, test@#$%@example.com, Password@123](7)" classname="com.automation.tests.SignInTest" time="88.924">
-    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for SignInTest - uses custom navigation
-✓ Already on Sign In page
+  <testcase name="testNegativeSignUp[Weak Password, John Doe, test@example.com, 123, 123](7)" classname="com.automation.tests.SignUpTest" time="30.632">
+    <system-out><![CDATA[✓ App state reset: App restarted successfully
 ]]></system-out>
   </testcase>
-  <testcase name="testPositiveSignIn" classname="com.automation.tests.SignInTest" time="39.323">
-    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for SignInTest - uses custom navigation
-✓ Already on Sign In page
+  <testcase name="testNegativeSignUp[All Fields Empty, , , , ](8)" classname="com.automation.tests.SignUpTest" time="51.519">
+    <system-out><![CDATA[✓ App state reset: App restarted successfully
+]]></system-out>
+  </testcase>
+  <testcase name="testNegativeSignUp[Email Without Domain, John Doe, test@, Password@123, Password@123](9)" classname="com.automation.tests.SignUpTest" time="55.167">
+    <system-out><![CDATA[✓ App state reset: App restarted successfully
+]]></system-out>
+  </testcase>
+  <testcase name="testNegativeSignUp[Short Password, John Doe, test@example.com, 12, 12](10)" classname="com.automation.tests.SignUpTest" time="30.555">
+    <system-out><![CDATA[✓ App state reset: App restarted successfully
+]]></system-out>
+  </testcase>
+  <testcase name="testNegativeSignUp[Only Spaces in Name,    , test@example.com, Password@123, Password@123](11)" classname="com.automation.tests.SignUpTest" time="55.482">
+    <system-out><![CDATA[✓ App state reset: App restarted successfully
+]]></system-out>
+  </testcase>
+  <testcase name="testPositiveSignUp" classname="com.automation.tests.SignUpTest" time="126.178">
+    <system-out><![CDATA[✓ App state reset: App restarted successfully
 ]]></system-out>
   </testcase>
 </testsuite>
