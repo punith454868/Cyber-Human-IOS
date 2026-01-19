@@ -2,16 +2,16 @@
 <testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-01-19T00:13:06 GMT-08:00" name="Surefire suite" finished-at="2026-01-19T00:18:53 GMT-08:00" duration-ms="347770">
+  <suite started-at="2026-01-19T02:18:44 GMT-08:00" name="Surefire suite" finished-at="2026-01-19T02:24:06 GMT-08:00" duration-ms="321837">
     <groups>
     </groups>
-    <test started-at="2026-01-19T00:13:06 GMT-08:00" name="Surefire test" finished-at="2026-01-19T00:18:53 GMT-08:00" duration-ms="347770">
+    <test started-at="2026-01-19T02:18:44 GMT-08:00" name="Surefire test" finished-at="2026-01-19T02:24:06 GMT-08:00" duration-ms="321837">
       <class name="com.automation.tests.EditProfileTest">
-        <test-method is-config="true" signature="setupReport()[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T00:13:05 GMT-08:00" name="setupReport" finished-at="2026-01-19T00:13:06 GMT-08:00" duration-ms="78" status="PASS">
+        <test-method is-config="true" signature="setupReport()[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T02:18:44 GMT-08:00" name="setupReport" finished-at="2026-01-19T02:18:44 GMT-08:00" duration-ms="82" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setupReport -->
-        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T00:13:06 GMT-08:00" name="setup" finished-at="2026-01-19T00:13:08 GMT-08:00" duration-ms="2553" status="PASS">
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T02:18:44 GMT-08:00" name="setup" finished-at="2026-01-19T02:18:47 GMT-08:00" duration-ms="3171" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -22,7 +22,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T00:13:08 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-19T00:15:57 GMT-08:00" duration-ms="168984" status="PASS">
+        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T02:18:47 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-19T02:21:23 GMT-08:00" duration-ms="155583" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -48,7 +48,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testNegativeEditProfile -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T00:15:57 GMT-08:00" name="tearDown" finished-at="2026-01-19T00:16:00 GMT-08:00" duration-ms="3063" status="PASS">
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T02:21:23 GMT-08:00" name="tearDown" finished-at="2026-01-19T02:21:26 GMT-08:00" duration-ms="3069" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -59,7 +59,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T00:16:00 GMT-08:00" name="setup" finished-at="2026-01-19T00:16:02 GMT-08:00" duration-ms="1899" status="PASS">
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T02:21:26 GMT-08:00" name="setup" finished-at="2026-01-19T02:21:28 GMT-08:00" duration-ms="1902" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -70,7 +70,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T00:16:02 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-19T00:18:50 GMT-08:00" duration-ms="168160" status="PASS">
+        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T02:21:28 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-19T02:24:03 GMT-08:00" duration-ms="155034" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -96,7 +96,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testNegativeEditProfile -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T00:18:50 GMT-08:00" name="tearDown" finished-at="2026-01-19T00:18:53 GMT-08:00" duration-ms="3088" status="PASS">
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T02:24:03 GMT-08:00" name="tearDown" finished-at="2026-01-19T02:24:06 GMT-08:00" duration-ms="3048" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -107,7 +107,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="tearDownReport()[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T00:18:53 GMT-08:00" name="tearDownReport" finished-at="2026-01-19T00:18:53 GMT-08:00" duration-ms="117" status="PASS">
+        <test-method is-config="true" signature="tearDownReport()[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T02:24:06 GMT-08:00" name="tearDownReport" finished-at="2026-01-19T02:24:06 GMT-08:00" duration-ms="138" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownReport -->

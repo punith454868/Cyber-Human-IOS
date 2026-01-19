@@ -215,12 +215,16 @@ public class EditProfileTest extends BaseTest {
         test.log(Status.INFO, "✓ Clicked PROFILE");
         Thread.sleep(2000); // Wait 2 seconds as requested
 
-        // Step 3: Click ACCOUNT to navigate to Edit Profile
-        WebElement account = wait.until(ExpectedConditions.elementToBeClickable(
-            By.xpath("//XCUIElementTypeStaticText[@name='ACCOUNT']")));
-        account.click();
-        test.log(Status.INFO, "✓ Clicked ACCOUNT");
-        Thread.sleep(1500);
+        // Step 3: Click ACCOUNT to navigate to Edit Profile (iOS: AccessibilityId only)
+        try {
+            WebElement accountAccId = driver.findElement(MobileBy.AccessibilityId("ACCOUNT"));
+            accountAccId.click();
+            test.log(Status.INFO, "✓ Clicked ACCOUNT by accessibility id");
+            Thread.sleep(1500);
+        } catch (Exception e) {
+            test.log(Status.FAIL, "✗ ACCOUNT not found by accessibility id");
+            throw new RuntimeException("Failed to click ACCOUNT by accessibility id", e);
+        }
 
         // Verify Edit Profile page is displayed
         EditProfilePage editProfilePage = new EditProfilePage(driver);
@@ -446,69 +450,15 @@ public class EditProfileTest extends BaseTest {
                 throw new RuntimeException("Failed to click Profile", e);
             }
 
-            boolean accountClicked = false;
+            // Step: Click ACCOUNT to navigate to Edit Profile (iOS: AccessibilityId only)
             try {
-                WebElement account = wait.until(ExpectedConditions.elementToBeClickable(
-                        By.xpath("//XCUIElementTypeStaticText[@name='ACCOUNT']")));
-                account.click();
-                test.log(Status.INFO, "✓ Clicked ACCOUNT by StaticText xpath");
+                WebElement accountAccId = driver.findElement(MobileBy.AccessibilityId("ACCOUNT"));
+                accountAccId.click();
+                test.log(Status.INFO, "✓ Clicked ACCOUNT by accessibility id");
                 Thread.sleep(1500);
-                accountClicked = true;
-            } catch (Exception e1) {
-                test.log(Status.WARNING, "⚠ ACCOUNT not found by StaticText xpath: " + e1.getMessage());
-                // Try by accessibility id
-                try {
-                    WebElement accountAccId = driver.findElement(MobileBy.AccessibilityId("ACCOUNT"));
-                    accountAccId.click();
-                    test.log(Status.INFO, "✓ Clicked ACCOUNT by accessibility id");
-                    Thread.sleep(1500);
-                    accountClicked = true;
-                } catch (Exception e2) {
-                    test.log(Status.WARNING, "⚠ ACCOUNT not found by accessibility id: " + e2.getMessage());
-                    // Try by name
-                    try {
-                        WebElement accountByName = driver.findElement(By.name("ACCOUNT"));
-                        accountByName.click();
-                        test.log(Status.INFO, "✓ Clicked ACCOUNT by name");
-                        Thread.sleep(1500);
-                        accountClicked = true;
-                    } catch (Exception e3) {
-                        test.log(Status.WARNING, "⚠ ACCOUNT not found by name: " + e3.getMessage());
-                        // Try by class chain
-                        try {
-                            WebElement accountClassChain = driver.findElement(MobileBy.iOSClassChain("**/XCUIElementTypeButton[`name == 'ACCOUNT'`]"));
-                            accountClassChain.click();
-                            test.log(Status.INFO, "✓ Clicked ACCOUNT by iOS class chain");
-                            Thread.sleep(1500);
-                            accountClicked = true;
-                        } catch (Exception e4) {
-                            test.log(Status.WARNING, "⚠ ACCOUNT not found by iOS class chain: " + e4.getMessage());
-                            // Try by iOSNsPredicateString
-                            try {
-                                WebElement accountPredicate = driver.findElement(MobileBy.iOSNsPredicateString("name == 'ACCOUNT'"));
-                                accountPredicate.click();
-                                test.log(Status.INFO, "✓ Clicked ACCOUNT by iOSNsPredicateString");
-                                Thread.sleep(1500);
-                                accountClicked = true;
-                            } catch (Exception e5) {
-                                test.log(Status.WARNING, "⚠ ACCOUNT not found by iOSNsPredicateString: " + e5.getMessage());
-                                // Try by alternative XPath (Button)
-                                try {
-                                    WebElement accountButtonXpath = driver.findElement(By.xpath("//XCUIElementTypeButton[@name='ACCOUNT']"));
-                                    accountButtonXpath.click();
-                                    test.log(Status.INFO, "✓ Clicked ACCOUNT by Button xpath");
-                                    Thread.sleep(1500);
-                                    accountClicked = true;
-                                } catch (Exception e6) {
-                                    test.log(Status.WARNING, "⚠ ACCOUNT not found by Button xpath: " + e6.getMessage());
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            if (!accountClicked) {
-                throw new RuntimeException("Failed to click ACCOUNT by any locator");
+            } catch (Exception e) {
+                test.log(Status.FAIL, "✗ ACCOUNT not found by accessibility id");
+                throw new RuntimeException("Failed to click ACCOUNT by accessibility id", e);
             }
 
             EditProfilePage editProfilePage = new EditProfilePage(driver);
