@@ -21,17 +21,17 @@ public class EditProfilePage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    // Locators
-    private final String editProfileHeadingXpath = "//android.view.View[@content-desc='EDIT PROFILE']";
-    // Changed to index-based locators as text is mutable
-    private final String nameFieldXpath = "(//android.widget.EditText)[1]";
-    private final String emailFieldXpath = "(//android.widget.EditText)[2]";
-    private final String dateOfBirthFieldXpath = "//android.view.View[@hint='Date of birth']";
-    private final String genderButtonXpath = "//android.widget.ImageView[@content-desc='Gender']";
-    private final String phoneNumberFieldXpath = "//android.widget.EditText[@hint='Phone Number']";
-    private final String countryCodeXpath = "//android.view.View[contains(@content-desc, '+')]";
-    private final String saveChangesButtonXpath = "//android.widget.Button[@content-desc='SAVE CHANGES']";
-    private final String changePasswordButtonXpath = "//android.widget.Button[@content-desc='CHANGE PASSWORD']";
+    // Locators (iOS XPath)
+    private final String editProfileHeadingXpath = "//XCUIElementTypeStaticText[@name='EDIT PROFILE']";
+    // iOS TextField locators
+    private final String nameFieldXpath = "(//XCUIElementTypeTextField)[1]";
+    private final String emailFieldXpath = "(//XCUIElementTypeTextField)[2]";
+    private final String dateOfBirthFieldXpath = "//XCUIElementTypeOther[@name='Date of birth']";
+    private final String genderButtonXpath = "//XCUIElementTypeButton[@name='Gender']";
+    private final String phoneNumberFieldXpath = "//XCUIElementTypeTextField[@name='Phone Number']";
+    private final String countryCodeXpath = "//XCUIElementTypeStaticText[@name='🇦🇫 +93']";
+    private final String saveChangesButtonXpath = "//XCUIElementTypeButton[@name='SAVE CHANGES']";
+    private final String changePasswordButtonXpath = "//XCUIElementTypeButton[@name='CHANGE PASSWORD']";
 
     /**
      * Enter name in the Name field
@@ -68,14 +68,35 @@ public class EditProfilePage {
      */
     public void enterPhoneNumber(String phoneNumber) {
         try {
-            WebElement phoneField = wait
-                    .until(ExpectedConditions.elementToBeClickable(By.xpath(phoneNumberFieldXpath)));
+            WebElement phoneField = null;
+            // Try elementId first (if available)
+            try {
+                phoneField = driver.findElement(By.id("0A010000-0000-0000-7B0A-000000000000"));
+            } catch (Exception e0) {
+                try {
+                    phoneField = driver.findElement(io.appium.java_client.MobileBy.AccessibilityId("Phone Number"));
+                } catch (Exception e1) {
+                    try {
+                        phoneField = driver.findElement(io.appium.java_client.MobileBy.iOSClassChain("**/XCUIElementTypeTextField[`name == 'Phone Number'`]"));
+                    } catch (Exception e2) {
+                        try {
+                            phoneField = driver.findElement(io.appium.java_client.MobileBy.iOSNsPredicateString("name == 'Phone Number'"));
+                        } catch (Exception e3) {
+                            try {
+                                phoneField = driver.findElement(By.xpath("//XCUIElementTypeTextField[@name='Phone Number']"));
+                            } catch (Exception e4) {
+                                throw new RuntimeException("Phone Number field not found on Edit Profile page after all locator attempts", e4);
+                            }
+                        }
+                    }
+                }
+            }
             phoneField.click();
             phoneField.clear();
             phoneField.sendKeys(phoneNumber);
             hideKeyboard();
-        } catch (TimeoutException e) {
-            throw new RuntimeException("Phone Number field not found on Edit Profile page", e);
+        } catch (Exception e) {
+            throw new RuntimeException("Phone Number field not found on Edit Profile page after all locator attempts", e);
         }
     }
 
@@ -85,32 +106,40 @@ public class EditProfilePage {
      */
     public void clickDateOfBirth() {
         try {
-            hideKeyboard(); // Ensure keyboard is closed
-            Thread.sleep(500); // Small pause
+            hideKeyboard();
+            Thread.sleep(500);
             WebElement dobField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(dateOfBirthFieldXpath)));
             dobField.click();
-        } catch (Exception e) {
-            // Retry with Force Scroll and Force Tap
+        } catch (Exception e1) {
             try {
-                System.out.println("Standard click failed for Date of Birth. Attempting Force Scroll & Tap...");
-                hideKeyboard();
-                swipeUp(); // Scroll down to ensure it's in view
-                Thread.sleep(500);
-
-                WebElement dobField = wait
-                        .until(ExpectedConditions.presenceOfElementLocated(By.xpath(dateOfBirthFieldXpath)));
-                tapElement(dobField); // Force tap using W3C Actions
-                System.out.println("Force tap successful for Date of Birth");
-            } catch (Exception ex) {
-                throw new RuntimeException(
-                        "Date of Birth field not found or clickable on Edit Profile page after retry", ex);
+                WebElement dobAccId = driver.findElement(io.appium.java_client.MobileBy.AccessibilityId("Date of birth"));
+                dobAccId.click();
+            } catch (Exception e2) {
+                try {
+                    WebElement dobClassChain = driver.findElement(io.appium.java_client.MobileBy.iOSClassChain("**/XCUIElementTypeOther[`name == 'Date of birth'`]"));
+                    dobClassChain.click();
+                } catch (Exception e3) {
+                    try {
+                        WebElement dobPredicate = driver.findElement(io.appium.java_client.MobileBy.iOSNsPredicateString("name == 'Date of birth'"));
+                        dobPredicate.click();
+                    } catch (Exception e4) {
+                        try {
+                            swipeUp();
+                            Thread.sleep(500);
+                            WebElement dobField = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(dateOfBirthFieldXpath)));
+                            tapElement(dobField);
+                        } catch (Exception ex) {
+                            throw new RuntimeException("Date of Birth field not found or clickable on Edit Profile page after retry", ex);
+                        }
+                    }
+                }
             }
         }
     }
 
     /**
      * PERFORM DATE SELECTION (SWIPE ACTIONS)
-     * Swipes down on Day, Month, and Year SeekBars and clicks Confirm
+     * Swipes down on Day, Month, and Year wheels and clicks Confirm
      * Uses position-based XPath to work with any date (future-proof)
      */
     public void performDateSelection() {
@@ -118,38 +147,47 @@ public class EditProfilePage {
             Thread.sleep(1000); // Wait for date picker to appear
             WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
-            // Use position-based XPath instead of hardcoded values
-            // This works regardless of what date is currently displayed
-            String[] seekBarXpaths = {
-                    "(//android.widget.SeekBar)[1]", // Day picker (1st SeekBar)
-                    "(//android.widget.SeekBar)[2]", // Month picker (2nd SeekBar)
-                    "(//android.widget.SeekBar)[3]" // Year picker (3rd SeekBar)
+
+            // Use working elementIds for picker wheels as provided by Appium Inspector
+            String[] pickerWheelIds = {
+                "18000000-0000-0000-850B-000000000000", // Day (value="19")
+                "19000000-0000-0000-850B-000000000000", // Month (value="01")
+                "1A000000-0000-0000-850B-000000000000"  // Year (value="2026")
             };
 
-            for (int i = 0; i < seekBarXpaths.length; i++) {
+            for (int i = 0; i < pickerWheelIds.length; i++) {
                 try {
-                    WebElement seekBar = shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                            By.xpath(seekBarXpaths[i])));
-
-                    // Perform swipe down action using W3C Actions
-                    swipeDown(seekBar);
-                    Thread.sleep(500); // Wait for swipe animation
-
-                    System.out.println("Successfully swiped SeekBar " + (i + 1));
-
+                    WebElement pickerWheel = driver.findElement(By.id(pickerWheelIds[i]));
+                    swipeDown(pickerWheel);
+                    Thread.sleep(500);
+                    System.out.println("Successfully swiped PickerWheel " + (i + 1));
                 } catch (Exception e) {
-                    System.out.println("Could not find or swipe SeekBar at position: " + (i + 1));
+                    System.out.println("Could not find or swipe PickerWheel by id at position: " + (i + 1));
                 }
             }
 
-            // Click CONFIRM button
+            // Click CONFIRM button to confirm date selection
             try {
-                WebElement confirmBtn = shortWait.until(ExpectedConditions.elementToBeClickable(
-                        By.xpath("//android.widget.Button[@content-desc='CONFIRM']")));
+                WebElement confirmBtn = driver.findElement(io.appium.java_client.MobileBy.AccessibilityId("CONFIRM"));
                 confirmBtn.click();
                 System.out.println("Clicked CONFIRM button on date picker");
-            } catch (Exception e) {
-                System.out.println("CONFIRM button not found on date picker");
+            } catch (Exception e1) {
+                try {
+                    WebElement confirmClassChain = driver.findElement(io.appium.java_client.MobileBy.iOSClassChain("**/XCUIElementTypeButton[`name == 'CONFIRM'`]"));
+                    confirmClassChain.click();
+                } catch (Exception e2) {
+                    try {
+                        WebElement confirmPredicate = driver.findElement(io.appium.java_client.MobileBy.iOSNsPredicateString("name == 'CONFIRM'"));
+                        confirmPredicate.click();
+                    } catch (Exception e3) {
+                        try {
+                            WebElement confirmXpath = driver.findElement(By.xpath("//XCUIElementTypeButton[@name='CONFIRM']"));
+                            confirmXpath.click();
+                        } catch (Exception e4) {
+                            System.out.println("CONFIRM button not found on date picker");
+                        }
+                    }
+                }
             }
 
         } catch (Exception e) {
@@ -202,21 +240,28 @@ public class EditProfilePage {
         try {
             WebElement genderBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(genderButtonXpath)));
             genderBtn.click();
-        } catch (TimeoutException e) {
-            // Retry with Force Scroll and Force Tap
+        } catch (Exception e1) {
             try {
-                System.out.println("Standard click failed for Gender. Attempting Force Scroll & Tap...");
-                swipeUp(); // Scroll down
-                Thread.sleep(500);
-                WebElement genderBtn = wait
-                        .until(ExpectedConditions.presenceOfElementLocated(By.xpath(genderButtonXpath)));
-                tapElement(genderBtn);
-                System.out.println("Force tap successful for Gender");
-            } catch (Exception ex) {
-                throw new RuntimeException("Gender button not found on Edit Profile page after retry", ex);
+                WebElement genderAccId = driver.findElement(io.appium.java_client.MobileBy.AccessibilityId("Gender"));
+                genderAccId.click();
+            } catch (Exception e2) {
+                try {
+                    WebElement genderClassChain = driver.findElement(io.appium.java_client.MobileBy.iOSClassChain("**/XCUIElementTypeButton[`name == 'Gender'`]"));
+                    genderClassChain.click();
+                } catch (Exception e3) {
+                    try {
+                        WebElement genderPredicate = driver.findElement(io.appium.java_client.MobileBy.iOSNsPredicateString("name == 'Gender'"));
+                        genderPredicate.click();
+                    } catch (Exception e4) {
+                        try {
+                            WebElement genderXpath = driver.findElement(By.xpath("//XCUIElementTypeButton[@name='Gender']"));
+                            genderXpath.click();
+                        } catch (Exception e5) {
+                            throw new RuntimeException("Gender button not found on Edit Profile page after retry", e5);
+                        }
+                    }
+                }
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Gender button interaction failed", e);
         }
     }
 
@@ -227,14 +272,28 @@ public class EditProfilePage {
      */
     public void selectGender(String gender) {
         try {
-            Thread.sleep(1000); // Wait for dropdown to appear
-            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));
-
-            // Try to find gender option
-            WebElement genderOption = shortWait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//android.widget.Button[@content-desc='" + gender
-                            + "'] | //android.view.View[@content-desc='" + gender + "']")));
-            genderOption.click();
+            Thread.sleep(1000);
+            WebElement genderOption = null;
+            try {
+                genderOption = driver.findElement(io.appium.java_client.MobileBy.AccessibilityId(gender));
+            } catch (Exception e1) {
+                try {
+                    genderOption = driver.findElement(io.appium.java_client.MobileBy.iOSClassChain("**/XCUIElementTypeButton[`name == '" + gender + "'`]"));
+                } catch (Exception e2) {
+                    try {
+                        genderOption = driver.findElement(io.appium.java_client.MobileBy.iOSNsPredicateString("name == '" + gender + "'"));
+                    } catch (Exception e3) {
+                        try {
+                            genderOption = driver.findElement(By.xpath("//XCUIElementTypeButton[@name='" + gender + "']"));
+                        } catch (Exception e4) {
+                            System.out.println("Could not select gender: " + gender + " - " + e4.getMessage());
+                        }
+                    }
+                }
+            }
+            if (genderOption != null) {
+                genderOption.click();
+            }
         } catch (Exception e) {
             System.out.println("Could not select gender: " + gender + " - " + e.getMessage());
         }
@@ -248,21 +307,28 @@ public class EditProfilePage {
         try {
             WebElement countryCode = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(countryCodeXpath)));
             countryCode.click();
-        } catch (TimeoutException e) {
-            // Retry with Force Scroll and Force Tap
+        } catch (Exception e1) {
             try {
-                System.out.println("Standard click failed for Country Code. Attempting Force Scroll & Tap...");
-                swipeUp(); // Scroll down
-                Thread.sleep(500);
-                WebElement countryCode = wait
-                        .until(ExpectedConditions.presenceOfElementLocated(By.xpath(countryCodeXpath)));
-                tapElement(countryCode);
-                System.out.println("Force tap successful for Country Code");
-            } catch (Exception ex) {
-                throw new RuntimeException("Country Code dropdown not found on Edit Profile page after retry", ex);
+                WebElement countryAccId = driver.findElement(io.appium.java_client.MobileBy.AccessibilityId("🇦🇫\n+93"));
+                countryAccId.click();
+            } catch (Exception e2) {
+                try {
+                    WebElement countryClassChain = driver.findElement(io.appium.java_client.MobileBy.iOSClassChain("**/XCUIElementTypeStaticText[`name == '🇦🇫 +93'`]"));
+                    countryClassChain.click();
+                } catch (Exception e3) {
+                    try {
+                        WebElement countryPredicate = driver.findElement(io.appium.java_client.MobileBy.iOSNsPredicateString("name == '🇦🇫 +93'"));
+                        countryPredicate.click();
+                    } catch (Exception e4) {
+                        try {
+                            WebElement countryXpath = driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='🇦🇫 +93']"));
+                            countryXpath.click();
+                        } catch (Exception e5) {
+                            throw new RuntimeException("Country Code dropdown not found on Edit Profile page after retry", e5);
+                        }
+                    }
+                }
             }
-        } catch (Exception e) {
-            throw new RuntimeException("Country Code interaction failed", e);
         }
     }
 
@@ -270,40 +336,64 @@ public class EditProfilePage {
      * Select country from country code dropdown
      * Scroll until finding the country using W3C actions
      * 
-     * @param country Country name (e.g., "India")
+     * @param country Country name (e.g., "Belarus")
      */
     public void selectCountry(String country) {
         try {
             Thread.sleep(1000); // Wait for dropdown list to fully load
-            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));
-
-            int maxSwipes = 20; // Maximum swipes to find the element
+            int maxSwipes = 20;
             boolean found = false;
-
-            // Xpath for Belarus with specific content-desc format as requested
-            // Using contains to handle the newline characters safely
-            String countryXpath = "//android.widget.Button[@content-desc='🇧🇾\nBelarus\n+375']";
-
             for (int i = 0; i < maxSwipes; i++) {
+                WebElement countryOption = null;
+                // Try elementId first
                 try {
-                    // Try to find country option
-                    WebElement countryOption = shortWait
-                            .until(ExpectedConditions.elementToBeClickable(By.xpath(countryXpath)));
-                    countryOption.click();
-                    found = true;
-                    break;
-                } catch (Exception e) {
-                    // Element not found visible, swipe up (scroll down)
-                    swipeUp();
+                    countryOption = driver.findElement(By.id("E8000000-0000-0000-7B0A-000000000000"));
+                    if (countryOption != null && countryOption.isDisplayed() && countryOption.isEnabled()) {
+                        countryOption.click();
+                        found = true;
+                        break;
+                    }
+                } catch (Exception eId) {
+                    // Fallback to other locators
+                    try {
+                        countryOption = driver.findElement(io.appium.java_client.MobileBy.AccessibilityId("🇧🇾\nBelarus\n+375"));
+                        tapElement(countryOption);
+                        found = true;
+                        break;
+                    } catch (Exception e1) {
+                        try {
+                            countryOption = driver.findElement(io.appium.java_client.MobileBy.iOSClassChain("**/XCUIElementTypeButton[`name == '🇧🇾 Belarus +375'`]"));
+                            tapElement(countryOption);
+                            found = true;
+                            break;
+                        } catch (Exception e2) {
+                            try {
+                                countryOption = driver.findElement(io.appium.java_client.MobileBy.iOSNsPredicateString("name == '🇧🇾 Belarus +375'"));
+                                tapElement(countryOption);
+                                found = true;
+                                break;
+                            } catch (Exception e3) {
+                                try {
+                                    countryOption = driver.findElement(By.xpath("//XCUIElementTypeButton[@name='🇧🇾 Belarus +375']"));
+                                    tapElement(countryOption);
+                                    found = true;
+                                    break;
+                                } catch (Exception e4) {
+                                    // Not found, will swipe
+                                }
+                            }
+                        }
+                    }
                 }
+                // If not found, swipe up and try again
+                swipeUp();
+                Thread.sleep(500);
             }
-
             if (!found) {
-                System.out.println("Could not find country: " + country + " after " + maxSwipes + " swipes.");
+                System.out.println("Could not find country: Belarus after swiping " + maxSwipes + " times.");
             }
-
         } catch (Exception e) {
-            System.out.println("Error selecting country: " + country + " - " + e.getMessage());
+            System.out.println("Error selecting country: Belarus - " + e.getMessage());
         }
     }
 
@@ -370,11 +460,10 @@ public class EditProfilePage {
      * RUNTIME-BASED VALIDATION DETECTION (NO HARDCODED MESSAGES)
      * 
      * Checks at runtime if ANY validation element is visible:
-     * - INVALID INPUT Popup (Top Priority)
-     * - Validation message via content-desc (android.view.View)
-     * - Toast message
-     * - Inline error text
-     * - EditText with error state
+     * - Alert Dialog (Top Priority)
+     * - Validation message via name attribute (XCUIElementTypeOther)
+     * - Static text error messages
+     * - Success messages
      * 
      * @return true if ANY validation is detected, false if NONE found
      */
@@ -384,78 +473,58 @@ public class EditProfilePage {
         // Check -1: Success Popup (User requested to treat success as pass)
         try {
             WebElement successPopup = shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//android.view.View[@content-desc='Your profile has been updated']")));
+                    By.xpath("//XCUIElementTypeStaticText[@name='Your profile has been updated']")));
             if (successPopup.isDisplayed()) {
                 return true;
             }
         } catch (Exception ignored) {
         }
 
-        // Check 0: INVALID INPUT Popup (Highest Priority)
+        // Check 0: Alert Dialog (Highest Priority)
         try {
-            WebElement invalidInputPopup = shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//android.view.View[@content-desc='INVALID INPUT']")));
-            if (invalidInputPopup.isDisplayed()) {
+            WebElement alert = shortWait.until(ExpectedConditions.presenceOfElementLocated(
+                    By.xpath("//XCUIElementTypeAlert")));
+            if (alert.isDisplayed()) {
                 return true;
             }
         } catch (Exception ignored) {
         }
 
-        // Check 1: Validation message via content-desc with error keywords
+        // Check 1: Validation message via name attribute with error keywords
         try {
             WebElement validationView = shortWait.until(ExpectedConditions.presenceOfElementLocated(
                     By.xpath(
-                            "//android.view.View[@content-desc and (contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'invalid') or "
+                            "//XCUIElementTypeOther[@name and (contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'invalid') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'error') or "
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'error') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'required') or "
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'required') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'please') or "
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'please') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'must') or "
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'must') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'cannot'))]")));
-            String contentDesc = validationView.getAttribute("content-desc");
-            if (contentDesc != null && !contentDesc.trim().isEmpty()) {
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'cannot'))]\"")));
+            String name = validationView.getAttribute("name");
+            if (name != null && !name.trim().isEmpty()) {
                 return true;
             }
         } catch (Exception ignored) {
         }
 
-        // Check 2: Android Toast Message
-        try {
-            WebElement toast = shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//android.widget.Toast[1]")));
-            if (toast != null && toast.getText() != null && !toast.getText().trim().isEmpty()) {
-                return true;
-            }
-        } catch (Exception ignored) {
-        }
-
-        // Check 3: TextView with error keywords
+        // Check 2: StaticText with error keywords
         try {
             WebElement errorKeyword = shortWait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath("//android.widget.TextView[" +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'invalid') or "
+                    By.xpath("//XCUIElementTypeStaticText[" +
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'invalid') or "
                             +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'error') or "
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'error') or "
                             +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'required') or "
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'required') or "
                             +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'please')]")));
-            String text = errorKeyword.getText();
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'please')]")));
+            String text = errorKeyword.getAttribute("name");
             if (text != null && !text.trim().isEmpty()) {
-                return true;
-            }
-        } catch (Exception ignored) {
-        }
-
-        // Check 4: EditText with error attribute
-        try {
-            WebElement editTextError = shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//android.widget.EditText[@error='true']")));
-            if (editTextError != null) {
                 return true;
             }
         } catch (Exception ignored) {
@@ -471,11 +540,10 @@ public class EditProfilePage {
      * Captures the actual validation message displayed by the app at runtime.
      * 
      * Priority order for message capture:
-     * 1. INVALID INPUT Popup message
-     * 2. Validation message from content-desc (android.view.View)
-     * 3. Toast message text
-     * 4. Inline error TextView text
-     * 5. EditText error attribute
+     * 1. Alert message
+     * 2. Validation message from name attribute (XCUIElementTypeOther)
+     * 3. StaticText with error keywords
+     * 4. Success message
      * 
      * @return The actual validation message text, or null if no validation found
      */
@@ -485,101 +553,62 @@ public class EditProfilePage {
         // Priority -1: Success Popup
         try {
             WebElement successPopup = shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//android.view.View[@content-desc='Your profile has been updated']")));
+                    By.xpath("//XCUIElementTypeStaticText[@name='Your profile has been updated']")));
             if (successPopup.isDisplayed()) {
-                return successPopup.getAttribute("content-desc");
+                return "Your profile has been updated";
             }
         } catch (Exception ignored) {
         }
 
-        // Priority 0: INVALID INPUT Popup message
+        // Priority 0: Alert message
         try {
-            WebElement invalidInputPopup = shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//android.view.View[@content-desc='INVALID INPUT']")));
-            if (invalidInputPopup.isDisplayed()) {
-                // Try to find the specific message "Invalid phone number." or similar sibling
-                try {
-                    // Assuming the error message is a sibling or near the popup title
-                    // Searching for generic message view near it or text view
-                    WebElement messageView = driver.findElement(By.xpath(
-                            "//android.view.View[@content-desc='INVALID INPUT']/following-sibling::android.view.View[1]"));
-                    String msg = messageView.getAttribute("content-desc");
-                    if (msg != null && !msg.isEmpty())
-                        return msg;
-                } catch (Exception e) {
-                    // Fallback: Return a generic message if check fails but popup is there
-                    return "INVALID INPUT Popup Displayed";
+            WebElement alert = shortWait.until(ExpectedConditions.presenceOfElementLocated(
+                    By.xpath("//XCUIElementTypeAlert")));
+            if (alert.isDisplayed()) {
+                String alertText = alert.getText();
+                if (alertText != null && !alertText.trim().isEmpty()) {
+                    return alertText;
                 }
-                try {
-                    // Alternative locator for message text inside the dialog/popup
-                    WebElement messageView = driver
-                            .findElement(By.xpath("//android.view.View[@content-desc='Invalid phone number.']"));
-                    return messageView.getAttribute("content-desc");
-                } catch (Exception e) {
-                }
-                return "INVALID INPUT Popup Displayed (Message capture failed)";
             }
         } catch (Exception ignored) {
         }
 
-        // Priority 1: Validation message via content-desc with error keywords
+        // Priority 1: Validation message via name attribute with error keywords
         try {
             WebElement validationView = shortWait.until(ExpectedConditions.presenceOfElementLocated(
                     By.xpath(
-                            "//android.view.View[@content-desc and (contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'invalid') or "
+                            "//XCUIElementTypeOther[@name and (contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'invalid') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'error') or "
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'error') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'required') or "
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'required') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'please') or "
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'please') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'must') or "
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'must') or "
                                     +
-                                    "contains(translate(@content-desc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'cannot'))]")));
-            String contentDesc = validationView.getAttribute("content-desc");
-            if (contentDesc != null && !contentDesc.trim().isEmpty()) {
-                return contentDesc;
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'cannot'))]\"")));
+            String name = validationView.getAttribute("name");
+            if (name != null && !name.trim().isEmpty()) {
+                return name;
             }
         } catch (Exception ignored) {
         }
 
-        // Priority 2: Android Toast Message
-        try {
-            WebElement toast = shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//android.widget.Toast[1]")));
-            String toastText = toast.getText();
-            if (toastText != null && !toastText.trim().isEmpty()) {
-                return toastText;
-            }
-        } catch (Exception ignored) {
-        }
-
-        // Priority 3: TextView with error keywords
+        // Priority 2: StaticText with error keywords
         try {
             WebElement errorKeyword = shortWait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath("//android.widget.TextView[" +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'invalid') or "
+                    By.xpath("//XCUIElementTypeStaticText[" +
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'invalid') or "
                             +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'error') or "
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'error') or "
                             +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'required') or "
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'required') or "
                             +
-                            "contains(translate(@text, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'please')]")));
-            String text = errorKeyword.getText();
+                            "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'please')]")));
+            String text = errorKeyword.getAttribute("name");
             if (text != null && !text.trim().isEmpty()) {
                 return text;
-            }
-        } catch (Exception ignored) {
-        }
-
-        // Priority 4: EditText error attribute
-        try {
-            WebElement editTextError = shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//android.widget.EditText[@error='true']")));
-            String errorAttr = editTextError.getAttribute("error");
-            if (errorAttr != null && !errorAttr.trim().isEmpty()) {
-                return errorAttr;
             }
         } catch (Exception ignored) {
         }
@@ -591,10 +620,10 @@ public class EditProfilePage {
     /**
      * Helper to hide keyboard safely
      */
-    private void hideKeyboard() {
+    public void hideKeyboard() {
         try {
-            if (driver instanceof io.appium.java_client.android.AndroidDriver) {
-                ((io.appium.java_client.android.AndroidDriver) driver).hideKeyboard();
+            if (driver instanceof io.appium.java_client.ios.IOSDriver) {
+                ((io.appium.java_client.ios.IOSDriver) driver).hideKeyboard();
             }
         } catch (Exception ignored) {
         }

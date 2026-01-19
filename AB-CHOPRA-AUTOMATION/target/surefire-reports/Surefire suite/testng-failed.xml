@@ -3,15 +3,15 @@
 <suite name="Failed suite [Surefire suite]" verbose="0">
   <test thread-count="5" name="Surefire test(failed)" verbose="0">
     <classes>
-      <class name="com.automation.tests.SignUpTest">
+      <class name="com.automation.tests.EditProfileTest">
         <methods>
+          <include name="testNegativeEditProfile" invocation-numbers="0 1"/>
           <include name="setup"/>
-          <include name="testPositiveSignUp"/>
           <include name="tearDownReport"/>
           <include name="setupReport"/>
           <include name="tearDown"/>
         </methods>
-      </class> <!-- com.automation.tests.SignUpTest -->
+      </class> <!-- com.automation.tests.EditProfileTest -->
     </classes>
   </test> <!-- Surefire test(failed) -->
 </suite> <!-- Failed suite [Surefire suite] -->

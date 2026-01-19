@@ -18,20 +18,20 @@ public class ChangePasswordPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    // Locators
-    private final String changePasswordHeadingXpath = "//android.view.View[@content-desc='CHANGE PASSWORD']";
-    private final String currentPasswordFieldXpath = "//android.view.View[@content-desc='Enter Current Password']/android.widget.EditText";
-    private final String newPasswordFieldXpath = "//android.view.View[@content-desc='New Password']/android.widget.EditText";
-    private final String confirmPasswordFieldXpath = "//android.view.View[@content-desc='Confirm New Password']/android.widget.EditText";
-    private final String changePasswordButtonXpath = "//android.widget.Button[@content-desc='CHANGE PASSWORD']";
+    // Locators (iOS XPath)
+    private final String changePasswordHeadingXpath = "//XCUIElementTypeStaticText[@name='CHANGE PASSWORD']";
+    private final String currentPasswordFieldXpath = "//XCUIElementTypeOther[@name='Enter Current Password']";
+    private final String newPasswordFieldXpath = "//XCUIElementTypeOther[@name='New Password']";
+    private final String confirmPasswordFieldXpath = "//XCUIElementTypeOther[@name='Confirm New Password']";
+    private final String changePasswordButtonXpath = "//XCUIElementTypeButton[@name='CHANGE PASSWORD']";
 
-    // Validation Messages
-    private final String wrongPasswordErrorXpath = "//android.view.View[@content-desc='Wrong password. Please enter correct password']";
-    private final String weakPasswordErrorXpath = "//android.view.View[@content-desc='Use at least 8 characters with uppercase, lowercase, number, and special symbol.']";
-    private final String samePasswordErrorXpath = "//android.view.View[@content-desc='Current and new password cannot be the same.']";
-    private final String successDialogXpath = "//android.view.View[@content-desc='PASSWORD CHANGE SUCCESSFUL']";
-    private final String successMessageXpath = "//android.view.View[@content-desc='Your password was successfully changed.']";
-    private final String okButtonXpath = "//android.widget.Button[@content-desc='OK']";
+    // Validation Messages (iOS XPath)
+    private final String wrongPasswordErrorXpath = "//XCUIElementTypeStaticText[@name='Wrong password. Please enter correct password']";
+    private final String weakPasswordErrorXpath = "//XCUIElementTypeStaticText[@name='Use at least 8 characters with uppercase, lowercase, number, and special symbol.']";
+    private final String samePasswordErrorXpath = "//XCUIElementTypeStaticText[@name='Current and new password cannot be the same.']";
+    private final String successDialogXpath = "//XCUIElementTypeStaticText[@name='PASSWORD CHANGE SUCCESSFUL']";
+    private final String successMessageXpath = "//XCUIElementTypeStaticText[@name='Your password was successfully changed.']";
+    private final String okButtonXpath = "//XCUIElementTypeButton[@name='OK']";
 
     /**
      * Verify if Change Password page is displayed
@@ -158,8 +158,8 @@ public class ChangePasswordPage {
 
     private void hideKeyboard() {
         try {
-            if (driver instanceof io.appium.java_client.android.AndroidDriver) {
-                ((io.appium.java_client.android.AndroidDriver) driver).hideKeyboard();
+            if (driver instanceof io.appium.java_client.ios.IOSDriver) {
+                ((io.appium.java_client.ios.IOSDriver) driver).hideKeyboard();
             }
         } catch (Exception ignored) {
         }
