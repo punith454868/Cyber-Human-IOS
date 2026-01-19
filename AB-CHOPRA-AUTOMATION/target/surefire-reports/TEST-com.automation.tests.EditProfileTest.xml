@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.automation.tests.EditProfileTest" time="322.25" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.automation.tests.EditProfileTest" time="1133.297" tests="8" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -13,7 +13,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="IN"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire/surefirebooter-20260119021844267_3.jar /Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire 2026-01-19T02-18-44_228-jvmRun1 surefire-20260119021844267_1tmp surefire_0-20260119021844267_2tmp"/>
+    <property name="sun.java.command" value="/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire/surefirebooter-20260119040937703_3.jar /Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire 2026-01-19T04-09-37_655-jvmRun1 surefire-20260119040937703_1tmp surefire_0-20260119040937703_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="test" value="EditProfileTest#testNegativeEditProfile"/>
@@ -31,7 +31,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire/surefirebooter-20260119021844267_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire/surefirebooter-20260119040937703_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="25.0.1"/>
@@ -61,7 +61,7 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="testNegativeEditProfile[Email Without @, John Doe, testexample.com, 123456789](1)" classname="com.automation.tests.EditProfileTest" time="155.597">
+  <testcase name="testNegativeEditProfile[Email Without @, John Doe, testexample.com, 123456789](1)" classname="com.automation.tests.EditProfileTest" time="160.922">
     <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
 Could not find or swipe PickerWheel by id at position: 1
 Could not find or swipe PickerWheel by id at position: 2
@@ -73,7 +73,55 @@ SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
 ]]></system-err>
   </testcase>
-  <testcase name="testNegativeEditProfile[Email Without Domain, John Doe, test@, 123456789](2)" classname="com.automation.tests.EditProfileTest" time="155.036">
+  <testcase name="testNegativeEditProfile[Email Without Domain, John Doe, test@, 123456789](2)" classname="com.automation.tests.EditProfileTest" time="134.886">
+    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
+Could not find or swipe PickerWheel by id at position: 1
+Could not find or swipe PickerWheel by id at position: 2
+Could not find or swipe PickerWheel by id at position: 3
+Clicked CONFIRM button on date picker
+]]></system-out>
+  </testcase>
+  <testcase name="testNegativeEditProfile[Invalid Phone - Letters, John Doe, test@example.com, abcdefgh](3)" classname="com.automation.tests.EditProfileTest" time="134.326">
+    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
+Could not find or swipe PickerWheel by id at position: 1
+Could not find or swipe PickerWheel by id at position: 2
+Could not find or swipe PickerWheel by id at position: 3
+Clicked CONFIRM button on date picker
+]]></system-out>
+  </testcase>
+  <testcase name="testNegativeEditProfile[Short Phone Number, John Doe, test@example.com, 12](4)" classname="com.automation.tests.EditProfileTest" time="135.247">
+    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
+Could not find or swipe PickerWheel by id at position: 1
+Could not find or swipe PickerWheel by id at position: 2
+Could not find or swipe PickerWheel by id at position: 3
+Clicked CONFIRM button on date picker
+]]></system-out>
+  </testcase>
+  <testcase name="testNegativeEditProfile[Invalid Email Format, John Doe, invalidemail, 123456789](5)" classname="com.automation.tests.EditProfileTest" time="135.023">
+    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
+Could not find or swipe PickerWheel by id at position: 1
+Could not find or swipe PickerWheel by id at position: 2
+Could not find or swipe PickerWheel by id at position: 3
+Clicked CONFIRM button on date picker
+]]></system-out>
+  </testcase>
+  <testcase name="testNegativeEditProfile[Empty Name Field, , test@example.com, 123456789](6)" classname="com.automation.tests.EditProfileTest" time="135.346">
+    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
+Could not find or swipe PickerWheel by id at position: 1
+Could not find or swipe PickerWheel by id at position: 2
+Could not find or swipe PickerWheel by id at position: 3
+Clicked CONFIRM button on date picker
+]]></system-out>
+  </testcase>
+  <testcase name="testNegativeEditProfile[Empty Email Field, John Doe, , 123456789](7)" classname="com.automation.tests.EditProfileTest" time="134.671">
+    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
+Could not find or swipe PickerWheel by id at position: 1
+Could not find or swipe PickerWheel by id at position: 2
+Could not find or swipe PickerWheel by id at position: 3
+Clicked CONFIRM button on date picker
+]]></system-out>
+  </testcase>
+  <testcase name="testNegativeEditProfile[Empty Phone Number, John Doe, test@example.com, ](8)" classname="com.automation.tests.EditProfileTest" time="122.301">
     <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
 Could not find or swipe PickerWheel by id at position: 1
 Could not find or swipe PickerWheel by id at position: 2

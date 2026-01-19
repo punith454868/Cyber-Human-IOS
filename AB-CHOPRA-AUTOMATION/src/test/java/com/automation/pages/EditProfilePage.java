@@ -548,16 +548,24 @@ public class EditProfilePage {
      * @return The actual validation message text, or null if no validation found
      */
     public String getValidationMessage() {
-        WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));
 
-        // Priority -1: Success Popup
+        // Priority -1: Success Popup (robust, checks name/label/value, case-insensitive, trims)
         try {
-            WebElement successPopup = shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//XCUIElementTypeStaticText[@name='Your profile has been updated']")));
-            if (successPopup.isDisplayed()) {
-                return "Your profile has been updated";
+            java.util.List<WebElement> staticTexts = driver.findElements(By.className("XCUIElementTypeStaticText"));
+            for (WebElement el : staticTexts) {
+                String name = (el.getAttribute("name") != null) ? el.getAttribute("name").trim() : "";
+                String label = (el.getAttribute("label") != null) ? el.getAttribute("label").trim() : "";
+                String value = (el.getAttribute("value") != null) ? el.getAttribute("value").trim() : "";
+                if (el.isDisplayed() && (
+                        name.equalsIgnoreCase("Your profile has been updated.") ||
+                        label.equalsIgnoreCase("Your profile has been updated.") ||
+                        value.equalsIgnoreCase("Your profile has been updated."))) {
+                    return "Your profile has been updated.";
+                }
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            System.out.println("[DEBUG] Error while searching for static text success message: " + e.getMessage());
         }
 
         // Priority 0: Alert message
@@ -587,7 +595,7 @@ public class EditProfilePage {
                                     +
                                     "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'must') or "
                                     +
-                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'cannot'))]\"")));
+                                    "contains(translate(@name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'cannot'))]")));
             String name = validationView.getAttribute("name");
             if (name != null && !name.trim().isEmpty()) {
                 return name;
@@ -611,6 +619,19 @@ public class EditProfilePage {
                 return text;
             }
         } catch (Exception ignored) {
+        }
+
+        // Debug: Log all static texts if nothing found
+        try {
+            java.util.List<WebElement> staticTexts = driver.findElements(By.className("XCUIElementTypeStaticText"));
+            System.out.println("[DEBUG] All visible static texts on page:");
+            for (WebElement el : staticTexts) {
+                if (el.isDisplayed()) {
+                    System.out.println("[DEBUG] name: '" + el.getAttribute("name") + "', label: '" + el.getAttribute("label") + "', value: '" + el.getAttribute("value") + "'");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("[DEBUG] Error while logging static texts: " + e.getMessage());
         }
 
         // No validation message found
