@@ -101,9 +101,50 @@ public class ChangePasswordPage {
     public String getValidationErrorMessage(String expectedErrorXpath) {
         try {
             WebElement error = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(expectedErrorXpath)));
-            return error.getAttribute("content-desc");
+            // Try both content-desc and name for iOS/Android compatibility
+            String msg = error.getAttribute("content-desc");
+            if (msg == null || msg.trim().isEmpty()) {
+                msg = error.getAttribute("name");
+            }
+            if (msg == null || msg.trim().isEmpty()) {
+                msg = error.getAttribute("value");
+            }
+            if (msg == null || msg.trim().isEmpty()) {
+                msg = error.getAttribute("label");
+            }
+            return msg;
         } catch (Exception e) {
-            return null;
+            // Fallback: search all visible static texts for a match by name, value, or label
+            try {
+                java.util.List<WebElement> staticTexts = driver.findElements(By.className("XCUIElementTypeStaticText"));
+                for (WebElement el : staticTexts) {
+                    String name = el.getAttribute("name");
+                    String value = el.getAttribute("value");
+                    String label = el.getAttribute("label");
+                    boolean visible = true;
+                    try { visible = el.isDisplayed(); } catch (Exception ex) { visible = true; }
+                    if (visible) {
+                        if ((name != null && name.trim().equalsIgnoreCase("Wrong password. Please enter correct password.")) ||
+                            (value != null && value.trim().equalsIgnoreCase("Wrong password. Please enter correct password.")) ||
+                            (label != null && label.trim().equalsIgnoreCase("Wrong password. Please enter correct password."))) {
+                            return name != null ? name : (value != null ? value : label);
+                        }
+                        if ((name != null && name.trim().equalsIgnoreCase("Use at least 8 characters with uppercase, lowercase, number, and special symbol.")) ||
+                            (value != null && value.trim().equalsIgnoreCase("Use at least 8 characters with uppercase, lowercase, number, and special symbol.")) ||
+                            (label != null && label.trim().equalsIgnoreCase("Use at least 8 characters with uppercase, lowercase, number, and special symbol."))) {
+                            return name != null ? name : (value != null ? value : label);
+                        }
+                        if ((name != null && name.trim().equalsIgnoreCase("Current and new password cannot be the same.")) ||
+                            (value != null && value.trim().equalsIgnoreCase("Current and new password cannot be the same.")) ||
+                            (label != null && label.trim().equalsIgnoreCase("Current and new password cannot be the same."))) {
+                            return name != null ? name : (value != null ? value : label);
+                        }
+                    }
+                }
+                return null;
+            } catch (Exception ex) {
+                return null;
+            }
         }
     }
 
@@ -137,10 +178,24 @@ public class ChangePasswordPage {
      */
     public String getSuccessMessage() {
         try {
-            WebElement msg = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(successMessageXpath)));
-            return msg.getAttribute("content-desc");
+            // Use the correct iOS XPath for the success message
+            String iosXpath = "//XCUIElementTypeStaticText[@name='Your password was successfully changed.']";
+            WebElement msg = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(iosXpath)));
+            String text = msg.getAttribute("content-desc");
+            if (text == null || text.trim().isEmpty()) {
+                text = msg.getAttribute("name");
+            }
+            return text;
         } catch (Exception e) {
-            return null;
+            // Fallback: try to find by name if not found by xpath
+            try {
+                String iosName = "Your password was successfully changed.";
+                WebElement msgByName = driver.findElement(By.name(iosName));
+                String text = msgByName.getAttribute("name");
+                return text;
+            } catch (Exception ex) {
+                return null;
+            }
         }
     }
 

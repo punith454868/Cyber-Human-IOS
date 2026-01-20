@@ -1,3 +1,4 @@
+
 package com.automation.tests;
 
 import com.automation.base.BaseTest;
@@ -13,7 +14,23 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class EditProfileTest extends BaseTest {
-
+    /**
+     * RUN NEGATIVE EDIT PROFILE THEN CHANGE PASSWORD IN SEQUENCE
+     * This wrapper ensures both flows run in order for mvn test -Dtest=EditProfileTest
+     */
+    @Test(priority = 0)
+    public void runNegativeThenChangePassword() throws InterruptedException {
+        // Run all negative edit profile tests
+        Object[][] negativeData = getNegativeEditProfileData();
+        for (Object[] row : negativeData) {
+            testNegativeEditProfile((String)row[0], (String)row[1], (String)row[2], (String)row[3]);
+        }
+        // Run all change password tests
+        Object[][] changeData = getChangePasswordData();
+        for (Object[] row : changeData) {
+            testChangePassword((String)row[0], (String)row[1], (String)row[2], (String)row[3], (String)row[4]);
+        }
+    }
     /**
      * NEGATIVE TEST DATA FOR EDIT PROFILE
      * Test scenarios for Edit Profile page validation
@@ -30,10 +47,9 @@ public class EditProfileTest extends BaseTest {
                 { "Empty Name Field", "", "test@example.com", "123456789" },
                 { "Empty Email Field", "John Doe", "", "123456789" },
                 { "Empty Phone Number", "John Doe", "test@example.com", "" },
-
         };
     }
-
+    // ...existing code...
     /**
      * TEST DATA FOR CHANGE PASSWORD
      * Scenarios: Wrong Old Pass, Weak Pass, Same Pass, Valid Change
@@ -48,11 +64,11 @@ public class EditProfileTest extends BaseTest {
                 // Scenario, Current Pass, New Pass, Confirm Pass, Expected Error XPath (or
                 // "SUCCESS")
                 { "Wrong Old Password Validation", "Testing@2025", "Testing@2026", "Testing@2026",
-                        "//android.view.View[@content-desc='Wrong password. Please enter correct password']" },
+                    "//XCUIElementTypeStaticText[@name='Wrong password. Please enter correct password.']" },
                 { "Weak Password Validation", currentLoginPass, "test2026", "test2026",
-                        "//android.view.View[@content-desc='Use at least 8 characters with uppercase, lowercase, number, and special symbol.']" },
+                    "//XCUIElementTypeStaticText[@name='Use at least 8 characters with uppercase, lowercase, number, and special symbol.']" },
                 { "Same Old and New Password Validation", currentLoginPass, currentLoginPass, currentLoginPass,
-                        "//android.view.View[@content-desc='Current and new password cannot be the same.']" },
+                    "//XCUIElementTypeStaticText[@name='Current and new password cannot be the same.']" },
                 { "Valid Change Password", currentLoginPass, "Human@2026", "Human@2026", "SUCCESS" }
         };
     }
@@ -259,32 +275,40 @@ public class EditProfileTest extends BaseTest {
             return;
         }
 
-        // Step 4: Navigate to Homepage and click Wellbeing Dashboard
-        HomePage homePage = new HomePage(driver);
-        if (homePage.isHomePageDisplayed()) {
-            homePage.clickWellbeingDashboard();
-            test.log(Status.INFO, "Clicked Wellbeing Dashboard menu");
-            Thread.sleep(2000);
-
-            // Step 4.1: Click PROFILE
-            homePage.clickProfile();
-            test.log(Status.INFO, "Clicked PROFILE button");
-            Thread.sleep(2000);
+        // Use the same navigation flow as negative test case
+        WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(10));
+        try {
+            WebElement wellbeingDashboard = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//XCUIElementTypeImage[@name='WELLBEING DASHBOARD HOME'] | //XCUIElementTypeImage[contains(@name, 'WELLBEING')]")));
+            wellbeingDashboard.click();
+            test.log(Status.INFO, "✓ Clicked WELLBEING DASHBOARD HOME");
+            Thread.sleep(1500);
+        } catch (Exception e) {
+            test.log(Status.WARNING, "⚠ WELLBEING DASHBOARD HOME not found: " + e.getMessage());
+            throw new RuntimeException("Failed to click Wellbeing Dashboard", e);
         }
 
-        // Step 5: Check if Profile page displayed and wait for it to load
-        ProfilePage profilePage = new ProfilePage(driver);
-        if (profilePage.isProfilePageDisplayed()) {
-            test.log(Status.INFO, "Profile page displayed successfully");
-            Thread.sleep(1000); // Additional wait for page elements to be fully loaded
-        } else {
-            test.log(Status.WARNING, "Profile page not detected, attempting to continue anyway");
+        try {
+            WebElement profile = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//XCUIElementTypeStaticText[@name='PROFILE']")));
+            profile.click();
+            test.log(Status.INFO, "✓ Clicked PROFILE");
+            Thread.sleep(2000);
+        } catch (Exception e) {
+            test.log(Status.WARNING, "⚠ PROFILE button not found: " + e.getMessage());
+            throw new RuntimeException("Failed to click Profile", e);
         }
 
-        // Step 6: Click ACCOUNT to navigate to Edit Profile
-        profilePage.clickAccount();
-        test.log(Status.INFO, "Clicked ACCOUNT button");
-        Thread.sleep(2000);
+        // Step: Click ACCOUNT to navigate to Edit Profile (iOS: AccessibilityId only)
+        try {
+            WebElement accountAccId = driver.findElement(MobileBy.AccessibilityId("ACCOUNT"));
+            accountAccId.click();
+            test.log(Status.INFO, "✓ Clicked ACCOUNT by accessibility id");
+            Thread.sleep(1500);
+        } catch (Exception e) {
+            test.log(Status.FAIL, "✗ ACCOUNT not found by accessibility id");
+            throw new RuntimeException("Failed to click ACCOUNT by accessibility id", e);
+        }
 
         // Verify Edit Profile page is displayed
         EditProfilePage editProfilePage = new EditProfilePage(driver);

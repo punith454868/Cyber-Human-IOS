@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.automation.tests.EditProfileTest" time="1133.297" tests="8" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.automation.tests.EditProfileTest" time="1982.143" tests="14" errors="0" skipped="0" failures="2">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -13,10 +13,10 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="IN"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire/surefirebooter-20260119040937703_3.jar /Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire 2026-01-19T04-09-37_655-jvmRun1 surefire-20260119040937703_1tmp surefire_0-20260119040937703_2tmp"/>
+    <property name="sun.java.command" value="/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire/surefirebooter-20260119235512489_3.jar /Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire 2026-01-19T23-55-12_448-jvmRun1 surefire-20260119235512489_1tmp surefire_0-20260119235512489_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
-    <property name="test" value="EditProfileTest#testNegativeEditProfile"/>
+    <property name="test" value="EditProfileTest"/>
     <property name="surefire.test.class.path" value="/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/test-classes:/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/classes:/Users/nd-admin/.m2/repository/io/appium/java-client/8.6.0/java-client-8.6.0.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-api/4.13.0/selenium-api-4.13.0.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-remote-driver/4.13.0/selenium-remote-driver-4.13.0.jar:/Users/nd-admin/.m2/repository/com/google/auto/service/auto-service-annotations/1.1.1/auto-service-annotations-1.1.1.jar:/Users/nd-admin/.m2/repository/com/google/guava/guava/32.1.2-jre/guava-32.1.2-jre.jar:/Users/nd-admin/.m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar:/Users/nd-admin/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/Users/nd-admin/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/Users/nd-admin/.m2/repository/org/checkerframework/checker-qual/3.33.0/checker-qual-3.33.0.jar:/Users/nd-admin/.m2/repository/com/google/errorprone/error_prone_annotations/2.18.0/error_prone_annotations-2.18.0.jar:/Users/nd-admin/.m2/repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar:/Users/nd-admin/.m2/repository/io/netty/netty-buffer/4.1.96.Final/netty-buffer-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-codec-http/4.1.96.Final/netty-codec-http-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-codec/4.1.96.Final/netty-codec-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-handler/4.1.96.Final/netty-handler-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-common/4.1.96.Final/netty-common-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-transport-classes-epoll/4.1.96.Final/netty-transport-classes-epoll-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-transport-classes-kqueue/4.1.96.Final/netty-transport-classes-kqueue-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-transport-native-epoll/4.1.96.Final/netty-transport-native-epoll-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-transport-native-kqueue/4.1.96.Final/netty-transport-native-kqueue-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-transport-native-unix-common/4.1.96.Final/netty-transport-native-unix-common-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-transport/4.1.96.Final/netty-transport-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-resolver/4.1.96.Final/netty-resolver-4.1.96.Final.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-api/1.28.0/opentelemetry-api-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-context/1.28.0/opentelemetry-context-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-exporter-logging/1.28.0/opentelemetry-exporter-logging-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-sdk-metrics/1.28.0/opentelemetry-sdk-metrics-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-extension-incubator/1.28.0-alpha/opentelemetry-extension-incubator-1.28.0-alpha.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-sdk-logs/1.28.0/opentelemetry-sdk-logs-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-sdk-common/1.28.0/opentelemetry-sdk-common-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-sdk-extension-autoconfigure-spi/1.28.0/opentelemetry-sdk-extension-autoconfigure-spi-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-sdk-extension-autoconfigure/1.28.0/opentelemetry-sdk-extension-autoconfigure-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-api-events/1.28.0-alpha/opentelemetry-api-events-1.28.0-alpha.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-sdk-trace/1.28.0/opentelemetry-sdk-trace-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-sdk/1.28.0/opentelemetry-sdk-1.28.0.jar:/Users/nd-admin/.m2/repository/io/opentelemetry/opentelemetry-semconv/1.28.0-alpha/opentelemetry-semconv-1.28.0-alpha.jar:/Users/nd-admin/.m2/repository/net/bytebuddy/byte-buddy/1.14.5/byte-buddy-1.14.5.jar:/Users/nd-admin/.m2/repository/org/asynchttpclient/async-http-client/2.12.3/async-http-client-2.12.3.jar:/Users/nd-admin/.m2/repository/org/asynchttpclient/async-http-client-netty-utils/2.12.3/async-http-client-netty-utils-2.12.3.jar:/Users/nd-admin/.m2/repository/io/netty/netty-codec-socks/4.1.60.Final/netty-codec-socks-4.1.60.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-handler-proxy/4.1.60.Final/netty-handler-proxy-4.1.60.Final.jar:/Users/nd-admin/.m2/repository/io/netty/netty-transport-native-epoll/4.1.60.Final/netty-transport-native-epoll-4.1.60.Final-linux-x86_64.jar:/Users/nd-admin/.m2/repository/io/netty/netty-transport-native-kqueue/4.1.60.Final/netty-transport-native-kqueue-4.1.60.Final-osx-x86_64.jar:/Users/nd-admin/.m2/repository/com/typesafe/netty/netty-reactive-streams/2.0.4/netty-reactive-streams-2.0.4.jar:/Users/nd-admin/.m2/repository/com/sun/activation/jakarta.activation/1.2.2/jakarta.activation-1.2.2.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-http/4.13.0/selenium-http-4.13.0.jar:/Users/nd-admin/.m2/repository/dev/failsafe/failsafe/3.3.2/failsafe-3.3.2.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-json/4.13.0/selenium-json-4.13.0.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-manager/4.13.0/selenium-manager-4.13.0.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-os/4.13.0/selenium-os-4.13.0.jar:/Users/nd-admin/.m2/repository/org/apache/commons/commons-exec/1.3/commons-exec-1.3.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-support/4.13.0/selenium-support-4.13.0.jar:/Users/nd-admin/.m2/repository/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar:/Users/nd-admin/.m2/repository/org/apache/commons/commons-lang3/3.13.0/commons-lang3-3.13.0.jar:/Users/nd-admin/.m2/repository/org/slf4j/slf4j-api/2.0.9/slf4j-api-2.0.9.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-java/4.16.1/selenium-java-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-chrome-driver/4.16.1/selenium-chrome-driver-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-chromium-driver/4.16.1/selenium-chromium-driver-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v118/4.16.1/selenium-devtools-v118-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v119/4.16.1/selenium-devtools-v119-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v120/4.16.1/selenium-devtools-v120-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-devtools-v85/4.16.1/selenium-devtools-v85-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-edge-driver/4.16.1/selenium-edge-driver-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-firefox-driver/4.16.1/selenium-firefox-driver-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-ie-driver/4.16.1/selenium-ie-driver-4.16.1.jar:/Users/nd-admin/.m2/repository/org/seleniumhq/selenium/selenium-safari-driver/4.16.1/selenium-safari-driver-4.16.1.jar:/Users/nd-admin/.m2/repository/org/testng/testng/7.8.0/testng-7.8.0.jar:/Users/nd-admin/.m2/repository/com/beust/jcommander/1.82/jcommander-1.82.jar:/Users/nd-admin/.m2/repository/org/webjars/jquery/3.6.1/jquery-3.6.1.jar:/Users/nd-admin/.m2/repository/com/aventstack/extentreports/5.1.1/extentreports-5.1.1.jar:/Users/nd-admin/.m2/repository/io/reactivex/rxjava3/rxjava/3.1.6/rxjava-3.1.6.jar:/Users/nd-admin/.m2/repository/org/reactivestreams/reactive-streams/1.0.4/reactive-streams-1.0.4.jar:/Users/nd-admin/.m2/repository/org/freemarker/freemarker/2.3.32/freemarker-2.3.32.jar:/Users/nd-admin/.m2/repository/org/projectlombok/lombok/1.18.26/lombok-1.18.26.jar:/Users/nd-admin/.m2/repository/commons-io/commons-io/2.15.1/commons-io-2.15.1.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="/Users/nd-admin"/>
@@ -31,7 +31,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire/surefirebooter-20260119040937703_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire/surefirebooter-20260119235512489_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="25.0.1"/>
@@ -61,7 +61,52 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="testNegativeEditProfile[Email Without @, John Doe, testexample.com, 123456789](1)" classname="com.automation.tests.EditProfileTest" time="160.922">
+  <testcase name="runNegativeThenChangePassword" classname="com.automation.tests.EditProfileTest" time="179.729">
+    <failure message="Failed to click Wellbeing Dashboard" type="java.lang.RuntimeException"><![CDATA[java.lang.RuntimeException: Failed to click Wellbeing Dashboard
+	at com.automation.tests.EditProfileTest.testNegativeEditProfile(EditProfileTest.java:463)
+	at com.automation.tests.EditProfileTest.runNegativeThenChangePassword(EditProfileTest.java:26)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:227)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:957)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:200)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testng.TestRunner.privateRun(TestRunner.java:848)
+	at org.testng.TestRunner.run(TestRunner.java:621)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1280)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1200)
+	at org.testng.TestNG.runSuites(TestNG.java:1114)
+	at org.testng.TestNG.run(TestNG.java:1082)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:155)
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.executeSingleClass(TestNGDirectoryTestSuite.java:102)
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.execute(TestNGDirectoryTestSuite.java:91)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:137)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //XCUIElementTypeImage[@name='WELLBEING DASHBOARD HOME'] | //XCUIElementTypeImage[contains(@name, 'WELLBEING')] (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: '4.13.0', revision: 'ba948ece5b*'
+System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '14.5', java.version: '25.0.1'
+Driver info: io.appium.java_client.ios.IOSDriver
+Capabilities {appium:automationName: XCUITest, appium:bundleId: com.houseofepigenetics.abch..., appium:databaseEnabled: false, appium:deviceName: iPhone 13, appium:javascriptEnabled: true, appium:locationContextEnabled: false, appium:networkConnectionEnabled: false, appium:newCommandTimeout: 3600, appium:noReset: true, appium:platformVersion: 18.7, appium:takesScreenshot: true, appium:udid: 00008110-001425322E9B601E, appium:useNewWDA: false, appium:usePrebuiltWDA: true, appium:webDriverAgentUrl: http://localhost:8100, appium:webStorageEnabled: false, platformName: IOS}
+Session ID: 98f37f46-49b0-42e9-851f-655e58894686
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:230)
+	at com.automation.tests.EditProfileTest.testNegativeEditProfile(EditProfileTest.java:456)
+	... 32 more
+]]></failure>
     <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
 Could not find or swipe PickerWheel by id at position: 1
 Could not find or swipe PickerWheel by id at position: 2
@@ -73,7 +118,52 @@ SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
 ]]></system-err>
   </testcase>
-  <testcase name="testNegativeEditProfile[Email Without Domain, John Doe, test@, 123456789](2)" classname="com.automation.tests.EditProfileTest" time="134.886">
+  <testcase name="testEditProfileWithDateGenderCountry" classname="com.automation.tests.EditProfileTest" time="131.026">
+    <failure message="SAVE CHANGES button not found on Edit Profile page" type="java.lang.RuntimeException"><![CDATA[java.lang.RuntimeException: SAVE CHANGES button not found on Edit Profile page
+	at com.automation.pages.EditProfilePage.clickSaveChanges(EditProfilePage.java:429)
+	at com.automation.tests.EditProfileTest.testEditProfileWithDateGenderCountry(EditProfileTest.java:664)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:227)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:957)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:200)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testng.TestRunner.privateRun(TestRunner.java:848)
+	at org.testng.TestRunner.run(TestRunner.java:621)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1280)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1200)
+	at org.testng.TestNG.runSuites(TestNG.java:1114)
+	at org.testng.TestNG.run(TestNG.java:1082)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:155)
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.executeSingleClass(TestNGDirectoryTestSuite.java:102)
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.execute(TestNGDirectoryTestSuite.java:91)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:137)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //XCUIElementTypeButton[@name='SAVE CHANGES'] (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: '4.13.0', revision: 'ba948ece5b*'
+System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '14.5', java.version: '25.0.1'
+Driver info: io.appium.java_client.ios.IOSDriver
+Capabilities {appium:automationName: XCUITest, appium:bundleId: com.houseofepigenetics.abch..., appium:databaseEnabled: false, appium:deviceName: iPhone 13, appium:javascriptEnabled: true, appium:locationContextEnabled: false, appium:networkConnectionEnabled: false, appium:newCommandTimeout: 3600, appium:noReset: true, appium:platformVersion: 18.7, appium:takesScreenshot: true, appium:udid: 00008110-001425322E9B601E, appium:useNewWDA: false, appium:usePrebuiltWDA: true, appium:webDriverAgentUrl: http://localhost:8100, appium:webStorageEnabled: false, platformName: IOS}
+Session ID: cff0b005-700f-4e87-8751-cd0fde12dadd
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:230)
+	at com.automation.pages.EditProfilePage.clickSaveChanges(EditProfilePage.java:426)
+	... 32 more
+]]></failure>
     <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
 Could not find or swipe PickerWheel by id at position: 1
 Could not find or swipe PickerWheel by id at position: 2
@@ -81,7 +171,7 @@ Could not find or swipe PickerWheel by id at position: 3
 Clicked CONFIRM button on date picker
 ]]></system-out>
   </testcase>
-  <testcase name="testNegativeEditProfile[Invalid Phone - Letters, John Doe, test@example.com, abcdefgh](3)" classname="com.automation.tests.EditProfileTest" time="134.326">
+  <testcase name="testNegativeEditProfile[Email Without @, John Doe, testexample.com, 123456789](1)" classname="com.automation.tests.EditProfileTest" time="135.394">
     <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
 Could not find or swipe PickerWheel by id at position: 1
 Could not find or swipe PickerWheel by id at position: 2
@@ -89,7 +179,7 @@ Could not find or swipe PickerWheel by id at position: 3
 Clicked CONFIRM button on date picker
 ]]></system-out>
   </testcase>
-  <testcase name="testNegativeEditProfile[Short Phone Number, John Doe, test@example.com, 12](4)" classname="com.automation.tests.EditProfileTest" time="135.247">
+  <testcase name="testNegativeEditProfile[Email Without Domain, John Doe, test@, 123456789](2)" classname="com.automation.tests.EditProfileTest" time="134.462">
     <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
 Could not find or swipe PickerWheel by id at position: 1
 Could not find or swipe PickerWheel by id at position: 2
@@ -97,7 +187,7 @@ Could not find or swipe PickerWheel by id at position: 3
 Clicked CONFIRM button on date picker
 ]]></system-out>
   </testcase>
-  <testcase name="testNegativeEditProfile[Invalid Email Format, John Doe, invalidemail, 123456789](5)" classname="com.automation.tests.EditProfileTest" time="135.023">
+  <testcase name="testNegativeEditProfile[Invalid Phone - Letters, John Doe, test@example.com, abcdefgh](3)" classname="com.automation.tests.EditProfileTest" time="134.64">
     <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
 Could not find or swipe PickerWheel by id at position: 1
 Could not find or swipe PickerWheel by id at position: 2
@@ -105,7 +195,7 @@ Could not find or swipe PickerWheel by id at position: 3
 Clicked CONFIRM button on date picker
 ]]></system-out>
   </testcase>
-  <testcase name="testNegativeEditProfile[Empty Name Field, , test@example.com, 123456789](6)" classname="com.automation.tests.EditProfileTest" time="135.346">
+  <testcase name="testNegativeEditProfile[Short Phone Number, John Doe, test@example.com, 12](4)" classname="com.automation.tests.EditProfileTest" time="135.446">
     <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
 Could not find or swipe PickerWheel by id at position: 1
 Could not find or swipe PickerWheel by id at position: 2
@@ -113,7 +203,7 @@ Could not find or swipe PickerWheel by id at position: 3
 Clicked CONFIRM button on date picker
 ]]></system-out>
   </testcase>
-  <testcase name="testNegativeEditProfile[Empty Email Field, John Doe, , 123456789](7)" classname="com.automation.tests.EditProfileTest" time="134.671">
+  <testcase name="testNegativeEditProfile[Invalid Email Format, John Doe, invalidemail, 123456789](5)" classname="com.automation.tests.EditProfileTest" time="134.654">
     <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
 Could not find or swipe PickerWheel by id at position: 1
 Could not find or swipe PickerWheel by id at position: 2
@@ -121,12 +211,44 @@ Could not find or swipe PickerWheel by id at position: 3
 Clicked CONFIRM button on date picker
 ]]></system-out>
   </testcase>
-  <testcase name="testNegativeEditProfile[Empty Phone Number, John Doe, test@example.com, ](8)" classname="com.automation.tests.EditProfileTest" time="122.301">
+  <testcase name="testNegativeEditProfile[Empty Name Field, , test@example.com, 123456789](6)" classname="com.automation.tests.EditProfileTest" time="135.09">
     <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
 Could not find or swipe PickerWheel by id at position: 1
 Could not find or swipe PickerWheel by id at position: 2
 Could not find or swipe PickerWheel by id at position: 3
 Clicked CONFIRM button on date picker
+]]></system-out>
+  </testcase>
+  <testcase name="testNegativeEditProfile[Empty Email Field, John Doe, , 123456789](7)" classname="com.automation.tests.EditProfileTest" time="135.254">
+    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
+Could not find or swipe PickerWheel by id at position: 1
+Could not find or swipe PickerWheel by id at position: 2
+Could not find or swipe PickerWheel by id at position: 3
+Clicked CONFIRM button on date picker
+]]></system-out>
+  </testcase>
+  <testcase name="testNegativeEditProfile[Empty Phone Number, John Doe, test@example.com, ](8)" classname="com.automation.tests.EditProfileTest" time="123.073">
+    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
+Could not find or swipe PickerWheel by id at position: 1
+Could not find or swipe PickerWheel by id at position: 2
+Could not find or swipe PickerWheel by id at position: 3
+Clicked CONFIRM button on date picker
+]]></system-out>
+  </testcase>
+  <testcase name="testChangePassword[Wrong Old Password Validation, Testing@2025, Testing@2026, Testing@2026, //XCUIElementTypeStaticText[@name=&apos;Wrong password. Please enter correct password.&apos;]](1)" classname="com.automation.tests.EditProfileTest" time="132.914">
+    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
+]]></system-out>
+  </testcase>
+  <testcase name="testChangePassword[Weak Password Validation, Testing@2026, test2026, test2026, //XCUIElementTypeStaticText[@name=&apos;Use at least 8 characters with uppercase, lowercase, number, and special symbol.&apos;]](2)" classname="com.automation.tests.EditProfileTest" time="132.863">
+    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
+]]></system-out>
+  </testcase>
+  <testcase name="testChangePassword[Same Old and New Password Validation, Testing@2026, Testing@2026, Testing@2026, //XCUIElementTypeStaticText[@name=&apos;Current and new password cannot be the same.&apos;]](3)" classname="com.automation.tests.EditProfileTest" time="132.876">
+    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
+]]></system-out>
+  </testcase>
+  <testcase name="testChangePassword[Valid Change Password, Testing@2026, Human@2026, Human@2026, SUCCESS](4)" classname="com.automation.tests.EditProfileTest" time="134.435">
+    <system-out><![CDATA[⏭ Skipping resetAppToHomePage for EditProfileTest - uses custom navigation
 ]]></system-out>
   </testcase>
 </testsuite>

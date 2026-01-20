@@ -5,8 +5,9 @@
     <classes>
       <class name="com.automation.tests.EditProfileTest">
         <methods>
-          <include name="testNegativeEditProfile" invocation-numbers="0"/>
+          <include name="testEditProfileWithDateGenderCountry"/>
           <include name="setup"/>
+          <include name="runNegativeThenChangePassword"/>
           <include name="tearDownReport"/>
           <include name="setupReport"/>
           <include name="tearDown"/>

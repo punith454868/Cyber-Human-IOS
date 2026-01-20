@@ -1,17 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="8" passed="8" failed="0" skipped="0">
+<testng-results ignored="0" total="14" passed="12" failed="2" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-01-19T04:09:38 GMT-08:00" name="Surefire suite" finished-at="2026-01-19T04:28:30 GMT-08:00" duration-ms="1132893">
+  <suite started-at="2026-01-19T23:55:12 GMT-08:00" name="Surefire suite" finished-at="2026-01-20T00:28:14 GMT-08:00" duration-ms="1981745">
     <groups>
     </groups>
-    <test started-at="2026-01-19T04:09:38 GMT-08:00" name="Surefire test" finished-at="2026-01-19T04:28:30 GMT-08:00" duration-ms="1132893">
+    <test started-at="2026-01-19T23:55:12 GMT-08:00" name="Surefire test" finished-at="2026-01-20T00:28:14 GMT-08:00" duration-ms="1981745">
       <class name="com.automation.tests.EditProfileTest">
-        <test-method is-config="true" signature="setupReport()[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:09:37 GMT-08:00" name="setupReport" finished-at="2026-01-19T04:09:38 GMT-08:00" duration-ms="81" status="PASS">
+        <test-method is-config="true" signature="setupReport()[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-19T23:55:12 GMT-08:00" name="setupReport" finished-at="2026-01-19T23:55:12 GMT-08:00" duration-ms="82" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setupReport -->
-        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:09:38 GMT-08:00" name="setup" finished-at="2026-01-19T04:09:40 GMT-08:00" duration-ms="2245" status="PASS">
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-19T23:55:12 GMT-08:00" name="setup" finished-at="2026-01-19T23:55:15 GMT-08:00" duration-ms="2263" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.tests.EditProfileTest.runNegativeThenChangePassword() throws java.lang.InterruptedException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="runNegativeThenChangePassword()[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-19T23:55:15 GMT-08:00" name="runNegativeThenChangePassword" finished-at="2026-01-19T23:58:14 GMT-08:00" duration-ms="179721" status="FAIL">
+          <exception class="java.lang.RuntimeException">
+            <message>
+              <![CDATA[Failed to click Wellbeing Dashboard]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.RuntimeException: Failed to click Wellbeing Dashboard
+at com.automation.tests.EditProfileTest.testNegativeEditProfile(EditProfileTest.java:463)
+at com.automation.tests.EditProfileTest.runNegativeThenChangePassword(EditProfileTest.java:26)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:227)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:957)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:200)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+at org.testng.TestRunner.privateRun(TestRunner.java:848)
+at org.testng.TestRunner.run(TestRunner.java:621)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1280)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1200)
+at org.testng.TestNG.runSuites(TestNG.java:1114)
+at org.testng.TestNG.run(TestNG.java:1082)
+at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:155)
+at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.executeSingleClass(TestNGDirectoryTestSuite.java:102)
+at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.execute(TestNGDirectoryTestSuite.java:91)
+at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:137)
+at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //XCUIElementTypeImage[@name='WELLBEING DASHBOARD HOME'] | //XCUIElementTypeImage[contains(@name, 'WELLBEING')] (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: '4.13.0', revision: 'ba948ece5b*'
+System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '14.5', java.version: '25.0.1'
+Driver info: io.appium.java_client.ios.IOSDriver
+Capabilities {appium:automationName: XCUITest, appium:bundleId: com.houseofepigenetics.abch..., appium:databaseEnabled: false, appium:deviceName: iPhone 13, appium:javascriptEnabled: true, appium:locationContextEnabled: false, appium:networkConnectionEnabled: false, appium:newCommandTimeout: 3600, appium:noReset: true, appium:platformVersion: 18.7, appium:takesScreenshot: true, appium:udid: 00008110-001425322E9B601E, appium:useNewWDA: false, appium:usePrebuiltWDA: true, appium:webDriverAgentUrl: http://localhost:8100, appium:webStorageEnabled: false, platformName: IOS}
+Session ID: 98f37f46-49b0-42e9-851f-655e58894686
+at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:230)
+at com.automation.tests.EditProfileTest.testNegativeEditProfile(EditProfileTest.java:456)
+... 32 more
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.RuntimeException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- runNegativeThenChangePassword -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-19T23:58:14 GMT-08:00" name="tearDown" finished-at="2026-01-19T23:58:18 GMT-08:00" duration-ms="3348" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=runNegativeThenChangePassword status=FAILURE method=EditProfileTest.runNegativeThenChangePassword()[pri:0, instance:com.automation.tests.EditProfileTest@5a955565] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-19T23:58:18 GMT-08:00" name="setup" finished-at="2026-01-19T23:58:20 GMT-08:00" duration-ms="1869" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.tests.EditProfileTest.testEditProfileWithDateGenderCountry() throws java.lang.InterruptedException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="testEditProfileWithDateGenderCountry()[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-19T23:58:20 GMT-08:00" name="testEditProfileWithDateGenderCountry" finished-at="2026-01-20T00:00:31 GMT-08:00" duration-ms="131023" status="FAIL">
+          <exception class="java.lang.RuntimeException">
+            <message>
+              <![CDATA[SAVE CHANGES button not found on Edit Profile page]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.RuntimeException: SAVE CHANGES button not found on Edit Profile page
+at com.automation.pages.EditProfilePage.clickSaveChanges(EditProfilePage.java:429)
+at com.automation.tests.EditProfileTest.testEditProfileWithDateGenderCountry(EditProfileTest.java:664)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:227)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:957)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:200)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+at org.testng.TestRunner.privateRun(TestRunner.java:848)
+at org.testng.TestRunner.run(TestRunner.java:621)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1280)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1200)
+at org.testng.TestNG.runSuites(TestNG.java:1114)
+at org.testng.TestNG.run(TestNG.java:1082)
+at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:155)
+at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.executeSingleClass(TestNGDirectoryTestSuite.java:102)
+at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.execute(TestNGDirectoryTestSuite.java:91)
+at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:137)
+at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //XCUIElementTypeButton[@name='SAVE CHANGES'] (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: '4.13.0', revision: 'ba948ece5b*'
+System info: os.name: 'Mac OS X', os.arch: 'aarch64', os.version: '14.5', java.version: '25.0.1'
+Driver info: io.appium.java_client.ios.IOSDriver
+Capabilities {appium:automationName: XCUITest, appium:bundleId: com.houseofepigenetics.abch..., appium:databaseEnabled: false, appium:deviceName: iPhone 13, appium:javascriptEnabled: true, appium:locationContextEnabled: false, appium:networkConnectionEnabled: false, appium:newCommandTimeout: 3600, appium:noReset: true, appium:platformVersion: 18.7, appium:takesScreenshot: true, appium:udid: 00008110-001425322E9B601E, appium:useNewWDA: false, appium:usePrebuiltWDA: true, appium:webDriverAgentUrl: http://localhost:8100, appium:webStorageEnabled: false, platformName: IOS}
+Session ID: cff0b005-700f-4e87-8751-cd0fde12dadd
+at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:230)
+at com.automation.pages.EditProfilePage.clickSaveChanges(EditProfilePage.java:426)
+... 32 more
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.RuntimeException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testEditProfileWithDateGenderCountry -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:00:31 GMT-08:00" name="tearDown" finished-at="2026-01-20T00:00:34 GMT-08:00" duration-ms="3275" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testEditProfileWithDateGenderCountry status=FAILURE method=EditProfileTest.testEditProfileWithDateGenderCountry()[pri:0, instance:com.automation.tests.EditProfileTest@5a955565] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:00:34 GMT-08:00" name="setup" finished-at="2026-01-20T00:00:36 GMT-08:00" duration-ms="1835" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -22,7 +178,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:09:40 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-19T04:12:21 GMT-08:00" duration-ms="160909" status="PASS">
+        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:00:36 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-20T00:02:51 GMT-08:00" duration-ms="135394" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -48,18 +204,18 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testNegativeEditProfile -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:12:21 GMT-08:00" name="tearDown" finished-at="2026-01-19T04:12:24 GMT-08:00" duration-ms="3124" status="PASS">
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:02:51 GMT-08:00" name="tearDown" finished-at="2026-01-20T00:02:54 GMT-08:00" duration-ms="3101" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=testNegativeEditProfile status=SUCCESS method=EditProfileTest.testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9] output={null}]]]>
+                <![CDATA[[TestResult name=testNegativeEditProfile status=SUCCESS method=EditProfileTest.testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:12:24 GMT-08:00" name="setup" finished-at="2026-01-19T04:12:26 GMT-08:00" duration-ms="1895" status="PASS">
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:02:54 GMT-08:00" name="setup" finished-at="2026-01-20T00:02:56 GMT-08:00" duration-ms="1816" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -70,7 +226,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:12:26 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-19T04:14:41 GMT-08:00" duration-ms="134884" status="PASS">
+        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:02:56 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-20T00:05:10 GMT-08:00" duration-ms="134462" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -96,18 +252,18 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testNegativeEditProfile -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:14:41 GMT-08:00" name="tearDown" finished-at="2026-01-19T04:14:44 GMT-08:00" duration-ms="3086" status="PASS">
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:05:10 GMT-08:00" name="tearDown" finished-at="2026-01-20T00:05:14 GMT-08:00" duration-ms="3044" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=testNegativeEditProfile status=SUCCESS method=EditProfileTest.testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9] output={null}]]]>
+                <![CDATA[[TestResult name=testNegativeEditProfile status=SUCCESS method=EditProfileTest.testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:14:44 GMT-08:00" name="setup" finished-at="2026-01-19T04:14:46 GMT-08:00" duration-ms="1900" status="PASS">
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:05:14 GMT-08:00" name="setup" finished-at="2026-01-20T00:05:15 GMT-08:00" duration-ms="1860" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -118,7 +274,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:14:46 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-19T04:17:00 GMT-08:00" duration-ms="134325" status="PASS">
+        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:05:15 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-20T00:07:30 GMT-08:00" duration-ms="134640" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -144,18 +300,18 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testNegativeEditProfile -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:17:00 GMT-08:00" name="tearDown" finished-at="2026-01-19T04:17:03 GMT-08:00" duration-ms="3085" status="PASS">
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:07:30 GMT-08:00" name="tearDown" finished-at="2026-01-20T00:07:33 GMT-08:00" duration-ms="3102" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=testNegativeEditProfile status=SUCCESS method=EditProfileTest.testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9] output={null}]]]>
+                <![CDATA[[TestResult name=testNegativeEditProfile status=SUCCESS method=EditProfileTest.testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:17:03 GMT-08:00" name="setup" finished-at="2026-01-19T04:17:05 GMT-08:00" duration-ms="1864" status="PASS">
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:07:33 GMT-08:00" name="setup" finished-at="2026-01-20T00:07:35 GMT-08:00" duration-ms="1816" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -166,7 +322,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:17:05 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-19T04:19:20 GMT-08:00" duration-ms="135249" status="PASS">
+        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:07:35 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-20T00:09:50 GMT-08:00" duration-ms="135446" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -192,18 +348,18 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testNegativeEditProfile -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:19:20 GMT-08:00" name="tearDown" finished-at="2026-01-19T04:19:23 GMT-08:00" duration-ms="3094" status="PASS">
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:09:50 GMT-08:00" name="tearDown" finished-at="2026-01-20T00:09:53 GMT-08:00" duration-ms="3037" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=testNegativeEditProfile status=SUCCESS method=EditProfileTest.testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9] output={null}]]]>
+                <![CDATA[[TestResult name=testNegativeEditProfile status=SUCCESS method=EditProfileTest.testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:19:23 GMT-08:00" name="setup" finished-at="2026-01-19T04:19:25 GMT-08:00" duration-ms="1868" status="PASS">
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:09:53 GMT-08:00" name="setup" finished-at="2026-01-20T00:09:55 GMT-08:00" duration-ms="1813" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -214,7 +370,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:19:25 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-19T04:21:40 GMT-08:00" duration-ms="135025" status="PASS">
+        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:09:55 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-20T00:12:10 GMT-08:00" duration-ms="134654" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -240,18 +396,18 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testNegativeEditProfile -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:21:40 GMT-08:00" name="tearDown" finished-at="2026-01-19T04:21:43 GMT-08:00" duration-ms="3114" status="PASS">
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:12:10 GMT-08:00" name="tearDown" finished-at="2026-01-20T00:12:13 GMT-08:00" duration-ms="3090" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=testNegativeEditProfile status=SUCCESS method=EditProfileTest.testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9] output={null}]]]>
+                <![CDATA[[TestResult name=testNegativeEditProfile status=SUCCESS method=EditProfileTest.testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:21:43 GMT-08:00" name="setup" finished-at="2026-01-19T04:21:45 GMT-08:00" duration-ms="1877" status="PASS">
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:12:13 GMT-08:00" name="setup" finished-at="2026-01-20T00:12:15 GMT-08:00" duration-ms="1841" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -262,7 +418,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:21:45 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-19T04:24:00 GMT-08:00" duration-ms="135346" status="PASS">
+        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:12:15 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-20T00:14:30 GMT-08:00" duration-ms="135089" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -288,18 +444,18 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testNegativeEditProfile -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:24:00 GMT-08:00" name="tearDown" finished-at="2026-01-19T04:24:04 GMT-08:00" duration-ms="3120" status="PASS">
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:14:30 GMT-08:00" name="tearDown" finished-at="2026-01-20T00:14:33 GMT-08:00" duration-ms="3072" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=testNegativeEditProfile status=SUCCESS method=EditProfileTest.testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9] output={null}]]]>
+                <![CDATA[[TestResult name=testNegativeEditProfile status=SUCCESS method=EditProfileTest.testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:24:04 GMT-08:00" name="setup" finished-at="2026-01-19T04:24:05 GMT-08:00" duration-ms="1897" status="PASS">
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:14:33 GMT-08:00" name="setup" finished-at="2026-01-20T00:14:35 GMT-08:00" duration-ms="1823" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -310,7 +466,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:24:05 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-19T04:26:20 GMT-08:00" duration-ms="134670" status="PASS">
+        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:14:35 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-20T00:16:50 GMT-08:00" duration-ms="135254" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -336,18 +492,18 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testNegativeEditProfile -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:26:20 GMT-08:00" name="tearDown" finished-at="2026-01-19T04:26:23 GMT-08:00" duration-ms="3044" status="PASS">
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:16:50 GMT-08:00" name="tearDown" finished-at="2026-01-20T00:16:53 GMT-08:00" duration-ms="3044" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=testNegativeEditProfile status=SUCCESS method=EditProfileTest.testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9] output={null}]]]>
+                <![CDATA[[TestResult name=testNegativeEditProfile status=SUCCESS method=EditProfileTest.testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:26:23 GMT-08:00" name="setup" finished-at="2026-01-19T04:26:25 GMT-08:00" duration-ms="1863" status="PASS">
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:16:53 GMT-08:00" name="setup" finished-at="2026-01-20T00:16:55 GMT-08:00" duration-ms="1864" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -358,7 +514,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:26:25 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-19T04:28:27 GMT-08:00" duration-ms="122303" status="PASS">
+        <test-method signature="testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:16:55 GMT-08:00" name="testNegativeEditProfile" data-provider="negativeEditProfileData" finished-at="2026-01-20T00:18:58 GMT-08:00" duration-ms="123074" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -384,18 +540,230 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testNegativeEditProfile -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:28:27 GMT-08:00" name="tearDown" finished-at="2026-01-19T04:28:30 GMT-08:00" duration-ms="3044" status="PASS">
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:18:58 GMT-08:00" name="tearDown" finished-at="2026-01-20T00:19:01 GMT-08:00" duration-ms="3088" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=testNegativeEditProfile status=SUCCESS method=EditProfileTest.testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9] output={null}]]]>
+                <![CDATA[[TestResult name=testNegativeEditProfile status=SUCCESS method=EditProfileTest.testNegativeEditProfile(java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="tearDownReport()[pri:0, instance:com.automation.tests.EditProfileTest@7d3a22a9]" started-at="2026-01-19T04:28:30 GMT-08:00" name="tearDownReport" finished-at="2026-01-19T04:28:31 GMT-08:00" duration-ms="126" status="PASS">
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:19:01 GMT-08:00" name="setup" finished-at="2026-01-20T00:19:03 GMT-08:00" duration-ms="1832" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.tests.EditProfileTest.testChangePassword(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String) throws java.lang.InterruptedException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="testChangePassword(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:1, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:19:03 GMT-08:00" name="testChangePassword" data-provider="changePasswordData" finished-at="2026-01-20T00:21:16 GMT-08:00" duration-ms="132913" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Wrong Old Password Validation]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Testing@2025]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Testing@2026]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[Testing@2026]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[//XCUIElementTypeStaticText[@name='Wrong password. Please enter correct password.']]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testChangePassword -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:21:16 GMT-08:00" name="tearDown" finished-at="2026-01-20T00:21:19 GMT-08:00" duration-ms="3123" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testChangePassword status=SUCCESS method=EditProfileTest.testChangePassword(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:1, instance:com.automation.tests.EditProfileTest@5a955565] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:21:19 GMT-08:00" name="setup" finished-at="2026-01-20T00:21:21 GMT-08:00" duration-ms="1863" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.tests.EditProfileTest.testChangePassword(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String) throws java.lang.InterruptedException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="testChangePassword(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:1, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:21:21 GMT-08:00" name="testChangePassword" data-provider="changePasswordData" finished-at="2026-01-20T00:23:34 GMT-08:00" duration-ms="132864" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Weak Password Validation]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Testing@2026]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[test2026]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[test2026]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[//XCUIElementTypeStaticText[@name='Use at least 8 characters with uppercase, lowercase, number, and special symbol.']]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testChangePassword -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:23:34 GMT-08:00" name="tearDown" finished-at="2026-01-20T00:23:37 GMT-08:00" duration-ms="3128" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testChangePassword status=SUCCESS method=EditProfileTest.testChangePassword(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:1, instance:com.automation.tests.EditProfileTest@5a955565] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:23:37 GMT-08:00" name="setup" finished-at="2026-01-20T00:23:39 GMT-08:00" duration-ms="1871" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.tests.EditProfileTest.testChangePassword(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String) throws java.lang.InterruptedException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="testChangePassword(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:1, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:23:39 GMT-08:00" name="testChangePassword" data-provider="changePasswordData" finished-at="2026-01-20T00:25:52 GMT-08:00" duration-ms="132877" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Same Old and New Password Validation]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Testing@2026]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Testing@2026]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[Testing@2026]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[//XCUIElementTypeStaticText[@name='Current and new password cannot be the same.']]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testChangePassword -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:25:52 GMT-08:00" name="tearDown" finished-at="2026-01-20T00:25:55 GMT-08:00" duration-ms="3054" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testChangePassword status=SUCCESS method=EditProfileTest.testChangePassword(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:1, instance:com.automation.tests.EditProfileTest@5a955565] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:25:55 GMT-08:00" name="setup" finished-at="2026-01-20T00:25:57 GMT-08:00" duration-ms="1895" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.tests.EditProfileTest.testChangePassword(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String) throws java.lang.InterruptedException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="testChangePassword(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:1, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:25:57 GMT-08:00" name="testChangePassword" data-provider="changePasswordData" finished-at="2026-01-20T00:28:11 GMT-08:00" duration-ms="134435" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Valid Change Password]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[Testing@2026]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[Human@2026]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[Human@2026]]>
+              </value>
+            </param>
+            <param index="4">
+              <value>
+                <![CDATA[SUCCESS]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testChangePassword -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:28:11 GMT-08:00" name="tearDown" finished-at="2026-01-20T00:28:14 GMT-08:00" duration-ms="3041" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testChangePassword status=SUCCESS method=EditProfileTest.testChangePassword(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)[pri:1, instance:com.automation.tests.EditProfileTest@5a955565] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="tearDownReport()[pri:0, instance:com.automation.tests.EditProfileTest@5a955565]" started-at="2026-01-20T00:28:14 GMT-08:00" name="tearDownReport" finished-at="2026-01-20T00:28:14 GMT-08:00" duration-ms="130" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownReport -->
