@@ -31,6 +31,30 @@ public class HomePage {
     private final String proceedButtonXpath = "//XCUIElementTypeButton[@name='PROCEED']";
     private final String dailyPrescriptionXpath = "//XCUIElementTypeStaticText[@name='DAILY PRESCRIPTION']";
 
+    // ===== SILENT iOS native tap helper (no logs, no scroll, no keyboard hide) =====
+    private void silentTapByXpath(String xpath) {
+        try {
+            WebElement element = driver.findElement(By.xpath(xpath));
+            int centerX = element.getRect().getX() + (element.getRect().getWidth() / 2);
+            int centerY = element.getRect().getY() + (element.getRect().getHeight() / 2);
+            if (driver instanceof IOSDriver) {
+                ((IOSDriver) driver).executeScript(
+                    "mobile: tap",
+                    ImmutableMap.of("x", centerX, "y", centerY)
+                );
+            }
+        } catch (Exception ignored) {
+            // Silent: do nothing
+        }
+    }
+
+    /**
+     * SILENT direct iOS native tap on Wellbeing Dashboard (no logs, no scroll, no keyboard hide)
+     */
+    public void clickWellbeingDashboardSilent() {
+        silentTapByXpath(wellbeingDashboardXpath);
+    }
+
     /**
      * ROBUST CLICK HELPER - Handles iOS-specific click issues
      * 

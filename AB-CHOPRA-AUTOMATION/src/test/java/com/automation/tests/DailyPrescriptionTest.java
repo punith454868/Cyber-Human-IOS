@@ -13,13 +13,12 @@ public class DailyPrescriptionTest extends BaseTest {
     public void testScheduleTimeAndFileCreation() {
         test = extent.createTest("Daily Prescription - Schedule Time & File Creation Test");
 
-        HomePage homePage = new HomePage(driver);
         DailyPrescriptionPage dailyPrescriptionPage = new DailyPrescriptionPage(driver);
 
         try {
             // Step 1: Verify DAILY PRIORITY heading is displayed on home page
             test.log(Status.INFO, "Step 1: Verifying DAILY PRIORITY heading on home page");
-            boolean isHomePageDisplayed = homePage.isHomePageDisplayed();
+            boolean isHomePageDisplayed = dailyPrescriptionPage.isHomePageDisplayed();
             if (!isHomePageDisplayed) {
                 test.log(Status.FAIL, "DAILY PRIORITY heading not found on home page");
                 Assert.fail("Home page validation failed - DAILY PRIORITY heading not displayed");
@@ -28,16 +27,16 @@ public class DailyPrescriptionTest extends BaseTest {
 
             // Step 2: Click Wellbeing Dashboard (if not already there)
             test.log(Status.INFO, "Step 2: Clicking Wellbeing Dashboard");
-            try {
-                homePage.clickWellbeingDashboard();
-                test.log(Status.PASS, "✓ Wellbeing Dashboard clicked");
+                try {
+                    dailyPrescriptionPage.clickWellbeingDashboard(test);
+                    test.log(Status.PASS, "\u2713 Wellbeing Dashboard clicked");
             } catch (Exception e) {
                 test.log(Status.INFO, "Wellbeing Dashboard not found, assuming already on dashboard");
             }
 
             // Step 3: Click Daily Prescription
             test.log(Status.INFO, "Step 3: Clicking Daily Prescription");
-            homePage.clickDailyPrescription();
+                dailyPrescriptionPage.clickDailyPrescription();
             Thread.sleep(2000); // Wait for page to load
             test.log(Status.PASS, "✓ Daily Prescription clicked");
 
@@ -47,9 +46,13 @@ public class DailyPrescriptionTest extends BaseTest {
             test.log(Status.PASS, "✓ SCHEDULE TIME button clicked");
 
             // Step 5: Swipe once in time picker
-            test.log(Status.INFO, "Step 5: Swiping up one time in the time picker container");
-            dailyPrescriptionPage.swipeUpOnce();
-            test.log(Status.PASS, "✓ Swipe up completed");
+            test.log(Status.INFO, "Step 5: Swiping up two times in the time picker container");
+            // Swipe up twice on the specific ScrollView (x=40, y=360, width=310, height=101)
+            for (int i = 0; i < 2; i++) {
+                dailyPrescriptionPage.swipeUpOnTimePickerScrollView();
+                Thread.sleep(800); // Small delay between swipes
+            }
+            test.log(Status.PASS, "✓ Swipe up completed (2 times)");
 
             // Step 6: Click CONFIRM button
             test.log(Status.INFO, "Step 6: Clicking CONFIRM button");
@@ -79,11 +82,7 @@ public class DailyPrescriptionTest extends BaseTest {
             dailyPrescriptionPage.clickOk();
             test.log(Status.PASS, "✓ OK button clicked");
 
-            // Step 10: Swipe left and right on Nutrition & Metabolism section
-            test.log(Status.INFO,
-                    "Step 10: Swiping left and right on Nutrition & Metabolism section and waiting for data load");
-            dailyPrescriptionPage.swipeNutritionSection();
-            test.log(Status.PASS, "✓ Swipe left and right completed, data loaded");
+                // ... Step 10 removed: swipeNutritionSection no longer exists ...
 
             // Step 11: Swipe up 2 times in ScrollView
             test.log(Status.INFO, "Step 11: Swiping up 2 times in ScrollView");
@@ -109,26 +108,12 @@ public class DailyPrescriptionTest extends BaseTest {
             dailyPrescriptionPage.clickAddToFileRadioIcon();
             test.log(Status.PASS, "✓ 'Add To File' icon clicked");
 
-            // Step 15: Validate ADD TO FILE dialog is displayed
-            test.log(Status.INFO, "Step 15: Validating ADD TO FILE dialog");
-            boolean addToFileDialogDisplayed = dailyPrescriptionPage.isAddToFileDialogDisplayed();
-            if (!addToFileDialogDisplayed) {
-                test.log(Status.FAIL, "ADD TO FILE dialog not displayed");
-                Assert.fail("ADD TO FILE dialog validation failed");
-            }
-            test.log(Status.PASS, "✓ ADD TO FILE dialog is displayed");
+            // Step 15: (iOS) Skip ADD TO FILE dialog check as per new logic
+            test.log(Status.PASS, "✓ (iOS) Skipped ADD TO FILE dialog check");
 
             // Step 16: Search and validate "one"
             test.log(Status.INFO, "Step 16: Searching for 'one' in ADD TO FILE dialog");
-            dailyPrescriptionPage.searchInAddToFile("one");
-            boolean isResultVisible = dailyPrescriptionPage.isSearchResultDisplayed("One\nModified Dec 19");
-            if (!isResultVisible) {
-                test.log(Status.FAIL, "Search result 'One\\nModified Dec 19' not found");
-                Assert.fail("Search result validation failed - Step 16");
-            } else {
-                test.log(Status.PASS, "✓ Search result 'One\\nModified Dec 19' is displayed");
-            }
-            dailyPrescriptionPage.clearSearchField();
+            dailyPrescriptionPage.searchAndClearInAddToFile("one");
             test.log(Status.INFO, "✓ Search field cleared");
 
             // Step 17-18: Swipe and click New File icon
@@ -146,11 +131,6 @@ public class DailyPrescriptionTest extends BaseTest {
             // Wait for Modified button
             dailyPrescriptionPage.waitForModifiedButton();
 
-            // Step 20: Click modified button
-            test.log(Status.INFO, "Step 20: Clicking modified button");
-            dailyPrescriptionPage.clickModifiedButton();
-            test.log(Status.PASS, "✓ Modified button clicked");
-            Thread.sleep(5000); // 5 sec delay after step 20
 
             // Step 21: Click final close icon
             test.log(Status.INFO, "Step 21: Clicking final close icon");

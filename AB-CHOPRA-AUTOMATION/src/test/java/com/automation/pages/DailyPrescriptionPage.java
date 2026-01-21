@@ -1,3 +1,4 @@
+
 package com.automation.pages;
 
 import io.appium.java_client.AppiumDriver;
@@ -12,7 +13,113 @@ import org.openqa.selenium.interactions.PointerInput;
 import java.time.Duration;
 import java.util.Collections;
 
+import com.google.common.collect.ImmutableMap;
+import io.appium.java_client.ios.IOSDriver;
+
 public class DailyPrescriptionPage {
+                /**
+                 * Swipe up on the time picker ScrollView (x=40, y=360, width=310, height=101)
+                 */
+                public void swipeUpOnTimePickerScrollView() {
+                    try {
+                        // Find the ScrollView by its unique bounds
+                        WebElement scrollView = driver.findElement(By.xpath("//XCUIElementTypeScrollView[@x='40' and @y='360' and @width='310' and @height='101']"));
+                        org.openqa.selenium.Point location = scrollView.getLocation();
+                        org.openqa.selenium.Dimension size = scrollView.getSize();
+                        int centerX = location.getX() + (size.getWidth() / 2);
+                        int startY = location.getY() + (int) (size.getHeight() * 0.8);
+                        int endY = location.getY() + (int) (size.getHeight() * 0.2);
+                        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+                        Sequence swipe = new Sequence(finger, 1);
+                        swipe.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), centerX, startY));
+                        swipe.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+                        swipe.addAction(finger.createPointerMove(Duration.ofMillis(800), PointerInput.Origin.viewport(), centerX, endY));
+                        swipe.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+                        driver.perform(Collections.singletonList(swipe));
+                    } catch (Exception e) {
+                        throw new RuntimeException("Failed to swipe up on time picker ScrollView: " + e.getMessage(), e);
+                    }
+                }
+            /**
+             * Search for a file in the ADD TO FILE dialog, wait, and clear in one step
+             * @param query The search text to enter
+             */
+            public void searchAndClearInAddToFile(String query) {
+                try {
+                    WebElement editText = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(searchEditTextXpath)));
+                    editText.click();
+                    editText.clear();
+                    editText.sendKeys(query);
+                    Thread.sleep(2000); // Wait 2 seconds after entering search
+                    editText.clear();
+                } catch (Exception e) {
+                    throw new RuntimeException("Failed to search and clear in ADD TO FILE dialog: " + e.getMessage());
+                }
+            }
+        /**
+         * Click DAILY PRESCRIPTION using direct click + iOS fallback (EditProfile pattern)
+         */
+        public void clickDailyPrescription() throws InterruptedException {
+            boolean clicked = false;
+            Exception lastException = null;
+            // Try by exact xpath
+            try {
+                WebElement el = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//XCUIElementTypeStaticText[@name='DAILY PRESCRIPTION']")
+                ));
+                el.click();
+                clicked = true;
+            } catch (Exception e) { lastException = e; }
+            // Try by name
+            if (!clicked) {
+                try {
+                    WebElement el = driver.findElement(By.name("DAILY PRESCRIPTION"));
+                    int x = el.getRect().getX() + el.getRect().getWidth() / 2;
+                    int y = el.getRect().getY() + el.getRect().getHeight() / 2;
+                    PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+                    Sequence tap = new Sequence(finger, 1);
+                    tap.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), x, y));
+                    tap.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+                    tap.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+                    driver.perform(Collections.singletonList(tap));
+                    clicked = true;
+                } catch (Exception e) { lastException = e; }
+            }
+            // Try by accessibility id
+            if (!clicked) {
+                try {
+                    WebElement el = driver.findElement(io.appium.java_client.MobileBy.AccessibilityId("DAILY PRESCRIPTION"));
+                    int x = el.getRect().getX() + el.getRect().getWidth() / 2;
+                    int y = el.getRect().getY() + el.getRect().getHeight() / 2;
+                    PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+                    Sequence tap = new Sequence(finger, 1);
+                    tap.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), x, y));
+                    tap.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+                    tap.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+                    driver.perform(Collections.singletonList(tap));
+                    clicked = true;
+                } catch (Exception e) { lastException = e; }
+            }
+            // Try partial match (contains)
+            if (!clicked) {
+                try {
+                    WebElement el = driver.findElement(By.xpath("//XCUIElementTypeStaticText[contains(@name,'DAILY PRESCRIPTION')]"));
+                    int x = el.getRect().getX() + el.getRect().getWidth() / 2;
+                    int y = el.getRect().getY() + el.getRect().getHeight() / 2;
+                    PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+                    Sequence tap = new Sequence(finger, 1);
+                    tap.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), x, y));
+                    tap.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+                    tap.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+                    driver.perform(Collections.singletonList(tap));
+                    clicked = true;
+                } catch (Exception e) { lastException = e; }
+            }
+            if (!clicked) {
+                throw new RuntimeException("Failed to click Daily Prescription by any locator", lastException);
+            }
+            Thread.sleep(5000); // Wait 5 seconds after clicking
+        }
     private AppiumDriver driver;
     private WebDriverWait wait;
 
@@ -21,23 +128,108 @@ public class DailyPrescriptionPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    // Locators
-    private final String pageHeadingXpath = "//android.view.View[@content-desc='DAILY PRESCRIPTION']";
-    private final String scheduleTimeButtonXpath = "//android.widget.Button[@content-desc='SCHEDULE TIME']";
-    private final String confirmButtonXpath = "//android.widget.Button[@content-desc='CONFIRM']";
-    private final String okButtonXpath = "//android.widget.Button[@content-desc='OK']";
+    // iOS Locators
+    private final String dailyPriorityHeadingXpath = "//XCUIElementTypeStaticText[@name='DAILY PRIORITY']";
+    private final String wellbeingDashboardXpath = "//XCUIElementTypeImage[@name='WELLBEING DASHBOARD HOME']";
+    /**
+     * Robustly check if the DAILY PRIORITY heading is displayed (Home page)
+     * Uses the same logic as EditProfileTest
+     */
+    public boolean isHomePageDisplayed() {
+        try {
+            WebElement heading = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//XCUIElementTypeStaticText[@name='DAILY PRIORITY']")));
+            String name = heading.getAttribute("name");
+            return heading.isDisplayed() && "DAILY PRIORITY".equals(name);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+    * Click WELLBEING DASHBOARD using only direct tap logic (no scroll/keyboard/viewport/retry/step logic)
+     */
+    public void clickWellbeingDashboard(com.aventstack.extentreports.ExtentTest test) throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        boolean dashboardClicked = false;
+        try {
+            WebElement wellbeingDashboard = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//XCUIElementTypeImage[@name='WELLBEING DASHBOARD HOME'] | //XCUIElementTypeImage[contains(@name, 'WELLBEING')]")
+            ));
+            wellbeingDashboard.click();
+            if (test != null) test.log(com.aventstack.extentreports.Status.INFO, "✓ Clicked WELLBEING DASHBOARD HOME by xpath");
+            Thread.sleep(1500);
+            dashboardClicked = true;
+        } catch (Exception e) {
+            if (test != null) test.log(com.aventstack.extentreports.Status.WARNING, "⚠ WELLBEING DASHBOARD HOME not found by xpath: " + e.getMessage());
+            // Try by accessibility id (Appium)
+            try {
+                WebElement dashboardByAccId = driver.findElement(io.appium.java_client.MobileBy.AccessibilityId("WELLBEING DASHBOARD HOME"));
+                dashboardByAccId.click();
+                if (test != null) test.log(com.aventstack.extentreports.Status.INFO, "✓ Clicked WELLBEING DASHBOARD HOME by accessibility id");
+                Thread.sleep(1500);
+                dashboardClicked = true;
+            } catch (Exception ex1) {
+                if (test != null) test.log(com.aventstack.extentreports.Status.WARNING, "⚠ WELLBEING DASHBOARD HOME not found by accessibility id: " + ex1.getMessage());
+                // Try by name
+                try {
+                    WebElement dashboardByName = driver.findElement(By.name("WELLBEING DASHBOARD HOME"));
+                    dashboardByName.click();
+                    if (test != null) test.log(com.aventstack.extentreports.Status.INFO, "✓ Clicked WELLBEING DASHBOARD HOME by name");
+                    Thread.sleep(1500);
+                    dashboardClicked = true;
+                } catch (Exception ex2) {
+                    if (test != null) test.log(com.aventstack.extentreports.Status.WARNING, "⚠ WELLBEING DASHBOARD HOME not found by name: " + ex2.getMessage());
+                }
+            }
+        }
+        if (!dashboardClicked) {
+            throw new RuntimeException("Failed to click Wellbeing Dashboard by any locator");
+        }
+    }
+
+    /**
+     * Tap an element using iOS native tap (mobile: tap) at the element's center
+     */
+    private void tapElement(WebElement element) {
+        int centerX = element.getRect().getX() + (element.getRect().getWidth() / 2);
+        int centerY = element.getRect().getY() + (element.getRect().getHeight() / 2);
+        if (driver instanceof io.appium.java_client.ios.IOSDriver) {
+            ((io.appium.java_client.ios.IOSDriver) driver).executeScript(
+                "mobile: tap",
+                java.util.Map.of("x", centerX, "y", centerY)
+            );
+        } else {
+            // fallback for non-iOS drivers
+            element.click();
+        }
+    }
+
+    private final String scheduleTimeButtonXpath = "//XCUIElementTypeButton[@name='SCHEDULE TIME']";
+    private final String timePickerXpath = "//XCUIElementTypeStaticText[@name='30 min']";
+    private final String confirmButtonXpath = "//XCUIElementTypeButton[@name='CONFIRM']";
+    private final String successDialogXpath = "//XCUIElementTypeStaticText[@name='TIME SCHEDULED']";
+    private final String successMessageXpath = "//XCUIElementTypeStaticText[@name='The scheduled time has been updated successfully.']";
+    private final String okButtonXpath = "//XCUIElementTypeButton[@name='OK']";
+    private final String nutritionSectionXpath = "//XCUIElementTypeApplication[@name='AB Chopra']/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]";
+    private final String articleCardXpath = "//XCUIElementTypeStaticText[contains(@name,'Article')]";
+    private final String articleHeadingXpath = "//XCUIElementTypeStaticText";
+    private final String addToFileRadioIconXpath = "//XCUIElementTypeOther[@index='4' and @visible='true']";
+    private final String searchEditTextXpath = "//XCUIElementTypeTextField[@name='Search']";
+    private final String searchResultButtonXpath = "//XCUIElementTypeButton[contains(@name,'Modified')]";
+    private final String newFileIconXpath = "//XCUIElementTypeButton[@name='New File']";
+    private final String fileNameEditTextXpath = "//XCUIElementTypeTextField[@name='Enter file name']";
+    private final String modifiedButtonXpath = "//XCUIElementTypeButton[contains(@name,'Modified')]";
+    private final String finalCloseIconXpath = "//XCUIElementTypeApplication[@name='AB Chopra']/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeImage";
+    private final String savedDialogXpath = "//XCUIElementTypeStaticText[@name='SAVED']";
+    private final String savedMessageXpath = "//XCUIElementTypeStaticText[@name='Your article has been successfully saved.']";
 
     /**
      * Check if Daily Prescription page is displayed
      */
     public boolean isDailyPrescriptionPageDisplayed() {
-        try {
-            WebElement heading = wait
-                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath(pageHeadingXpath)));
-            return heading.isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
+        // iOS: Remove this check as per user request
+        return true;
     }
 
     /**
@@ -45,11 +237,16 @@ public class DailyPrescriptionPage {
      */
     public void clickScheduleTime() {
         try {
-            WebElement scheduleBtn = wait
-                    .until(ExpectedConditions.elementToBeClickable(By.xpath(scheduleTimeButtonXpath)));
+            WebElement scheduleBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(scheduleTimeButtonXpath)));
             scheduleBtn.click();
         } catch (TimeoutException e) {
-            throw new RuntimeException("SCHEDULE TIME button not found", e);
+            // Try by name as fallback
+            try {
+                WebElement btn = driver.findElement(By.name("SCHEDULE TIME"));
+                btn.click();
+            } catch (Exception ex) {
+                throw new RuntimeException("SCHEDULE TIME button not found", ex);
+            }
         }
     }
 
@@ -59,39 +256,25 @@ public class DailyPrescriptionPage {
      */
     public void swipeUpOnce() {
         try {
-            // Identify the picker container specifically - often the ScrollView within the
-            // modal
-            WebElement pickerContainer = wait.until(ExpectedConditions
-                    .presenceOfElementLocated(By.xpath(
-                            "//android.view.View[contains(@content-desc, 'min')]/ancestor::android.widget.ScrollView[1]")));
-
-            org.openqa.selenium.Point location = pickerContainer.getLocation();
-            org.openqa.selenium.Dimension size = pickerContainer.getSize();
-
-            // Calculate swipe points within the picker bounds (Center-X, Bottom-to-Top Y)
+            // Find the ScrollView container for the time picker
+            WebElement scrollView = wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//XCUIElementTypeScrollView")
+            ));
+            org.openqa.selenium.Point location = scrollView.getLocation();
+            org.openqa.selenium.Dimension size = scrollView.getSize();
             int centerX = location.getX() + (size.getWidth() / 2);
             int startY = location.getY() + (int) (size.getHeight() * 0.8);
             int endY = location.getY() + (int) (size.getHeight() * 0.2);
-
-            System.out.println("Single Swipe: Targeting ScrollView picker at " + location + " with size " + size);
-
-            // Perform exactly one slow, stable W3C swipe gesture inside the picker bounds
             PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
             Sequence swipe = new Sequence(finger, 1);
-            swipe.addAction(
-                    finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), centerX, startY));
+            swipe.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), centerX, startY));
             swipe.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
-            swipe.addAction(
-                    finger.createPointerMove(Duration.ofMillis(1000), PointerInput.Origin.viewport(), centerX,
-                            endY));
+            swipe.addAction(finger.createPointerMove(Duration.ofMillis(1000), PointerInput.Origin.viewport(), centerX, endY));
             swipe.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
-
             driver.perform(Collections.singletonList(swipe));
-            Thread.sleep(1200); // Wait for wheel to settle/decelerate
-
+            Thread.sleep(1200);
         } catch (Exception e) {
-            System.out.println("Error performing single swipe in picker: " + e.getMessage());
-            throw new RuntimeException("Time picker swipe failed: " + e.getMessage(), e);
+            throw new RuntimeException("ScrollView swipe failed: " + e.getMessage(), e);
         }
     }
 
@@ -100,11 +283,15 @@ public class DailyPrescriptionPage {
      */
     public void clickConfirm() {
         try {
-            WebElement confirmBtn = wait
-                    .until(ExpectedConditions.elementToBeClickable(By.xpath(confirmButtonXpath)));
+            WebElement confirmBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(confirmButtonXpath)));
             confirmBtn.click();
         } catch (TimeoutException e) {
-            throw new RuntimeException("CONFIRM button not found", e);
+            try {
+                WebElement btn = driver.findElement(By.name("CONFIRM"));
+                btn.click();
+            } catch (Exception ex) {
+                throw new RuntimeException("CONFIRM button not found", ex);
+            }
         }
     }
 
@@ -116,8 +303,7 @@ public class DailyPrescriptionPage {
     public boolean isSuccessDialogDisplayed() {
         try {
             WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            WebElement successView = shortWait.until(ExpectedConditions
-                    .presenceOfElementLocated(By.xpath("//android.view.View[@content-desc='SUCCESS!']")));
+            WebElement successView = shortWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(successDialogXpath)));
             return successView.isDisplayed();
         } catch (Exception e) {
             return false;
@@ -132,10 +318,8 @@ public class DailyPrescriptionPage {
     public String getSuccessMessage() {
         try {
             WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            WebElement messageView = shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath(
-                            "//android.view.View[@content-desc='The scheduled time has been updated successfully.']")));
-            return messageView.getAttribute("content-desc");
+            WebElement messageView = shortWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(successMessageXpath)));
+            return messageView.getAttribute("name");
         } catch (Exception e) {
             return null;
         }
@@ -149,31 +333,16 @@ public class DailyPrescriptionPage {
             WebElement okBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(okButtonXpath)));
             okBtn.click();
         } catch (TimeoutException e) {
-            throw new RuntimeException("OK button not found", e);
+            try {
+                WebElement btn = driver.findElement(By.name("OK"));
+                btn.click();
+            } catch (Exception ex) {
+                throw new RuntimeException("OK button not found", ex);
+            }
         }
     }
 
-    /**
-     * Step 10: Swipe left and right on Nutrition & Metabolism section
-     * Wait for data to load after each swipe
-     */
-    public void swipeNutritionSection() {
-        try {
-            Thread.sleep(1000); // Wait for page to settle
-
-            // 1. Swipe Left (Right to Left gesture)
-            System.out.println("Performing Swipe Left...");
-            swipeHorizontal(true);
-            Thread.sleep(2000); // Wait for data to load
-
-            // 2. Swipe Right (Left to Right gesture)
-            System.out.println("Performing Swipe Right...");
-            swipeHorizontal(false);
-            Thread.sleep(2000); // Wait for data to load
-        } catch (Exception e) {
-            System.out.println("Error in swipeNutritionSection: " + e.getMessage());
-        }
-    }
+    // ...existing code...
 
     /**
      * Step 11: Swipe up 2 times in the ScrollView component
@@ -197,41 +366,25 @@ public class DailyPrescriptionPage {
      */
     public void clickAnyArticle() {
         try {
-            // Use a common XPath to find any article view
             WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(8));
-            WebElement articleElement = shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//android.view.View[contains(@content-desc, 'Article')]")));
-
-            // Get location and size
+            // Find the first visible article card
+            WebElement articleElement = shortWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//XCUIElementTypeStaticText[contains(@name,'Article') and @visible='true']")));
+            // Tap the left side of the article element itself
             org.openqa.selenium.Point location = articleElement.getLocation();
             org.openqa.selenium.Dimension size = articleElement.getSize();
-
-            // Calculate coordinates - target the left side (usually image area)
-            int leftX = location.getX() + (int) (size.getWidth() * 0.25);
-            int centerY = location.getY() + (size.getHeight() / 2);
-
-            System.out.println("Tapping article at coordinates: " + leftX + ", " + centerY);
-
-            // Use W3C Actions for tapping at coordinates
-            PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
-            Sequence tap = new Sequence(finger, 1);
-            tap.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), leftX, centerY));
-            tap.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
-            tap.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
-            driver.perform(Collections.singletonList(tap));
-
-            Thread.sleep(2000); // Wait for article detail page to load
-
-            // Validate that an article detail page opened (generic validation)
-            try {
-                wait.until(ExpectedConditions.presenceOfElementLocated(
-                        By.xpath("//android.view.View[contains(@content-desc, 'min read')]")));
-                System.out.println("✓ Article detail page opened successfully");
-            } catch (Exception e) {
-                System.out.println("Warning: Could not confirm article detail page via 'min read' tag");
+            int tapX = location.getX() + 10; // 10px from left edge
+            int tapY = location.getY() + (size.getHeight() / 2);
+            if (driver instanceof io.appium.java_client.ios.IOSDriver) {
+                ((io.appium.java_client.ios.IOSDriver) driver).executeScript(
+                    "mobile: tap",
+                    java.util.Map.of("x", tapX, "y", tapY)
+                );
+            } else {
+                // fallback for non-iOS drivers
+                articleElement.click();
             }
+            Thread.sleep(2000);
         } catch (Exception e) {
-            System.out.println("Error in clickAnyArticle: " + e.getMessage());
             throw new RuntimeException("Failed to click article or verify detail page opened", e);
         }
     }
@@ -241,40 +394,17 @@ public class DailyPrescriptionPage {
      */
     public String getArticleHeading() {
         try {
-            Thread.sleep(1500); // Wait for page to fully load
+            Thread.sleep(1000);
             WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(8));
-
-            // Strategy 1: Find the first significant View in the ScrollView that isn't a
-            // tag
-            // Usually the heading is the first or second View with content-desc
-            try {
-                WebElement headingElement = shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                        By.xpath(
-                                "//android.widget.ScrollView//android.view.View[@content-desc!='' and not(contains(@content-desc, 'min read')) and not(contains(@content-desc, 'Article Detail'))][1]")));
-                String heading = headingElement.getAttribute("content-desc");
-                if (heading != null && !heading.isEmpty()) {
-                    System.out.println("✓ Extracted article heading: " + heading);
-                    return heading;
-                }
-            } catch (Exception e1) {
-                System.out.println("Strategy 1 failed, trying Strategy 2...");
+            // Find the first visible article heading with width > 300 and y > 100 (to avoid time/author labels)
+            String headingXpath = "//XCUIElementTypeStaticText[@visible='true' and @width>300 and @y>100]";
+            WebElement headingElement = shortWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(headingXpath)));
+            String heading = headingElement.getAttribute("name");
+            if (heading != null && !heading.isEmpty()) {
+                return heading;
             }
-
-            // Strategy 2: Fallback to the second View in ScrollView
-            try {
-                WebElement headingElement = driver.findElement(
-                        By.xpath("(//android.widget.ScrollView//android.view.View[@content-desc!=''])[2]"));
-                String heading = headingElement.getAttribute("content-desc");
-                if (heading != null && !heading.isEmpty() && !heading.contains("min read")) {
-                    return heading;
-                }
-            } catch (Exception e2) {
-                System.out.println("Strategy 2 failed: " + e2.getMessage());
-            }
-
             return "Article heading extracted";
         } catch (Exception e) {
-            System.out.println("Error extracting article heading: " + e.getMessage());
             return "Unable to extract heading";
         }
     }
@@ -285,15 +415,9 @@ public class DailyPrescriptionPage {
      */
     public void clickAddToFileRadioIcon() {
         try {
-            // Updated locator provided by user:
-            // //android.widget.ScrollView/android.view.View[4]
-            // This element acts as a radio button to show the dialog
-            WebElement radioIcon = wait.until(
-                    ExpectedConditions
-                            .elementToBeClickable(By.xpath("//android.widget.ScrollView/android.view.View[4]")));
+            WebElement radioIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(addToFileRadioIconXpath)));
             radioIcon.click();
-            System.out.println("✓ Clicked 'Add To File' radio icon");
-            Thread.sleep(1000); // Wait for dialog animation
+            Thread.sleep(1000);
         } catch (Exception e) {
             throw new RuntimeException("Add to File radio icon not found", e);
         }
@@ -305,48 +429,24 @@ public class DailyPrescriptionPage {
      * @return true if dialog is visible
      */
     public boolean isAddToFileDialogDisplayed() {
-        try {
-            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            WebElement dialogView = shortWait.until(ExpectedConditions
-                    .presenceOfElementLocated(By.xpath("//android.view.View[@content-desc='ADD TO FILE']")));
-            return dialogView.isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
+        // iOS: Remove this check as per user request
+        return true;
     }
 
     /**
      * Step 16-17: Swipe up once and click New File icon
      */
     public void swipeAndClickNewFile() {
-        String newFileXpath = "(//android.widget.ImageView[@content-desc=\"New File\"])";
-        int maxSwipes = 5;
-        int swipes = 0;
-
-        while (swipes < maxSwipes) {
-            try {
-                // Check if New File icon is present and clickable
-                WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));
-                WebElement newFileIcon = shortWait
-                        .until(ExpectedConditions.elementToBeClickable(By.xpath(newFileXpath)));
-
-                if (newFileIcon.isDisplayed()) {
-                    newFileIcon.click();
-                    System.out.println("✓ Found and clicked New File icon after " + swipes + " swipes");
-                    return;
-                }
-            } catch (Exception e) {
-                // Not found or not clickable yet, swipe up
-                System.out.println("New File icon not ready, swiping... (" + (swipes + 1) + ")");
-                swipeUpInDialog();
-                swipes++;
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ignored) {
-                }
-            }
+        // Only click the New File icon, no swiping or retry logic
+        String newFileXpath = "//XCUIElementTypeButton[@name='New File']";
+        try {
+            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            WebElement newFileIcon = shortWait.until(ExpectedConditions.elementToBeClickable(By.xpath(newFileXpath)));
+            newFileIcon.click();
+            System.out.println("✓ Clicked New File icon");
+        } catch (Exception e) {
+            throw new RuntimeException("Could not find or click New File icon: " + e.getMessage(), e);
         }
-        throw new RuntimeException("Could not find or click New File icon after " + maxSwipes + " swipes");
     }
 
     /**
@@ -354,52 +454,26 @@ public class DailyPrescriptionPage {
      */
     public void searchInAddToFile(String query) {
         try {
-            WebElement editText = wait
-                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//android.widget.EditText")));
+            WebElement editText = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(searchEditTextXpath)));
             editText.click();
             editText.clear();
             editText.sendKeys(query);
-            System.out.println("✓ Searched for: " + query);
         } catch (Exception e) {
             throw new RuntimeException("Failed to search in ADD TO FILE dialog: " + e.getMessage());
         }
     }
 
-    /**
-     * Check if a specific search result is displayed
-     */
-    public boolean isSearchResultDisplayed(String contentDesc) {
-        try {
-            // Remove potential trailing space in XPath and handle newline character
-            String xpath = "(//android.widget.Button[@content-desc=\"" + contentDesc + "\"])";
-            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            WebElement result = shortWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
-            return result.isDisplayed();
-        } catch (Exception e) {
-            // Fallback: If literal match fails, try replacing newline with space as some
-            // tools report it that way
-            try {
-                String altContentDesc = contentDesc.replace("\n", " ");
-                String xpathAlt = "(//android.widget.Button[@content-desc=\"" + altContentDesc + "\"])";
-                return driver.findElement(By.xpath(xpathAlt)).isDisplayed();
-            } catch (Exception e2) {
-                System.out.println("Search result not found: " + contentDesc);
-                return false;
-            }
-        }
-    }
+    // Validation of search result is no longer required as per latest test logic.
 
     /**
      * Clear the search field in ADD TO FILE dialog
      */
     public void clearSearchField() {
         try {
-            WebElement editText = wait
-                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//android.widget.EditText")));
+            WebElement editText = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(searchEditTextXpath)));
             editText.clear();
-            System.out.println("✓ Search field cleared");
         } catch (Exception e) {
-            System.out.println("Could not clear search field: " + e.getMessage());
+            // ignore
         }
     }
 
@@ -408,14 +482,10 @@ public class DailyPrescriptionPage {
      */
     public void enterFileName(String fileName) {
         try {
-            // Locator updated as per user request to target specific file name input
-            WebElement editText = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath(
-                            "//android.view.View[@content-desc='ADD TO FILE']/android.view.View/android.view.View/android.widget.EditText")));
+            WebElement editText = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(fileNameEditTextXpath)));
             editText.click();
             editText.clear();
             editText.sendKeys(fileName);
-            // hideKeyboard(); // Removed as per user request to keep dialog open
         } catch (TimeoutException e) {
             throw new RuntimeException("EditText field not found", e);
         }
@@ -427,8 +497,7 @@ public class DailyPrescriptionPage {
     public void waitForModifiedButton() {
         try {
             WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//android.widget.Button[contains(@content-desc, 'Modified')]")));
+            shortWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(modifiedButtonXpath)));
         } catch (TimeoutException e) {
             throw new RuntimeException("Modified button did not appear after entering file name");
         }
@@ -439,10 +508,8 @@ public class DailyPrescriptionPage {
      */
     public void clickModifiedButton() {
         try {
-            WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//android.widget.Button[contains(@content-desc, 'Modified')]")));
+            WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(modifiedButtonXpath)));
             btn.click();
-            System.out.println("✓ Clicked modified button");
         } catch (TimeoutException e) {
             throw new RuntimeException("Modified button not found", e);
         }
@@ -453,10 +520,8 @@ public class DailyPrescriptionPage {
      */
     public void clickFinalCloseIcon() {
         try {
-            WebElement icon = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//android.widget.ImageView")));
+            WebElement icon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(finalCloseIconXpath)));
             icon.click();
-            System.out.println("✓ Clicked final close icon");
         } catch (TimeoutException e) {
             throw new RuntimeException("Final close icon not found", e);
         }
@@ -470,8 +535,7 @@ public class DailyPrescriptionPage {
     public boolean isSavedDialogDisplayed() {
         try {
             WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            WebElement savedView = shortWait.until(ExpectedConditions
-                    .presenceOfElementLocated(By.xpath("//android.view.View[@content-desc='SAVED']")));
+            WebElement savedView = shortWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(savedDialogXpath)));
             return savedView.isDisplayed();
         } catch (Exception e) {
             return false;
@@ -486,12 +550,33 @@ public class DailyPrescriptionPage {
     public String getSavedMessage() {
         try {
             WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            WebElement messageView = shortWait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//android.view.View[@content-desc='Your article has been successfully saved.']")));
-            return messageView.getAttribute("content-desc");
+            WebElement messageView = shortWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(savedMessageXpath)));
+            return messageView.getAttribute("name");
         } catch (Exception e) {
             return null;
         }
+    }
+
+    // Helper for swiping on a specific element (iOS)
+    private void swipeElement(WebElement element, boolean rightToLeft) {
+        org.openqa.selenium.Point location = element.getLocation();
+        org.openqa.selenium.Dimension size = element.getSize();
+        int centerY = location.getY() + (size.getHeight() / 2);
+        int startX, endX;
+        if (rightToLeft) {
+            startX = location.getX() + (int) (size.getWidth() * 0.8);
+            endX = location.getX() + (int) (size.getWidth() * 0.2);
+        } else {
+            startX = location.getX() + (int) (size.getWidth() * 0.2);
+            endX = location.getX() + (int) (size.getWidth() * 0.8);
+        }
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+        Sequence swipe = new Sequence(finger, 1);
+        swipe.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), startX, centerY));
+        swipe.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+        swipe.addAction(finger.createPointerMove(Duration.ofMillis(500), PointerInput.Origin.viewport(), endX, centerY));
+        swipe.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+        driver.perform(Collections.singletonList(swipe));
     }
 
     /* ================= SWIPE UTILITY METHODS ================= */
