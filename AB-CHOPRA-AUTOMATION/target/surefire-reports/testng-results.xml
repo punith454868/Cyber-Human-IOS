@@ -1,47 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+<testng-results ignored="0" total="5" passed="5" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-01-20T23:39:44 GMT-08:00" name="Surefire suite" finished-at="2026-01-20T23:40:53 GMT-08:00" duration-ms="69019">
+  <suite started-at="2026-01-21T03:12:06 GMT-08:00" name="Surefire suite" finished-at="2026-01-21T03:15:57 GMT-08:00" duration-ms="231166">
     <groups>
     </groups>
-    <test started-at="2026-01-20T23:39:44 GMT-08:00" name="Surefire test" finished-at="2026-01-20T23:40:53 GMT-08:00" duration-ms="69019">
-      <class name="com.automation.tests.DailyPrescriptionTest">
-        <test-method is-config="true" signature="setupReport()[pri:0, instance:com.automation.tests.DailyPrescriptionTest@a4102b8]" started-at="2026-01-20T23:39:44 GMT-08:00" name="setupReport" finished-at="2026-01-20T23:39:44 GMT-08:00" duration-ms="83" status="PASS">
+    <test started-at="2026-01-21T03:12:06 GMT-08:00" name="Surefire test" finished-at="2026-01-21T03:15:57 GMT-08:00" duration-ms="231166">
+      <class name="com.automation.tests.ProfileTest">
+        <test-method is-config="true" signature="setupReport()[pri:0, instance:com.automation.tests.ProfileTest@78047b92]" started-at="2026-01-21T03:12:06 GMT-08:00" name="setupReport" finished-at="2026-01-21T03:12:06 GMT-08:00" duration-ms="81" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setupReport -->
-        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.DailyPrescriptionTest@a4102b8]" started-at="2026-01-20T23:39:44 GMT-08:00" name="setup" finished-at="2026-01-20T23:39:52 GMT-08:00" duration-ms="8136" status="PASS">
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.ProfileTest@78047b92]" started-at="2026-01-21T03:12:06 GMT-08:00" name="setup" finished-at="2026-01-21T03:12:15 GMT-08:00" duration-ms="9252" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.automation.tests.DailyPrescriptionTest.testScheduleTimeAndFileCreation()]]>
+                <![CDATA[public void com.automation.tests.ProfileTest.testMyOrders_TrackOrder() throws java.lang.InterruptedException]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setup -->
-        <test-method signature="testScheduleTimeAndFileCreation()[pri:0, instance:com.automation.tests.DailyPrescriptionTest@a4102b8]" started-at="2026-01-20T23:39:52 GMT-08:00" name="testScheduleTimeAndFileCreation" finished-at="2026-01-20T23:40:50 GMT-08:00" duration-ms="57806" status="PASS">
+        <test-method signature="testMyOrders_TrackOrder()[pri:1, instance:com.automation.tests.ProfileTest@78047b92]" started-at="2026-01-21T03:12:15 GMT-08:00" name="testMyOrders_TrackOrder" finished-at="2026-01-21T03:12:28 GMT-08:00" duration-ms="13278" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- testScheduleTimeAndFileCreation -->
-        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.DailyPrescriptionTest@a4102b8]" started-at="2026-01-20T23:40:50 GMT-08:00" name="tearDown" finished-at="2026-01-20T23:40:53 GMT-08:00" duration-ms="3060" status="PASS">
+        </test-method> <!-- testMyOrders_TrackOrder -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.ProfileTest@78047b92]" started-at="2026-01-21T03:12:28 GMT-08:00" name="tearDown" finished-at="2026-01-21T03:12:31 GMT-08:00" duration-ms="3058" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=testScheduleTimeAndFileCreation status=SUCCESS method=DailyPrescriptionTest.testScheduleTimeAndFileCreation()[pri:0, instance:com.automation.tests.DailyPrescriptionTest@a4102b8] output={null}]]]>
+                <![CDATA[[TestResult name=testMyOrders_TrackOrder status=SUCCESS method=ProfileTest.testMyOrders_TrackOrder()[pri:1, instance:com.automation.tests.ProfileTest@78047b92] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method is-config="true" signature="tearDownReport()[pri:0, instance:com.automation.tests.DailyPrescriptionTest@a4102b8]" started-at="2026-01-20T23:40:53 GMT-08:00" name="tearDownReport" finished-at="2026-01-20T23:40:53 GMT-08:00" duration-ms="124" status="PASS">
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.ProfileTest@78047b92]" started-at="2026-01-21T03:12:31 GMT-08:00" name="setup" finished-at="2026-01-21T03:12:39 GMT-08:00" duration-ms="7794" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.tests.ProfileTest.testMyOrders_SendSample() throws java.lang.InterruptedException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="testMyOrders_SendSample()[pri:2, instance:com.automation.tests.ProfileTest@78047b92]" started-at="2026-01-21T03:12:39 GMT-08:00" name="testMyOrders_SendSample" finished-at="2026-01-21T03:13:03 GMT-08:00" duration-ms="23797" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testMyOrders_SendSample -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.ProfileTest@78047b92]" started-at="2026-01-21T03:13:03 GMT-08:00" name="tearDown" finished-at="2026-01-21T03:13:06 GMT-08:00" duration-ms="3051" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testMyOrders_SendSample status=SUCCESS method=ProfileTest.testMyOrders_SendSample()[pri:2, instance:com.automation.tests.ProfileTest@78047b92] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.ProfileTest@78047b92]" started-at="2026-01-21T03:13:06 GMT-08:00" name="setup" finished-at="2026-01-21T03:13:14 GMT-08:00" duration-ms="7826" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.tests.ProfileTest.testHelpSupport_AllSections() throws java.lang.InterruptedException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="testHelpSupport_AllSections()[pri:3, instance:com.automation.tests.ProfileTest@78047b92]" started-at="2026-01-21T03:13:14 GMT-08:00" name="testHelpSupport_AllSections" finished-at="2026-01-21T03:14:32 GMT-08:00" duration-ms="78132" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testHelpSupport_AllSections -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.ProfileTest@78047b92]" started-at="2026-01-21T03:14:32 GMT-08:00" name="tearDown" finished-at="2026-01-21T03:14:35 GMT-08:00" duration-ms="3081" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testHelpSupport_AllSections status=SUCCESS method=ProfileTest.testHelpSupport_AllSections()[pri:3, instance:com.automation.tests.ProfileTest@78047b92] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.ProfileTest@78047b92]" started-at="2026-01-21T03:14:35 GMT-08:00" name="setup" finished-at="2026-01-21T03:14:43 GMT-08:00" duration-ms="7900" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.tests.ProfileTest.testLegalInformation_AllSections() throws java.lang.InterruptedException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="testLegalInformation_AllSections()[pri:4, instance:com.automation.tests.ProfileTest@78047b92]" started-at="2026-01-21T03:14:43 GMT-08:00" name="testLegalInformation_AllSections" finished-at="2026-01-21T03:15:24 GMT-08:00" duration-ms="40573" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLegalInformation_AllSections -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.ProfileTest@78047b92]" started-at="2026-01-21T03:15:24 GMT-08:00" name="tearDown" finished-at="2026-01-21T03:15:27 GMT-08:00" duration-ms="3139" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testLegalInformation_AllSections status=SUCCESS method=ProfileTest.testLegalInformation_AllSections()[pri:4, instance:com.automation.tests.ProfileTest@78047b92] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="setup(java.lang.reflect.Method)[pri:0, instance:com.automation.tests.ProfileTest@78047b92]" started-at="2026-01-21T03:15:27 GMT-08:00" name="setup" finished-at="2026-01-21T03:15:34 GMT-08:00" duration-ms="7756" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.automation.tests.ProfileTest.testLogout() throws java.lang.InterruptedException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setup -->
+        <test-method signature="testLogout()[pri:5, instance:com.automation.tests.ProfileTest@78047b92]" started-at="2026-01-21T03:15:34 GMT-08:00" name="testLogout" finished-at="2026-01-21T03:15:54 GMT-08:00" duration-ms="19432" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLogout -->
+        <test-method is-config="true" signature="tearDown(org.testng.ITestResult)[pri:0, instance:com.automation.tests.ProfileTest@78047b92]" started-at="2026-01-21T03:15:54 GMT-08:00" name="tearDown" finished-at="2026-01-21T03:15:57 GMT-08:00" duration-ms="3044" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testLogout status=SUCCESS method=ProfileTest.testLogout()[pri:5, instance:com.automation.tests.ProfileTest@78047b92] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+        <test-method is-config="true" signature="tearDownReport()[pri:0, instance:com.automation.tests.ProfileTest@78047b92]" started-at="2026-01-21T03:15:57 GMT-08:00" name="tearDownReport" finished-at="2026-01-21T03:15:57 GMT-08:00" duration-ms="122" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownReport -->
-      </class> <!-- com.automation.tests.DailyPrescriptionTest -->
+      </class> <!-- com.automation.tests.ProfileTest -->
     </test> <!-- Surefire test -->
   </suite> <!-- Surefire suite -->
 </testng-results>

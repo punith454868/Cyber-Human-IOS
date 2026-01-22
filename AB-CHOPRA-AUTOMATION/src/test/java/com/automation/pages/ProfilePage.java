@@ -56,7 +56,7 @@ public class ProfilePage {
      * 3. Explicit visibility check
      * 4. W3C Action-based retry if standard click fails
      */
-    private void robustClick(String xpath, String elementName) throws InterruptedException {
+    public void robustClick(String xpath, String elementName) throws InterruptedException {
         try {
             // Step 1: Hide keyboard
             hideKeyboard();
@@ -583,6 +583,18 @@ public class ProfilePage {
         try {
             WebElement element = wait.until(
                     ExpectedConditions.visibilityOfElementLocated(By.xpath("//XCUIElementTypeStaticText[@name='TERMS & CONDITIONS']")));
+            return element.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Checks if an element is displayed using its XPath
+     */
+    public boolean isElementDisplayed(String xpath) {
+        try {
+            WebElement element = driver.findElement(By.xpath(xpath));
             return element.isDisplayed();
         } catch (Exception e) {
             return false;

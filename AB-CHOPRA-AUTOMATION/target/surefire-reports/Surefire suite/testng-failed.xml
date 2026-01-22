@@ -3,15 +3,17 @@
 <suite name="Failed suite [Surefire suite]" verbose="0">
   <test thread-count="5" name="Surefire test(failed)" verbose="0">
     <classes>
-      <class name="com.automation.tests.DailyPrescriptionTest">
+      <class name="com.automation.tests.ProfileTest">
         <methods>
+          <include name="testHelpSupport_AllSections"/>
           <include name="setup"/>
+          <include name="testLogout"/>
           <include name="tearDownReport"/>
           <include name="setupReport"/>
           <include name="tearDown"/>
-          <include name="testScheduleTimeAndFileCreation"/>
+          <include name="testLegalInformation_AllSections"/>
         </methods>
-      </class> <!-- com.automation.tests.DailyPrescriptionTest -->
+      </class> <!-- com.automation.tests.ProfileTest -->
     </classes>
   </test> <!-- Surefire test(failed) -->
 </suite> <!-- Failed suite [Surefire suite] -->
