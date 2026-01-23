@@ -9,14 +9,24 @@
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Retried</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
 <tr><th colspan="8">Surefire suite</th></tr>
-<tr><td><a href="#t0">Surefire test</a></td><td class="num">5</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">231,166</td><td></td><td></td></tr>
+<tr><td><a href="#t0">Surefire test</a></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">167,249</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Surefire suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Surefire test &#8212; passed</th></tr><tr class="passedeven"><td rowspan="5">com.automation.tests.ProfileTest</td><td><a href="#m0">testHelpSupport_AllSections</a></td><td rowspan="1">1768993994336</td><td rowspan="1">78132</td></tr><tr class="passedeven"><td><a href="#m1">testLegalInformation_AllSections</a></td><td rowspan="1">1768994083458</td><td rowspan="1">40573</td></tr><tr class="passedeven"><td><a href="#m2">testLogout</a></td><td rowspan="1">1768994134934</td><td rowspan="1">19432</td></tr><tr class="passedeven"><td><a href="#m3">testMyOrders_SendSample</a></td><td rowspan="1">1768993959657</td><td rowspan="1">23797</td></tr><tr class="passedeven"><td><a href="#m4">testMyOrders_TrackOrder</a></td><td rowspan="1">1768993935513</td><td rowspan="1">13278</td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Surefire suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Surefire test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">com.automation.tests.AbChopraHouseTest</td><td><a href="#m0">testAbChopraHouse_Case1</a></td><td rowspan="1">1769133714425</td><td rowspan="1">155242</td></tr></tbody>
 </table>
-<h2>Surefire test</h2><h3 id="m0">com.automation.tests.ProfileTest#testHelpSupport_AllSections</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m1">com.automation.tests.ProfileTest#testLegalInformation_AllSections</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m2">com.automation.tests.ProfileTest#testLogout</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m3">com.automation.tests.ProfileTest#testMyOrders_SendSample</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
-<h3 id="m4">com.automation.tests.ProfileTest#testMyOrders_TrackOrder</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h2>Surefire test</h2><h3 id="m0">com.automation.tests.AbChopraHouseTest#testAbChopraHouse_Case1</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">java.lang.RuntimeException: Article radio button not found
+	at com.automation.pages.AbChopraHousePage.clickVideoItem(AbChopraHousePage.java:640)
+	at com.automation.tests.AbChopraHouseTest.testAbChopraHouse_Case1(AbChopraHouseTest.java:252)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //android.view.View[contains(@content-desc,&apos;The Timeless Dance&apos;)]//android.view.View[@clickable=&apos;true&apos; and @focusable=&apos;true&apos;] (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: &apos;4.13.0&apos;, revision: &apos;ba948ece5b*&apos;
+System info: os.name: &apos;Mac OS X&apos;, os.arch: &apos;aarch64&apos;, os.version: &apos;14.5&apos;, java.version: &apos;25.0.1&apos;
+Driver info: io.appium.java_client.ios.IOSDriver
+Capabilities {appium:automationName: XCUITest, appium:bundleId: com.houseofepigenetics.abch..., appium:databaseEnabled: false, appium:deviceName: iPhone 13, appium:javascriptEnabled: true, appium:locationContextEnabled: false, appium:networkConnectionEnabled: false, appium:newCommandTimeout: 3600, appium:noReset: true, appium:platformVersion: 18.7, appium:takesScreenshot: true, appium:udid: 00008110-001425322E9B601E, appium:useNewWDA: false, appium:usePrebuiltWDA: true, appium:webDriverAgentUrl: http://localhost:8100, appium:webStorageEnabled: false, platformName: IOS}
+Session ID: e34e8275-b6ca-428f-8d1c-9d4e3c85ffbf
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:230)
+	at com.automation.pages.AbChopraHousePage.clickVideoItem(AbChopraHousePage.java:637)
+	... 32 more
+... Removed 30 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
 </body>
 </html>

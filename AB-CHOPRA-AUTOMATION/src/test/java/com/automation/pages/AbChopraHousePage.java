@@ -1,3 +1,4 @@
+
 package com.automation.pages;
 
 import io.appium.java_client.AppiumDriver;
@@ -14,6 +15,7 @@ import java.time.Duration;
 import java.util.Collections;
 
 public class AbChopraHousePage {
+
     private AppiumDriver driver;
     private WebDriverWait wait;
 
@@ -22,95 +24,233 @@ public class AbChopraHousePage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
+    /**
+     * Step 9: Click Filter button (iOS)
+     */
+    public void clickFilter() {
+        try {
+            WebElement filterBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(filterButtonXpath)));
+            filterBtn.click();
+            // Wait for filter dialog to appear
+            Thread.sleep(2000);
+        } catch (TimeoutException e) {
+            throw new RuntimeException("FILTER button not found", e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Interrupted while waiting for filter dialog", e);
+        }
+    }
+
     // ==================== LOCATORS ====================
 
-    // Step 3: AB Chopra House
-    private final String abChopraHouseXpath = "//android.view.View[@content-desc=\"AB CHOPRA HOUSE\"]";
+    // Step 3: AB Chopra House (iOS)
+    private final String abChopraHouseXpath = "//XCUIElementTypeStaticText[@name=\"AB CHOPRA HOUSE\"]";
 
-    // Step 4: Discover button
-    private final String discoverButtonXpath = "//android.view.View[@content-desc=\"DISCOVER\"]";
+    // Step 4: Discover button (iOS)
+    private final String discoverButtonXpath = "//XCUIElementTypeStaticText[@name=\"DISCOVER\"]";
 
-    // Step 5: Discover page heading
-    private final String discoverPageHeadingXpath = "//android.view.View[@content-desc=\"DISCOVER +\"]";
+    // Step 5: Discover page heading (iOS)
+    private final String discoverPageHeadingXpath = "//XCUIElementTypeStaticText[@name=\"DISCOVER +\"]";
 
-    // Step 6 & 7: Scroll view for swipe
-    private final String scrollViewXpath = "//android.widget.ScrollView";
+    // Step 6 & 7: Scroll view for swipe (iOS)
+    private final String scrollViewXpath = "//XCUIElementTypeScrollView";
 
-    // Step 8: Discover + button (note: has newline in content-desc)
-    private final String discoverPlusButtonXpath = "//android.view.View[@content-desc=\"DISCOVER\\n +\"]";
+    // Step 8: Discover + button (iOS)
+    private final String discoverPlusButtonXpath = "//XCUIElementTypeStaticText[@name=\"DISCOVER +\"]";
 
-    // Step 9: Filter button
-    private final String filterButtonXpath = "//android.widget.Button[@content-desc=\"FILTER\"]";
+    // Step 9: Filter button (iOS)
+    private final String filterButtonXpath = "//XCUIElementTypeButton[@name=\"FILTER\"]";
 
-    // Step 10: Mind & Emotions radio button
-    private final String mindEmotionsRadioXpath = "//android.view.View[@content-desc=\"Mind & Emotions\"]";
-    // Step 11: Timing SeekBar
-    private final String timingSeekBarXpath = "//android.widget.SeekBar[@content-desc=\"the end value is 60.0\"]";
+    // Step 10: Mind & Emotions radio button (iOS)
+    private final String mindEmotionsRadioXpath = "//XCUIElementTypeStaticText[@name=\"Mind & Emotions\"]";
+    // Step 11: Timing SeekBar (iOS)
+    private final String timingSeekBarXpath = "//XCUIElementTypeOther[@value=\"the end value is 60.0\"]";
 
-    // Step 12: Apply button
-    private final String applyButtonXpath = "//android.widget.Button[@content-desc=\"APPLY\"]";
+    // Step 12: Apply button (iOS)
+    private final String applyButtonXpath = "//XCUIElementTypeButton[@name=\"APPLY\"]";
 
-    // Step 13: See All 1, Listen page, Back button
-    private final String seeAll1Xpath = "(//android.widget.ImageView[@content-desc=\"See All\"])[1]";
-    private final String listenPageXpath = "//android.view.View[@content-desc=\"Listen\"]";
-    private final String backButtonXpath = "//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[1]/android.widget.ImageView";
+    // Step 13: See All 1, Listen page, Back button (iOS)
+    private final String seeAll1Xpath = "(//XCUIElementTypeButton[@name=\"See All\"])[1]";
+    private final String listenPageXpath = "//XCUIElementTypeStaticText[@name=\"Listen\"]";
+    // Use a more specific iOS class chain for the top-left back button
+    private final String backButtonClassChain = "**/XCUIElementTypeWindow/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeButton";
 
-    // Step 14: See All 2, Read page
-    private final String seeAll2Xpath = "//android.widget.ImageView[@content-desc=\"See All\"]";
-    private final String readPageXpath = "//android.view.View[@content-desc=\"Read\"]";
+    // Step 14: See All 3, Watch page (iOS)
+    // (seeAll3Xpath and watchPageXpath already declared below, removing duplicate)
+    // Step 16: See All 2, Read page (iOS)
+    private final String seeAll2Xpath = "(//XCUIElementTypeButton[@name=\"See All\"])[3]";
+    private final String readPageXpath = "//XCUIElementTypeStaticText[@name=\"Read\"]";
 
-    // Step 15: Swipe container
-    private final String swipeContainerXpath = "//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View";
+    // Step 15: Swipe container (iOS)
+    private final String swipeContainerXpath = "//XCUIElementTypeWindow/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeScrollView";
 
     // Step 16: See All 3, Watch page
     private final String seeAll3Xpath = "(//android.widget.ImageView[@content-desc=\"See All\"])[2]";
-    private final String watchPageXpath = "//android.view.View[@content-desc=\"Watch\"]";
+    private final String watchPageXpath = "//XCUIElementTypeStaticText[@name=\"Watch\"]";
 
     // Step 17: Article item (XPath now inline in clickVideoItem() method using
     // contains())
 
-    // Step 18: Search box
-    private final String searchBoxXpath = "//android.widget.EditText";
+    // Step 18: Search box (iOS)
+    private final String searchBoxXpath = "//XCUIElementTypeTextField[@name=\"Search\"]";
 
     // Step 19: Search result (XPath now inline in isSearchResultOneDisplayed()
     // method using contains())
 
-    // Step 18 (second): New File icon
-    private final String newFileIconXpath = "//android.widget.ImageView[@content-desc=\"New File\"]";
+    // Step 20: New File icon (iOS)
+    private final String newFileIconXpath = "//XCUIElementTypeButton[@name=\"New File\"]";
 
-    // Step 19 (second): File name input
-    private final String fileNameInputXpath = "//android.view.View[@content-desc=\"ADD TO FILE\"]/android.view.View/android.view.View/android.widget.EditText";
+    // Step 21: File name input (iOS)
+    private final String fileNameInputXpath = "//XCUIElementTypeTextField[@name=\"Enter file name\"]";
 
-    // Step 20: Close icon
-    private final String closeIconXpath = "//android.view.View[@content-desc=\"ADD TO FILE\"]/android.widget.ImageView";
+    // Step 23: Close icon (iOS)
+    private final String closeIconXpath = "//XCUIElementTypeImage";
 
-    // Step 21: Saved dialog and success message
-    private final String savedDialogXpath = "//android.view.View[@content-desc=\"SAVED\"]";
-    private final String savedSuccessMessageXpath = "//android.view.View[@content-desc=\"Your article has been successfully saved.\"]";
+    // Step 24: Saved dialog and success message (iOS)
+    private final String savedDialogXpath = "//XCUIElementTypeStaticText[@name=\"SAVED\"]";
+    private final String savedSuccessMessageXpath = "//XCUIElementTypeStaticText[@name=\"Your article has been successfully saved.\"]";
 
-    // Step 22: OK button
-    private final String okButtonXpath = "//android.widget.Button[@content-desc=\"OK\"]";
+    // Step 26: OK button (iOS)
+    private final String okButtonXpath = "//XCUIElementTypeButton[@name=\"OK\"]";
 
-    // Step 24: Archive button
-    private final String archiveButtonXpath = "//android.view.View[@content-desc=\"ARCHIVE\"]";
+    // Step 27: Archive button (iOS)
+    private final String archiveButtonXpath = "//XCUIElementTypeStaticText[@name=\"ARCHIVE\"]";
 
-    // Step 25: Archive page heading
-    private final String archivePageHeadingXpath = "//android.view.View[@content-desc=\"ARCHIVE\"]";
+    // Step 28: Archive page heading (iOS)
+    private final String archivePageHeadingXpath = "//XCUIElementTypeStaticText[@name=\"ARCHIVE\"]";
 
     // Step 26 & 27: New file in archive (uses contains() to handle multiline
     // content-desc like "New\nModified Dec 30")
     // Locator is now defined inline in methods to use contains() for dynamic date
     // handling
 
-    // Step 28: File open verification
-    private final String fileOpenXpath = "//android.view.View[@content-desc=\"new\"]";
+    // Step 31: File open verification (iOS)
+    private final String fileOpenXpath = "//XCUIElementTypeImage[@name=\"New Modified Jan 22\"]";
 
-    // Step 30: Yes button
-    private final String yesButtonXpath = "//android.widget.Button[@content-desc=\"YES\"]";
+    // Step 33: Yes button (iOS)
+    private final String yesButtonXpath = "//XCUIElementTypeButton[@name=\"YES\"]";
 
-    // Step 31: Success dialog and delete message
-    private final String successDialogXpath = "//android.view.View[@content-desc=\"SUCCESS\"]";
-    private final String deleteSuccessMessageXpath = "//android.view.View[@content-desc=\"Your article has been successfully deleted\"]";
+    // Step 34: Success dialog and delete message (iOS)
+    private final String successDialogXpath = "//XCUIElementTypeStaticText[@name=\"SUCCESS\"]";
+    private final String deleteSuccessMessageXpath = "//XCUIElementTypeStaticText[@name=\"Your article has been successfully deleted.\"]";
+    // Step 31.1: Menu icon (iOS)
+    private final String menuIconXpath = "//XCUIElementTypeApplication[@name=\"AB Chopra\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeImage[2]";
+    // Step 31.2: Edit
+    private final String editButtonXpath = "//XCUIElementTypeStaticText[@name=\"EDIT\"]";
+    // Step 31.3: Enter File Name (edit)
+    private final String editFileNameInputXpath = "//XCUIElementTypeTextField[@name=\"Enter File Name\"]";
+    // Step 31.4: Save button
+    private final String saveButtonXpath = "//XCUIElementTypeButton[@name=\"SAVE\"]";
+    // Step 31.5: Success dialog (edit)
+    private final String editSuccessDialogXpath = "//XCUIElementTypeStaticText[@name=\"SUCCESS\"]";
+    // Step 31.6: Success message (edit)
+    private final String editSuccessMessageXpath = "//XCUIElementTypeStaticText[@name=\"Your archive name has been successfully updated.\"]";
+    // Step 31.7: OK button (edit)
+    private final String okButtonEditXpath = "//XCUIElementTypeButton[@name=\"OK\"]";
+    // Step 31.9: Organise
+    private final String organiseButtonXpath = "//XCUIElementTypeStaticText[@name=\"ORGANISE\"]";
+    /**
+     * Step 31.1: Click menu icon
+     */
+    public void clickMenuIcon() {
+        try {
+            WebElement menuIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(menuIconXpath)));
+            menuIcon.click();
+        } catch (TimeoutException e) {
+            throw new RuntimeException("Menu icon not found", e);
+        }
+    }
+
+    /**
+     * Step 31.2: Click EDIT
+     */
+    public void clickEdit() {
+        try {
+            WebElement editBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(editButtonXpath)));
+            editBtn.click();
+        } catch (TimeoutException e) {
+            throw new RuntimeException("EDIT button not found", e);
+        }
+    }
+
+    /**
+     * Step 31.3: Enter file name and type 'EDIT NEW'
+     */
+    public void enterEditFileName(String fileName) {
+        try {
+            WebElement fileNameInput = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(editFileNameInputXpath)));
+            fileNameInput.clear();
+            fileNameInput.sendKeys(fileName);
+        } catch (TimeoutException e) {
+            throw new RuntimeException("Edit file name input not found", e);
+        }
+    }
+
+    /**
+     * Step 31.4: Click SAVE button
+     */
+    public void clickSaveButton() {
+        try {
+            WebElement saveBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(saveButtonXpath)));
+            saveBtn.click();
+        } catch (TimeoutException e) {
+            throw new RuntimeException("SAVE button not found", e);
+        }
+    }
+
+    /**
+     * Step 31.5: Verify SUCCESS dialog is shown (edit)
+     */
+    public boolean isEditSuccessDialogDisplayed() {
+        try {
+            WebElement dialog = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(editSuccessDialogXpath)));
+            return dialog.isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Step 31.6: Get and show the success message (edit)
+     */
+    public String getEditSuccessMessage() {
+        try {
+            WebElement msg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(editSuccessMessageXpath)));
+            return msg.getText();
+        } catch (TimeoutException e) {
+            throw new RuntimeException("Edit success message not found", e);
+        }
+    }
+
+    /**
+     * Step 31.7: Click OK button (edit)
+     */
+    public void clickOkButtonEdit() {
+        try {
+            WebElement okBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(okButtonEditXpath)));
+            okBtn.click();
+        } catch (TimeoutException e) {
+            throw new RuntimeException("OK button (edit) not found", e);
+        }
+    }
+
+    /**
+     * Step 31.8: Click menu icon again
+     */
+    public void clickMenuIconAgain() {
+        clickMenuIcon();
+    }
+
+    /**
+     * Step 31.9: Click ORGANISE
+     */
+    public void clickOrganise() {
+        try {
+            WebElement organiseBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(organiseButtonXpath)));
+            organiseBtn.click();
+        } catch (TimeoutException e) {
+            throw new RuntimeException("ORGANISE button not found", e);
+        }
+    }
 
     // ==================== METHODS ====================
 
@@ -201,59 +341,52 @@ public class AbChopraHousePage {
             // Wait 3 seconds for page to settle after swipes
             Thread.sleep(3000);
 
-            // Increase wait time to 15 seconds for this element
             WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(15));
-
-            // Try multiple XPath strategies
             WebElement discoverPlusBtn = null;
 
-            // Strategy 1: Exact match with double quotes
+            // Try iOS XPaths and locator strategies
+            // 1. name='DISCOVER +'
             try {
-                discoverPlusBtn = longWait.until(ExpectedConditions.elementToBeClickable(
-                        By.xpath("//android.view.View[@content-desc=\"DISCOVER +\"]")));
-            } catch (Exception e1) {
-                // Strategy 2: Contains match
+                discoverPlusBtn = longWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//XCUIElementTypeStaticText[@name='DISCOVER +']")));
+            } catch (Exception e1) {}
+            // 2. name='DISCOVER\n +'
+            if (discoverPlusBtn == null) {
                 try {
-                    discoverPlusBtn = driver.findElement(
-                            By.xpath("//android.view.View[contains(@content-desc, 'DISCOVER')]"));
-                } catch (Exception e2) {
-                    // Strategy 3: Try with wildcard element type
-                    try {
-                        discoverPlusBtn = driver.findElement(
-                                By.xpath("//*[contains(@content-desc, 'DISCOVER +')]"));
-                    } catch (Exception e3) {
-                        // Strategy 4: Try button element
-                        discoverPlusBtn = driver.findElement(
-                                By.xpath("//android.widget.Button[contains(@content-desc, 'DISCOVER')]"));
-                    }
-                }
+                    discoverPlusBtn = longWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//XCUIElementTypeStaticText[@name='DISCOVER\\n +']")));
+                } catch (Exception e2) {}
             }
-
+            // 3. value='DISCOVER\n +'
+            if (discoverPlusBtn == null) {
+                try {
+                    discoverPlusBtn = longWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//XCUIElementTypeStaticText[@value='DISCOVER\\n +']")));
+                } catch (Exception e3) {}
+            }
+            // 4. contains(@name, 'DISCOVER')
+            if (discoverPlusBtn == null) {
+                try {
+                    discoverPlusBtn = longWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//XCUIElementTypeStaticText[contains(@name,'DISCOVER')]")));
+                } catch (Exception e4) {}
+            }
+            // 5. accessibility id
+            if (discoverPlusBtn == null) {
+                try {
+                    discoverPlusBtn = (WebElement) driver.findElement(io.appium.java_client.MobileBy.AccessibilityId("DISCOVER +"));
+                } catch (Exception e5) {}
+            }
+            if (discoverPlusBtn == null) {
+                try {
+                    discoverPlusBtn = (WebElement) driver.findElement(io.appium.java_client.MobileBy.AccessibilityId("DISCOVER\n +"));
+                } catch (Exception e6) {}
+            }
             if (discoverPlusBtn != null) {
                 discoverPlusBtn.click();
             } else {
-                throw new RuntimeException("DISCOVER + button not found with any strategy");
+                throw new RuntimeException("DISCOVER + button not found by any iOS locator");
             }
         } catch (TimeoutException e) {
             throw new RuntimeException("DISCOVER + button not found", e);
         } catch (InterruptedException e) {
             throw new RuntimeException("Interrupted while waiting", e);
-        }
-    }
-
-    /**
-     * Step 9: Click Filter button
-     */
-    public void clickFilter() {
-        try {
-            WebElement filterBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(filterButtonXpath)));
-            filterBtn.click();
-            // Wait for filter dialog to appear
-            Thread.sleep(2000);
-        } catch (TimeoutException e) {
-            throw new RuntimeException("FILTER button not found", e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Interrupted while waiting for filter dialog", e);
         }
     }
 
@@ -387,10 +520,17 @@ public class AbChopraHousePage {
      */
     public void clickBackButton() {
         try {
-            WebElement backBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(backButtonXpath)));
+            // Use MobileBy.iOSClassChain for more specific targeting of the top-left back button
+            WebElement backBtn = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                    io.appium.java_client.MobileBy.iOSClassChain(backButtonClassChain)
+                )
+            );
             backBtn.click();
         } catch (TimeoutException e) {
             throw new RuntimeException("Back button not found", e);
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            throw new RuntimeException("Back button not found using iOS class chain", e);
         }
     }
 
@@ -453,8 +593,9 @@ public class AbChopraHousePage {
      */
     public void clickSeeAll3() {
         try {
-            WebElement seeAll3 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(seeAll3Xpath)));
-            seeAll3.click();
+            // iOS: Use the 2nd 'See All' button by XPath as per user request
+            WebElement seeAll3Btn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//XCUIElementTypeButton[@name='See All'])[2]")));
+            seeAll3Btn.click();
         } catch (TimeoutException e) {
             throw new RuntimeException("See All 3 button not found", e);
         }
@@ -467,12 +608,17 @@ public class AbChopraHousePage {
         try {
             // Use longer wait time for Watch page to load
             WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(15));
-            WebElement watchPage = longWait
-                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath(watchPageXpath)));
+            WebElement watchPage = longWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(watchPageXpath)));
             return watchPage.isDisplayed();
-        } catch (Exception e) {
-            System.out.println("Watch page not found. Error: " + e.getMessage());
-            return false;
+        } catch (Exception e1) {
+            // Fallback: try by name if XPath fails
+            try {
+                WebElement watchPageByName = driver.findElement(By.name("Watch"));
+                return watchPageByName.isDisplayed();
+            } catch (Exception e2) {
+                System.out.println("Watch page not found by xpath or name. Error: " + e2.getMessage());
+                return false;
+            }
         }
     }
 
@@ -841,3 +987,5 @@ public class AbChopraHousePage {
         }
     }
 }
+
+
