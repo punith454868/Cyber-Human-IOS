@@ -940,24 +940,33 @@ public class AbChopraHousePage {
      */
     public void clickRemoveIcon() {
         try {
-            // Use relative XPath to find the clickable ImageView (remove icon)
-            // This locates the icon relative to the article content-desc
-            By removeIconLocator = By.xpath(
-                    "//android.view.View[contains(@content-desc,'The Timeless Dance')]//android.widget.ImageView[@clickable='true']");
-
-            // Wait for the remove icon to be visible and clickable
-            WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(15));
-            WebElement removeIcon = longWait.until(
-                    ExpectedConditions.elementToBeClickable(removeIconLocator));
-
-            // Click the remove icon
-            removeIcon.click();
-
-            // Wait for remove confirmation dialog to appear
-            Thread.sleep(1000);
-
+            // Step 32: Click Remove Icon (center of element) by position and size
+            int expectedX = 40;
+            int expectedY = 393;
+            int expectedWidth = 21;
+            int expectedHeight = 21;
+            java.util.List<WebElement> images = driver.findElements(By.className("XCUIElementTypeImage"));
+            WebElement target = null;
+            for (WebElement img : images) {
+                org.openqa.selenium.Rectangle rect = img.getRect();
+                if (rect.getX() == expectedX && rect.getY() == expectedY && rect.getWidth() == expectedWidth && rect.getHeight() == expectedHeight) {
+                    target = img;
+                    break;
+                }
+            }
+            if (target == null) {
+                throw new RuntimeException("Remove icon not found by position/size");
+            }
+            int centerX = target.getRect().getX() + target.getRect().getWidth() / 2;
+            int centerY = target.getRect().getY() + target.getRect().getHeight() / 2;
+            PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+            Sequence tap = new Sequence(finger, 1);
+            tap.addAction(finger.createPointerMove(Duration.ZERO, PointerInput.Origin.viewport(), centerX, centerY));
+            tap.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+            tap.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+            driver.perform(Collections.singletonList(tap));
         } catch (Exception e) {
-            throw new RuntimeException("Failed to click remove icon", e);
+            throw new RuntimeException("Failed to click Remove icon at center", e);
         }
     }
 
@@ -991,9 +1000,22 @@ public class AbChopraHousePage {
      */
     public String getDeleteSuccessMessage() {
         try {
-            WebElement deleteMessage = wait
-                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath(deleteSuccessMessageXpath)));
-            return deleteMessage.getAttribute("content-desc");
+            // Try XPath first
+            try {
+                WebElement msg = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//XCUIElementTypeStaticText[@name='Your article has been successfully deleted.']")));
+                if (msg != null && msg.isDisplayed()) {
+                    return msg.getText();
+                }
+            } catch (Exception ignore) {}
+            // Fallback: search all static texts for the name
+            java.util.List<WebElement> elements = driver.findElements(By.className("XCUIElementTypeStaticText"));
+            for (WebElement el : elements) {
+                String name = el.getAttribute("name");
+                if ("Your article has been successfully deleted.".equals(name)) {
+                    return el.getText();
+                }
+            }
+            return null;
         } catch (TimeoutException e) {
             throw new RuntimeException("Delete success message not found", e);
         }
