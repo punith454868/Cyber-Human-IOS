@@ -345,15 +345,37 @@ public class AbChopraHouseTest extends BaseTest {
         Assert.assertTrue(newFile.isDisplayed(), "New file should be visible");
         test.log(Status.PASS, "✓ Step 29: New file is in archive (validated by NSPredicate)");
 
-        // Step 30 – click the same file
-        test.log(Status.INFO, "Step 30: Clicking new file in archive (using NSPredicate)");
-        newFile.click();
-        test.log(Status.PASS, "✓ Step 30: New file clicked (via NSPredicate)");
+        // Step 30 – tap left side of image using W3C Actions API and viewport coordinates
+        test.log(Status.INFO, "Step 30: Clicking new file in archive (W3C Actions tap on left side of XCUIElementTypeImage)");
+        org.openqa.selenium.WebElement image = driver.findElement(
+            io.appium.java_client.MobileBy.iOSNsPredicateString("type == 'XCUIElementTypeImage' AND name BEGINSWITH 'New'")
+        );
+        org.openqa.selenium.Rectangle rect = image.getRect();
+        int tapX = rect.getX() + 10;
+        int tapY = rect.getY() + (rect.getHeight() / 2);
+        org.openqa.selenium.interactions.PointerInput finger = new org.openqa.selenium.interactions.PointerInput(org.openqa.selenium.interactions.PointerInput.Kind.TOUCH, "finger");
+        org.openqa.selenium.interactions.Sequence tap = new org.openqa.selenium.interactions.Sequence(finger, 1);
+        tap.addAction(finger.createPointerMove(
+            java.time.Duration.ZERO,
+            org.openqa.selenium.interactions.PointerInput.Origin.viewport(),
+            tapX,
+            tapY
+        ));
+        tap.addAction(finger.createPointerDown(org.openqa.selenium.interactions.PointerInput.MouseButton.LEFT.asArg()));
+        tap.addAction(finger.createPointerUp(org.openqa.selenium.interactions.PointerInput.MouseButton.LEFT.asArg()));
+        driver.perform(java.util.List.of(tap));
+        test.log(Status.PASS, "✓ Step 30: New file tapped at left side (W3C Actions)");
         Thread.sleep(1000);
 
-        // Step 31 – verify the same file in archive
+        // Step 31 – verify archived file using NSPredicate (ignore date)
         test.log(Status.INFO, "Step 31: Verifying archived file is displayed (using NSPredicate)");
-        Assert.assertTrue(newFile.isDisplayed(), "New file should be visible in archive");
+        org.openqa.selenium.WebElement archivedFile = driver.findElement(
+            io.appium.java_client.MobileBy.iOSNsPredicateString("name BEGINSWITH 'New'")
+        );
+        Assert.assertTrue(
+            archivedFile.isDisplayed(),
+            "Archived file with name 'New' should be displayed"
+        );
         test.log(Status.PASS, "✓ Step 31: Archived file is displayed (via NSPredicate)");
 
         // Step 31.1: Click menu icon
