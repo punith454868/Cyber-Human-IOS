@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.automation.tests.AbChopraHouseTest" time="197.941" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.automation.tests.AbChopraHouseTest" time="144.689" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -13,7 +13,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="IN"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire/surefirebooter-20260123140630961_3.jar /Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire 2026-01-23T14-06-30_924-jvmRun1 surefire-20260123140630961_1tmp surefire_0-20260123140630961_2tmp"/>
+    <property name="sun.java.command" value="/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire/surefirebooter-20260123145656461_3.jar /Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire 2026-01-23T14-56-56_419-jvmRun1 surefire-20260123145656461_1tmp surefire_0-20260123145656461_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="test" value="AbChopraHouseTest"/>
@@ -31,7 +31,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire/surefirebooter-20260123140630961_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/nd-admin/Desktop/Cyber-Human-IOS/AB-CHOPRA-AUTOMATION/target/surefire/surefirebooter-20260123145656461_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="25.0.1"/>
@@ -61,8 +61,15 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="testAbChopraHouse_Case1" classname="com.automation.tests.AbChopraHouseTest" time="186.417">
+  <testcase name="testAbChopraHouse_Case1" classname="com.automation.tests.AbChopraHouseTest" time="133.038">
     <system-out><![CDATA[✓ App state reset: App restarted successfully
+Keyboard hide failed or already hidden: class io.appium.java_client.ios.IOSDriver cannot be cast to class io.appium.java_client.android.AndroidDriver (io.appium.java_client.ios.IOSDriver and io.appium.java_client.android.AndroidDriver are in unnamed module of loader 'app')
+[Step 8.1.5] Keyboard hidden (iOS method)
+[Step 5] Found using XPath: //XCUIElementTypeStaticText[contains(@name,'DISCOVER')]
+[Step 8.1] Found search bar by XPath
+[Step 8.1.x] Found 'Listen' by XPath
+[Step 8.2] Found Love & Unity file by partial XPath
+[Step 8.3] Search bar cleared
 ]]></system-out>
     <system-err><![CDATA[SLF4J: No SLF4J providers were found.
 SLF4J: Defaulting to no-operation (NOP) logger implementation

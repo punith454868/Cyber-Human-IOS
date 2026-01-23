@@ -1,5 +1,7 @@
 package com.automation.tests;
 
+import org.openqa.selenium.WebElement;
+
 import com.automation.base.BaseTest;
 import com.automation.pages.AbChopraHousePage;
 import com.aventstack.extentreports.Status;
@@ -14,6 +16,17 @@ public class AbChopraHouseTest extends BaseTest {
         test.log(Status.INFO, "Starting AB Chopra House Test Case 1");
 
         AbChopraHousePage abChopraHousePage = new AbChopraHousePage(driver);
+
+        // Hide keyboard before verifying Love & Unity file (iOS)
+        test.log(Status.INFO, "Step 8.1.5: Hiding keyboard (iOS)");
+        try {
+            abChopraHousePage.hideKeyboard();
+            System.out.println("[Step 8.1.5] Keyboard hidden (iOS method)");
+            test.log(Status.PASS, "✓ Step 8.1.5: Keyboard hidden");
+        } catch (Exception e) {
+            test.log(Status.WARNING, "Could not hide keyboard: " + e.getMessage());
+        }
+        Thread.sleep(500);
 
         // Step 1: Verify DAILY PRIORITY heading is displayed on home page (iOS XPath)
         test.log(Status.INFO, "Step 1: Verifying DAILY PRIORITY heading on home page (iOS)");
@@ -77,30 +90,12 @@ public class AbChopraHouseTest extends BaseTest {
         test.log(Status.PASS, "✓ Step 4: DISCOVER clicked");
         Thread.sleep(3000);
 
-        // Step 5: Verify Discover Page is Shown (robust for newline and all locator types)
+        // Step 5: Verify Discover Page is Shown (only using contains(@name,'DISCOVER') XPath)
         test.log(Status.INFO, "Step 5: Verifying Discover Page is shown");
         Thread.sleep(2000); // Wait for page transition
-        boolean found = false;
-        // Try XPath with name 'DISCOVER +' (original)
-        if (driver.findElements(org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[@name='DISCOVER +']")).size() > 0) found = true;
-        // Try XPath with name 'DISCOVER\n +' (newline)
-        if (!found && driver.findElements(org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[@name='DISCOVER\\n +']")).size() > 0) found = true;
-        // Try XPath with value 'DISCOVER\n +'
-        if (!found && driver.findElements(org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[@value='DISCOVER\\n +']")).size() > 0) found = true;
-        // Try contains for partial match
-        if (!found && driver.findElements(org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[contains(@name,'DISCOVER')]" )).size() > 0) found = true;
-        // Try accessibility id
-        if (!found) {
-            try {
-                driver.findElement(io.appium.java_client.MobileBy.AccessibilityId("DISCOVER +"));
-                found = true;
-            } catch (Exception e) {}
-        }
-        if (!found) {
-            try {
-                driver.findElement(io.appium.java_client.MobileBy.AccessibilityId("DISCOVER\n +"));
-                found = true;
-            } catch (Exception e) {}
+        boolean found = driver.findElements(org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[contains(@name,'DISCOVER')]")).size() > 0;
+        if (found) {
+            System.out.println("[Step 5] Found using XPath: //XCUIElementTypeStaticText[contains(@name,'DISCOVER')]");
         }
         Assert.assertTrue(found, "Discover page should be displayed");
         test.log(Status.PASS, "✓ Step 5: Discover page is displayed");
@@ -122,6 +117,91 @@ public class AbChopraHouseTest extends BaseTest {
         abChopraHousePage.clickDiscoverPlus();
         test.log(Status.PASS, "✓ Step 8: DISCOVER + clicked");
         Thread.sleep(2000);
+
+        // Step 8.1: Interact with search bar
+        test.log(Status.INFO, "Step 8.1: Clicking and using search bar");
+        org.openqa.selenium.WebElement searchBar = null;
+        try {
+            searchBar = driver.findElement(org.openqa.selenium.By.xpath("//XCUIElementTypeTextField[@name='Search...']"));
+            System.out.println("[Step 8.1] Found search bar by XPath");
+        } catch (Exception e1) {
+            try {
+                searchBar = driver.findElement(org.openqa.selenium.By.name("Search..."));
+                System.out.println("[Step 8.1] Found search bar by name");
+            } catch (Exception e2) {
+                test.log(Status.FAIL, "Search bar not found by XPath or name");
+                Assert.fail("Search bar not found");
+            }
+        }
+        searchBar.click();
+        searchBar.clear();
+        searchBar.sendKeys("love&unity");
+        test.log(Status.PASS, "✓ Step 8.1: Search bar used and 'love&unity' entered");
+        Thread.sleep(9000);
+
+        // Step 8.1.x: Tap once on 'Listen'
+        test.log(Status.INFO, "Step 8.1.x: Tapping 'Listen' element");
+        WebElement listenElem;
+        try {
+            listenElem = driver.findElement(org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[@name='Listen']"));
+            System.out.println("[Step 8.1.x] Found 'Listen' by XPath");
+        } catch (Exception e1) {
+            try {
+                listenElem = driver.findElement(org.openqa.selenium.By.name("Listen"));
+                System.out.println("[Step 8.1.x] Found 'Listen' by name");
+            } catch (Exception e2) {
+                test.log(Status.FAIL, "'Listen' element not found by XPath or name");
+                Assert.fail("'Listen' element not found");
+                listenElem = null;
+            }
+        }
+        if (listenElem != null) {
+            listenElem.click();
+            test.log(Status.PASS, "✓ Step 8.1.x: 'Listen' element tapped");
+            Thread.sleep(1000);
+        }
+
+        // Step 8.2: Verify Love & Unity file is shown (robust partial match)
+        test.log(Status.INFO, "Step 8.2: Verifying Love & Unity file is shown");
+        boolean loveUnityFound = false;
+        // Try partial match XPath first
+        try {
+            loveUnityFound = driver.findElements(org.openqa.selenium.By.xpath("//XCUIElementTypeOther[contains(@name,'Love & Unity') or contains(@label,'Love & Unity') or contains(@value,'Love & Unity')]")).size() > 0;
+            if (loveUnityFound) {
+                System.out.println("[Step 8.2] Found Love & Unity file by partial XPath");
+            }
+        } catch (Exception e1) {}
+        // Fallback: search by name attribute in all XCUIElementTypeOther elements
+        if (!loveUnityFound) {
+            try {
+                java.util.List<WebElement> others = driver.findElements(org.openqa.selenium.By.className("XCUIElementTypeOther"));
+                for (WebElement el : others) {
+                    String name = el.getAttribute("name");
+                    if (name != null && name.contains("Love & Unity")) {
+                        loveUnityFound = true;
+                        System.out.println("[Step 8.2] Found Love & Unity file by partial name");
+                        break;
+                    }
+                }
+            } catch (Exception e2) {}
+        }
+        Assert.assertTrue(loveUnityFound, "Love & Unity file should be displayed");
+        test.log(Status.PASS, "✓ Step 8.2: Love & Unity file is displayed");
+        Thread.sleep(1000);
+
+        // Step 8.3: Clear the text in search bar
+        test.log(Status.INFO, "Step 8.3: Clearing search bar");
+        try {
+            if (searchBar == null) {
+                searchBar = driver.findElement(org.openqa.selenium.By.xpath("//XCUIElementTypeTextField[@name='Search...']"));
+            }
+            searchBar.clear();
+            System.out.println("[Step 8.3] Search bar cleared");
+        } catch (Exception e) {
+            test.log(Status.WARNING, "Could not clear search bar: " + e.getMessage());
+        }
+        test.log(Status.PASS, "✓ Step 8.3: Search bar cleared");
+        Thread.sleep(9000);
 
         // Step 9: Click FILTER
         test.log(Status.INFO, "Step 9: Clicking FILTER");

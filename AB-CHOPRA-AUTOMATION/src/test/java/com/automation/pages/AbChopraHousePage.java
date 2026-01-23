@@ -338,55 +338,12 @@ public class AbChopraHousePage {
      */
     public void clickDiscoverPlus() {
         try {
-            // Wait 3 seconds for page to settle after swipes
-            Thread.sleep(3000);
-
-            WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(15));
-            WebElement discoverPlusBtn = null;
-
-            // Try iOS XPaths and locator strategies
-            // 1. name='DISCOVER +'
-            try {
-                discoverPlusBtn = longWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//XCUIElementTypeStaticText[@name='DISCOVER +']")));
-            } catch (Exception e1) {}
-            // 2. name='DISCOVER\n +'
-            if (discoverPlusBtn == null) {
-                try {
-                    discoverPlusBtn = longWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//XCUIElementTypeStaticText[@name='DISCOVER\\n +']")));
-                } catch (Exception e2) {}
-            }
-            // 3. value='DISCOVER\n +'
-            if (discoverPlusBtn == null) {
-                try {
-                    discoverPlusBtn = longWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//XCUIElementTypeStaticText[@value='DISCOVER\\n +']")));
-                } catch (Exception e3) {}
-            }
-            // 4. contains(@name, 'DISCOVER')
-            if (discoverPlusBtn == null) {
-                try {
-                    discoverPlusBtn = longWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//XCUIElementTypeStaticText[contains(@name,'DISCOVER')]")));
-                } catch (Exception e4) {}
-            }
-            // 5. accessibility id
-            if (discoverPlusBtn == null) {
-                try {
-                    discoverPlusBtn = (WebElement) driver.findElement(io.appium.java_client.MobileBy.AccessibilityId("DISCOVER +"));
-                } catch (Exception e5) {}
-            }
-            if (discoverPlusBtn == null) {
-                try {
-                    discoverPlusBtn = (WebElement) driver.findElement(io.appium.java_client.MobileBy.AccessibilityId("DISCOVER\n +"));
-                } catch (Exception e6) {}
-            }
-            if (discoverPlusBtn != null) {
-                discoverPlusBtn.click();
-            } else {
-                throw new RuntimeException("DISCOVER + button not found by any iOS locator");
-            }
+            // Only use contains(@name,'DISCOVER') XPath method
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            WebElement discoverPlusBtn = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//XCUIElementTypeStaticText[contains(@name,'DISCOVER')]")));
+            discoverPlusBtn.click();
         } catch (TimeoutException e) {
             throw new RuntimeException("DISCOVER + button not found", e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Interrupted while waiting", e);
         }
     }
 
