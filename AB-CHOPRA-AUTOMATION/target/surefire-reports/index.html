@@ -129,21 +129,10 @@
                   <a name="testAbChopraHouse_Case1">
                   </a> <!-- testAbChopraHouse_Case1 -->
                   <span class="method-name">testAbChopraHouse_Case1</span>
-                  <div class="stack-trace">java.lang.RuntimeException: Article radio button not found
-	at com.automation.pages.AbChopraHousePage.clickVideoItem(AbChopraHousePage.java:640)
-	at com.automation.tests.AbChopraHouseTest.testAbChopraHouse_Case1(AbChopraHouseTest.java:252)
+                  <div class="stack-trace">java.lang.AssertionError: New file should be in archive expected [true] but found [false]
+	at com.automation.tests.AbChopraHouseTest.testAbChopraHouse_Case1(AbChopraHouseTest.java:341)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-Caused by: org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //android.view.View[contains(@content-desc,&apos;The Timeless Dance&apos;)]//android.view.View[@clickable=&apos;true&apos; and @focusable=&apos;true&apos;] (tried for 10 second(s) with 500 milliseconds interval)
-Build info: version: &apos;4.13.0&apos;, revision: &apos;ba948ece5b*&apos;
-System info: os.name: &apos;Mac OS X&apos;, os.arch: &apos;aarch64&apos;, os.version: &apos;14.5&apos;, java.version: &apos;25.0.1&apos;
-Driver info: io.appium.java_client.ios.IOSDriver
-Capabilities {appium:automationName: XCUITest, appium:bundleId: com.houseofepigenetics.abch..., appium:databaseEnabled: false, appium:deviceName: iPhone 13, appium:javascriptEnabled: true, appium:locationContextEnabled: false, appium:networkConnectionEnabled: false, appium:newCommandTimeout: 3600, appium:noReset: true, appium:platformVersion: 18.7, appium:takesScreenshot: true, appium:udid: 00008110-001425322E9B601E, appium:useNewWDA: false, appium:usePrebuiltWDA: true, appium:webDriverAgentUrl: http://localhost:8100, appium:webStorageEnabled: false, platformName: IOS}
-Session ID: e34e8275-b6ca-428f-8d1c-9d4e3c85ffbf
-	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
-	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:230)
-	at com.automation.pages.AbChopraHousePage.clickVideoItem(AbChopraHousePage.java:637)
-	... 32 more
-... Removed 30 stack frames
+... Removed 33 stack frames
 </div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
@@ -204,12 +193,12 @@ data.addRows(1);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'testAbChopraHouse_Case1')
 data.setCell(0, 2, 'com.automation.tests.AbChopraHouseTest')
-data.setCell(0, 3, 155242);
+data.setCell(0, 3, 184485);
 window.suiteTableData['Surefire_suite']= { tableData: data, tableDiv: 'times-div-Surefire_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 2 minutes</span>
+              <span class="suite-total-time">Total running time: 3 minutes</span>
               <div id="times-div-Surefire_suite">
               </div> <!-- times-div-Surefire_suite -->
             </div> <!-- times-div -->
@@ -242,21 +231,21 @@ return data;
               </div> <!-- configuration-suite before -->
               <div class="configuration-method before">
                 <span class="method-name">setup(public void com.automation.tests.AbChopraHouseTest.testAbChopraHouse_Case1() throws java.lang.Interr...)</span>
-                <span class="method-start">91 ms</span>
+                <span class="method-start">89 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <img src="failed.png">
                 </img>
                 <span class="method-name">testAbChopraHouse_Case1</span>
-                <span class="method-start">8585 ms</span>
+                <span class="method-start">9315 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown([TestResult name=testAbChopraHouse_Case1 status=FAILURE method=AbChopraHouseTest.testAbChopraHouse_C...)</span>
-                <span class="method-start">163844 ms</span>
+                <span class="method-start">193807 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-suite after">
                 <span class="method-name">tearDownReport</span>
-                <span class="method-start">167371 ms</span>
+                <span class="method-start">197199 ms</span>
               </div> <!-- configuration-suite after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

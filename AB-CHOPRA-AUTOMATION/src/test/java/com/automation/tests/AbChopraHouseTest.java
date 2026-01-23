@@ -182,7 +182,7 @@ public class AbChopraHouseTest extends BaseTest {
         test.log(Status.INFO, "Step 14: Clicking See All 3");
         abChopraHousePage.clickSeeAll3();
         test.log(Status.PASS, "✓ Step 14a: See All 3 clicked");
-        Thread.sleep(1000);
+        Thread.sleep(5000);
 
         test.log(Status.INFO, "Step 14: Verifying Watch page is displayed");
         Assert.assertTrue(abChopraHousePage.isWatchPageDisplayed(), "Watch page should be displayed");
@@ -219,12 +219,12 @@ public class AbChopraHouseTest extends BaseTest {
         test.log(Status.INFO, "Step 16: Clicking See All 2");
         abChopraHousePage.clickSeeAll2();
         test.log(Status.PASS, "✓ Step 16a: See All 2 clicked");
-        Thread.sleep(5000);
+        Thread.sleep(2000);
 
         test.log(Status.INFO, "Step 16: Verifying Read page is displayed");
         Assert.assertTrue(abChopraHousePage.isReadPageDisplayed(), "Read page should be displayed");
         test.log(Status.PASS, "✓ Step 16b: Read page is displayed");
-        Thread.sleep(5000);
+        Thread.sleep(2000);
 
         test.log(Status.INFO, "Step 16: Validating back button is visible before click");
         boolean isBackButtonVisible16 = false;
@@ -245,7 +245,7 @@ public class AbChopraHouseTest extends BaseTest {
             Assert.fail("Failed to click iOS Back button");
         }
         test.log(Status.PASS, "✓ Step 16c: iOS Back button clicked");
-        Thread.sleep(5000);
+       
 
         // Step 17: Click video item
         test.log(Status.INFO, "Step 17: Clicking video item");
@@ -273,28 +273,57 @@ public class AbChopraHouseTest extends BaseTest {
 
         // Step 23: Click close icon
         test.log(Status.INFO, "Step 23: Clicking close icon");
+
         abChopraHousePage.clickCloseIcon();
         test.log(Status.PASS, "✓ Step 23: Close icon clicked");
-        Thread.sleep(1000);
+        Thread.sleep(4000); // Wait 4 seconds after Step 23
 
         // Step 24: Verify Saved dialog is displayed
         test.log(Status.INFO, "Step 24: Verifying Saved dialog is displayed");
+
         Assert.assertTrue(abChopraHousePage.isSavedDialogDisplayed(), "SAVED dialog should be displayed");
         test.log(Status.PASS, "✓ Step 24: SAVED dialog is displayed");
+        Thread.sleep(4000); // Wait 4 seconds after Step 24
 
-        // Step 25: Get success message
+        // Step 25: Get success message (try XPath, then name)
         test.log(Status.INFO, "Step 25: Getting success message");
-        String savedMessage = abChopraHousePage.getSavedSuccessMessage();
+        String savedMessage = null;
+        try {
+            org.openqa.selenium.WebElement msgElem = driver.findElement(org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[@name='Your article has been successfully saved.']"));
+            savedMessage = msgElem.getText();
+            test.log(Status.INFO, "✓ Success message found by XPath");
+        } catch (Exception e1) {
+            test.log(Status.WARNING, "⚠ Success message not found by XPath: " + e1.getMessage());
+            try {
+                org.openqa.selenium.WebElement msgElemByName = driver.findElement(org.openqa.selenium.By.name("Your article has been successfully saved."));
+                savedMessage = msgElemByName.getText();
+                test.log(Status.INFO, "✓ Success message found by name");
+            } catch (Exception e2) {
+                test.log(Status.FAIL, "Failed to find success message by XPath or name: " + e2.getMessage());
+                Assert.fail("Success message not found by XPath or name");
+            }
+        }
         test.log(Status.PASS, "✓ Step 25: Success message captured");
         test.log(Status.INFO, "📋 Saved Success Message: " + savedMessage);
         Assert.assertEquals(savedMessage, "Your article has been successfully saved.", "Success message should confirm successful save");
         test.log(Status.PASS, "✓ Step 25: Verified correct success message displayed");
-
+        Thread.sleep(3000);
         // Step 26: Click OK button
         test.log(Status.INFO, "Step 26: Clicking OK button");
         abChopraHousePage.clickOkButton();
         test.log(Status.PASS, "✓ Step 26: OK button clicked");
         Thread.sleep(1000);
+
+                // Step 26.1: Click Back button (custom XPath)
+                test.log(Status.INFO, "Step 26.1: Clicking Back button using custom XPath");
+                try {
+                    driver.findElement(org.openqa.selenium.By.xpath("//XCUIElementTypeWindow/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeButton[1]")).click();
+                    test.log(Status.PASS, "✓ Step 26.1: Back button clicked");
+                } catch (Exception e) {
+                    test.log(Status.FAIL, "Failed to click Back button at Step 26.1: " + e.getMessage());
+                    Assert.fail("Failed to click Back button at Step 26.1");
+                }
+                Thread.sleep(2000);
 
         // Step 27: Click ARCHIVE
         test.log(Status.INFO, "Step 27: Clicking ARCHIVE");

@@ -519,18 +519,21 @@ public class AbChopraHousePage {
      * Step 13, 14, 16, 23: Click back button
      */
     public void clickBackButton() {
+        // Use the same logic as in the test for steps 13, 14, 16
+        boolean isBackButtonVisible = false;
         try {
-            // Use MobileBy.iOSClassChain for more specific targeting of the top-left back button
-            WebElement backBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                    io.appium.java_client.MobileBy.iOSClassChain(backButtonClassChain)
-                )
-            );
-            backBtn.click();
-        } catch (TimeoutException e) {
-            throw new RuntimeException("Back button not found", e);
-        } catch (org.openqa.selenium.NoSuchElementException e) {
-            throw new RuntimeException("Back button not found using iOS class chain", e);
+            int btnCount = driver.findElements(By.xpath("//XCUIElementTypeButton")).size();
+            isBackButtonVisible = btnCount > 0;
+        } catch (Exception e) {
+            isBackButtonVisible = false;
+        }
+        if (!isBackButtonVisible) {
+            throw new RuntimeException("Back button should be visible before clicking back");
+        }
+        try {
+            driver.findElement(By.xpath("//XCUIElementTypeButton")).click();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to click iOS Back button: " + e.getMessage(), e);
         }
     }
 
@@ -629,13 +632,22 @@ public class AbChopraHousePage {
      */
     public void clickVideoItem() {
         try {
-            // Locate radio button relative to article title
-            // Radio button has clickable='true' and focusable='true' but no content-desc
-            By articleRadio = By.xpath(
-                    "//android.view.View[contains(@content-desc,'The Timeless Dance')]" +
-                            "//android.view.View[@clickable='true' and @focusable='true']");
-            WebElement radioButton = wait.until(ExpectedConditions.elementToBeClickable(articleRadio));
-            radioButton.click();
+            // iOS: Use provided XPath for the radio button
+            By radioXpath = By.xpath("//XCUIElementTypeWindow/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeOther[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]");
+            WebElement radioButton = wait.until(ExpectedConditions.elementToBeClickable(radioXpath));
+            try {
+                radioButton.click();
+            } catch (Exception clickEx) {
+                // Fallback: tap by coordinates if click fails
+                int x = 24 + 25 / 2; // center x from inspector
+                int y = 600 + 25 / 2; // center y from inspector
+                org.openqa.selenium.interactions.PointerInput finger = new org.openqa.selenium.interactions.PointerInput(org.openqa.selenium.interactions.PointerInput.Kind.TOUCH, "finger");
+                org.openqa.selenium.interactions.Sequence tap = new org.openqa.selenium.interactions.Sequence(finger, 1);
+                tap.addAction(finger.createPointerMove(java.time.Duration.ZERO, org.openqa.selenium.interactions.PointerInput.Origin.viewport(), x, y));
+                tap.addAction(finger.createPointerDown(org.openqa.selenium.interactions.PointerInput.MouseButton.LEFT.asArg()));
+                tap.addAction(finger.createPointerUp(org.openqa.selenium.interactions.PointerInput.MouseButton.LEFT.asArg()));
+                driver.perform(java.util.Collections.singletonList(tap));
+            }
         } catch (TimeoutException e) {
             throw new RuntimeException("Article radio button not found", e);
         }
