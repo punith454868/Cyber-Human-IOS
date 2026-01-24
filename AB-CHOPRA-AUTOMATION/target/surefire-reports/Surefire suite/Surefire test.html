@@ -55,11 +55,11 @@ function toggleAllBoxes() {
 <body>
 <h2 align='center'>Surefire test</h2><table border='1' align="center">
 <tr>
-<td>Tests passed/Failed/Skipped:</td><td>1/0/0</td>
+<td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Fri Jan 23 14:56:56 PST 2026</td>
+<td>Started on:</td><td>Fri Jan 23 17:25:02 PST 2026</td>
 </tr>
-<tr><td>Total time:</td><td>144 seconds (144286 ms)</td>
+<tr><td>Total time:</td><td>97 seconds (97879 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -67,8 +67,8 @@ function toggleAllBoxes() {
 </tr>
 </table><p/>
 <small><i>(Hover the method name to see the test class name)</i></small><p/>
-<table width='100%' border='1' class='invocation-passed'>
-<tr><td colspan='4' align='center'><b>PASSED TESTS</b></td></tr>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
 <tr><td><b>Test method</b></td>
 <td><b>Attribute(s)</b></td>
 <td width="30%"><b>Exception</b></td>
@@ -76,10 +76,90 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='com.automation.tests.AbChopraHouseTest.testAbChopraHouse_Case1()'><b>testAbChopraHouse_Case1</b><br>Test class: com.automation.tests.AbChopraHouseTest</td>
-<td></td>
-<td>133</td>
-<td>com.automation.tests.AbChopraHouseTest@69930714</td></tr>
+<td title='com.automation.tests.ForgotPasswordTest.testForgotPasswordFlow()'><b>testForgotPasswordFlow</b><br>Test class: com.automation.tests.ForgotPasswordTest</td>
+<td><div><pre>org.openqa.selenium.StaleElementReferenceException: The previously found element &quot;TextField at {{50.0, 348.0}, {278.0, 22.0}}&quot; is not present in the current view anymore. Make sure the application UI has the expected state. Original error: No matches found for Elements matching predicate &apos;fb_uid IN {&quot;16010000-0000-0000-470D-000000000000&quot;}&apos; from input {(
+    TextField
+)}
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Build info: version: &apos;4.13.0&apos;, revision: &apos;ba948ece5b*&apos;
+System info: os.name: &apos;Mac OS X&apos;, os.arch: &apos;aarch64&apos;, os.version: &apos;14.5&apos;, java.version: &apos;25.0.1&apos;
+Driver info: io.appium.java_client.ios.IOSDriver
+Command: [343cc7f3-9eff-4f05-b4cb-5d9a11e871aa, clearElement {id=16010000-0000-0000-470D-000000000000}]
+Capabilities {appium:automationName: XCUITest, appium:bundleId: com.houseofepigenetics.abch..., appium:databaseEnabled: false, appium:deviceName: iPhone 13, appium:javascriptEnabled: true, appium:locationContextEnabled: false, appium:networkConnectionEnabled: false, appium:newCommandTimeout: 3600, appium:noReset: true, appium:platformVersion: 18.7, appium:takesScreenshot: true, appium:udid: 00008110-001425322E9B601E, appium:useNewWDA: false, appium:usePrebuiltWDA: true, appium:webDriverAgentUrl: http://localhost:8100, appium:webStorageEnabled: false, platformName: IOS}
+Element: [[IOSDriver:  on IOS (343cc7f3-9eff-4f05-b4cb-5d9a11e871aa)] -&gt; xpath: //XCUIElementTypeTextField]
+Session ID: 343cc7f3-9eff-4f05-b4cb-5d9a11e871aa
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
+	at io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:250)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:602)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:224)
+	at org.openqa.selenium.remote.RemoteWebElement.clear(RemoteWebElement.java:130)
+	at com.automation.pages.ForgotPasswordPage.enterPasswordField(ForgotPasswordPage.java:136)
+	at com.automation.pages.ForgotPasswordPage.enterPasswords(ForgotPasswordPage.java:414)
+	at com.automation.tests.ForgotPasswordTest.testForgotPasswordFlow(ForgotPasswordTest.java:247)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+... Removed 33 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace390034407", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace390034407'><pre>org.openqa.selenium.StaleElementReferenceException: The previously found element &quot;TextField at {{50.0, 348.0}, {278.0, 22.0}}&quot; is not present in the current view anymore. Make sure the application UI has the expected state. Original error: No matches found for Elements matching predicate &apos;fb_uid IN {&quot;16010000-0000-0000-470D-000000000000&quot;}&apos; from input {(
+    TextField
+)}
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Build info: version: &apos;4.13.0&apos;, revision: &apos;ba948ece5b*&apos;
+System info: os.name: &apos;Mac OS X&apos;, os.arch: &apos;aarch64&apos;, os.version: &apos;14.5&apos;, java.version: &apos;25.0.1&apos;
+Driver info: io.appium.java_client.ios.IOSDriver
+Command: [343cc7f3-9eff-4f05-b4cb-5d9a11e871aa, clearElement {id=16010000-0000-0000-470D-000000000000}]
+Capabilities {appium:automationName: XCUITest, appium:bundleId: com.houseofepigenetics.abch..., appium:databaseEnabled: false, appium:deviceName: iPhone 13, appium:javascriptEnabled: true, appium:locationContextEnabled: false, appium:networkConnectionEnabled: false, appium:newCommandTimeout: 3600, appium:noReset: true, appium:platformVersion: 18.7, appium:takesScreenshot: true, appium:udid: 00008110-001425322E9B601E, appium:useNewWDA: false, appium:usePrebuiltWDA: true, appium:webDriverAgentUrl: http://localhost:8100, appium:webStorageEnabled: false, platformName: IOS}
+Element: [[IOSDriver:  on IOS (343cc7f3-9eff-4f05-b4cb-5d9a11e871aa)] -&gt; xpath: //XCUIElementTypeTextField]
+Session ID: 343cc7f3-9eff-4f05-b4cb-5d9a11e871aa
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:483)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
+	at io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:250)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:602)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:224)
+	at org.openqa.selenium.remote.RemoteWebElement.clear(RemoteWebElement.java:130)
+	at com.automation.pages.ForgotPasswordPage.enterPasswordField(ForgotPasswordPage.java:136)
+	at com.automation.pages.ForgotPasswordPage.enterPasswords(ForgotPasswordPage.java:414)
+	at com.automation.tests.ForgotPasswordTest.testForgotPasswordFlow(ForgotPasswordTest.java:247)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:227)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:957)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:200)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+	at org.testng.TestRunner.privateRun(TestRunner.java:848)
+	at org.testng.TestRunner.run(TestRunner.java:621)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1280)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1200)
+	at org.testng.TestNG.runSuites(TestNG.java:1114)
+	at org.testng.TestNG.run(TestNG.java:1082)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:155)
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.executeSingleClass(TestNGDirectoryTestSuite.java:102)
+	at org.apache.maven.surefire.testng.TestNGDirectoryTestSuite.execute(TestNGDirectoryTestSuite.java:91)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:137)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+</pre></div></td>
+<td>82</td>
+<td>com.automation.tests.ForgotPasswordTest@11dc3715</td></tr>
 </table><p>
 </body>
 </html>

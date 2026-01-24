@@ -25,7 +25,7 @@
       <span class="top-banner-title-font">Test results</span>
       <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
       <br/>
-      <span class="top-banner-font-1">1 suite</span>
+      <span class="top-banner-font-1">1 suite, 1 failed test</span>
     </div> <!-- top-banner-root -->
     <div class="navigator-root">
       <div class="navigator-suite-header">
@@ -39,7 +39,7 @@
         <div class="rounded-window">
           <div class="suite-header light-rounded-window-top">
             <a href="#" panel-name="suite-Surefire_suite" class="navigator-link">
-              <span class="suite-name border-passed">Surefire suite</span>
+              <span class="suite-name border-failed">Surefire suite</span>
             </a> <!-- navigator-link -->
           </div> <!-- suite-header light-rounded-window-top -->
           <div class="navigator-suite-content">
@@ -92,21 +92,21 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method,   1 passed</span>
+                    <span class="method-stats">1 method, 1 failed,   </span>
                   </li>
                   <li>
-                    <span class="method-list-title passed">Passed methods</span>
-                    <span class="show-or-hide-methods passed">
-                      <a href="#" panel-name="suite-Surefire_suite" class="hide-methods passed suite-Surefire_suite"> (hide)</a> <!-- hide-methods passed suite-Surefire_suite -->
-                      <a href="#" panel-name="suite-Surefire_suite" class="show-methods passed suite-Surefire_suite"> (show)</a> <!-- show-methods passed suite-Surefire_suite -->
+                    <span class="method-list-title failed">Failed methods</span>
+                    <span class="show-or-hide-methods failed">
+                      <a href="#" panel-name="suite-Surefire_suite" class="hide-methods failed suite-Surefire_suite"> (hide)</a> <!-- hide-methods failed suite-Surefire_suite -->
+                      <a href="#" panel-name="suite-Surefire_suite" class="show-methods failed suite-Surefire_suite"> (show)</a> <!-- show-methods failed suite-Surefire_suite -->
                     </span>
-                    <div class="method-list-content passed suite-Surefire_suite">
+                    <div class="method-list-content failed suite-Surefire_suite">
                       <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Surefire_suite" title="com.automation.tests.AbChopraHouseTest" class="method navigator-link" hash-for-method="testAbChopraHouse_Case1">testAbChopraHouse_Case1</a> <!-- method navigator-link -->
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Surefire_suite" title="com.automation.tests.ForgotPasswordTest" class="method navigator-link" hash-for-method="testForgotPasswordFlow">testForgotPasswordFlow</a> <!-- method navigator-link -->
                       </span>
                       <br/>
-                    </div> <!-- method-list-content passed suite-Surefire_suite -->
+                    </div> <!-- method-list-content failed suite-Surefire_suite -->
                   </li>
                 </ul>
               </div> <!-- suite-section-content -->
@@ -118,21 +118,46 @@
     <div class="wrapper">
       <div class="main-panel-root">
         <div panel-name="suite-Surefire_suite" class="panel Surefire_suite">
-          <div class="suite-Surefire_suite-class-passed">
+          <div class="suite-Surefire_suite-class-failed">
             <div class="main-panel-header rounded-window-top">
-              <img src="passed.png"/>
-              <span class="class-name">com.automation.tests.AbChopraHouseTest</span>
+              <img src="failed.png"/>
+              <span class="class-name">com.automation.tests.ForgotPasswordTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="testAbChopraHouse_Case1">
-                  </a> <!-- testAbChopraHouse_Case1 -->
-                  <span class="method-name">testAbChopraHouse_Case1</span>
+                  <a name="testForgotPasswordFlow">
+                  </a> <!-- testForgotPasswordFlow -->
+                  <span class="method-name">testForgotPasswordFlow</span>
+                  <div class="stack-trace">org.openqa.selenium.StaleElementReferenceException: The previously found element &quot;TextField at {{50.0, 348.0}, {278.0, 22.0}}&quot; is not present in the current view anymore. Make sure the application UI has the expected state. Original error: No matches found for Elements matching predicate &apos;fb_uid IN {&quot;16010000-0000-0000-470D-000000000000&quot;}&apos; from input {(
+    TextField
+)}
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Build info: version: &apos;4.13.0&apos;, revision: &apos;ba948ece5b*&apos;
+System info: os.name: &apos;Mac OS X&apos;, os.arch: &apos;aarch64&apos;, os.version: &apos;14.5&apos;, java.version: &apos;25.0.1&apos;
+Driver info: io.appium.java_client.ios.IOSDriver
+Command: [343cc7f3-9eff-4f05-b4cb-5d9a11e871aa, clearElement {id=16010000-0000-0000-470D-000000000000}]
+Capabilities {appium:automationName: XCUITest, appium:bundleId: com.houseofepigenetics.abch..., appium:databaseEnabled: false, appium:deviceName: iPhone 13, appium:javascriptEnabled: true, appium:locationContextEnabled: false, appium:networkConnectionEnabled: false, appium:newCommandTimeout: 3600, appium:noReset: true, appium:platformVersion: 18.7, appium:takesScreenshot: true, appium:udid: 00008110-001425322E9B601E, appium:useNewWDA: false, appium:usePrebuiltWDA: true, appium:webDriverAgentUrl: http://localhost:8100, appium:webStorageEnabled: false, platformName: IOS}
+Element: [[IOSDriver:  on IOS (343cc7f3-9eff-4f05-b4cb-5d9a11e871aa)] -&gt; xpath: //XCUIElementTypeTextField]
+Session ID: 343cc7f3-9eff-4f05-b4cb-5d9a11e871aa
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
+	at io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:250)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:602)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:224)
+	at org.openqa.selenium.remote.RemoteWebElement.clear(RemoteWebElement.java:130)
+	at com.automation.pages.ForgotPasswordPage.enterPasswordField(ForgotPasswordPage.java:136)
+	at com.automation.pages.ForgotPasswordPage.enterPasswords(ForgotPasswordPage.java:414)
+	at com.automation.tests.ForgotPasswordTest.testForgotPasswordFlow(ForgotPasswordTest.java:247)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+... Removed 33 stack frames
+</div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-Surefire_suite-class-passed -->
+          </div> <!-- suite-Surefire_suite-class-failed -->
         </div> <!-- panel Surefire_suite -->
         <div panel-name="test-xml-Surefire_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
@@ -144,7 +169,7 @@
 &lt;suite name=&quot;Surefire suite&quot; verbose=&quot;0&quot;&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;Surefire test&quot; verbose=&quot;0&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;com.automation.tests.AbChopraHouseTest&quot;/&gt;
+      &lt;class name=&quot;com.automation.tests.ForgotPasswordTest&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Surefire test --&gt;
 &lt;/suite&gt; &lt;!-- Surefire suite --&gt;
@@ -186,14 +211,14 @@ data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
 data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'testAbChopraHouse_Case1')
-data.setCell(0, 2, 'com.automation.tests.AbChopraHouseTest')
-data.setCell(0, 3, 133032);
+data.setCell(0, 1, 'testForgotPasswordFlow')
+data.setCell(0, 2, 'com.automation.tests.ForgotPasswordTest')
+data.setCell(0, 3, 82893);
 window.suiteTableData['Surefire_suite']= { tableData: data, tableDiv: 'times-div-Surefire_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 2 minutes</span>
+              <span class="suite-total-time">Total running time: 1 minutes</span>
               <div id="times-div-Surefire_suite">
               </div> <!-- times-div-Surefire_suite -->
             </div> <!-- times-div -->
@@ -219,26 +244,32 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">com.automation.tests.AbChopraHouseTest</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">com.automation.tests.ForgotPasswordTest</div> <!-- chronological-class-name -->
               <div class="configuration-suite before">
                 <span class="method-name">setupReport</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-suite before -->
               <div class="configuration-method before">
-                <span class="method-name">setup(public void com.automation.tests.AbChopraHouseTest.testAbChopraHouse_Case1() throws java.lang.Interr...)</span>
-                <span class="method-start">107 ms</span>
+                <span class="method-name">setup(public void com.automation.tests.ForgotPasswordTest.testForgotPasswordFlow() throws java.lang.Interr...)</span>
+                <span class="method-start">90 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="configuration-method before">
+                <span class="method-name">navigateToSignInPageBeforeTest</span>
+                <span class="method-start">8470 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <span class="method-name">testAbChopraHouse_Case1</span>
-                <span class="method-start">8280 ms</span>
+                <img src="failed.png">
+                </img>
+                <span class="method-name">testForgotPasswordFlow</span>
+                <span class="method-start">11736 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
-                <span class="method-name">tearDown([TestResult name=testAbChopraHouse_Case1 status=SUCCESS method=AbChopraHouseTest.testAbChopraHouse_C...)</span>
-                <span class="method-start">141319 ms</span>
+                <span class="method-name">tearDown([TestResult name=testForgotPasswordFlow status=FAILURE method=ForgotPasswordTest.testForgotPasswordF...)</span>
+                <span class="method-start">94638 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-suite after">
                 <span class="method-name">tearDownReport</span>
-                <span class="method-start">144424 ms</span>
+                <span class="method-start">98008 ms</span>
               </div> <!-- configuration-suite after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

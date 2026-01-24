@@ -22,60 +22,59 @@ public class ForgotPasswordPage {
 
     // ==================== LOCATORS ====================
 
-    // Step 1: Forgot Password button
-    private final String forgotPasswordBtnXpath = "//android.widget.Button[@content-desc=\"Forgot Password?\"]";
+    // Step 1: Forgot Password button (iOS)
+    private final String forgotPasswordBtnXpath = "//XCUIElementTypeButton[@name=\"Forgot Password?\"]";
 
-    // Step 2 & 5: Email input box
-    private final String emailInputXpath = "//android.widget.EditText";
+    // Step 2 & 5: Email input box (iOS, generic)
+    private final String emailInputXpath = "//XCUIElementTypeTextField";
 
-    // Step 3 & 6: Send Message button
-    private final String sendMessageBtnXpath = "//android.widget.Button[@content-desc=\"SEND MESSAGE\"]";
+    // Step 3 & 6: Send Message button (iOS)
+    private final String sendMessageBtnXpath = "//XCUIElementTypeButton[@name=\"SEND MESSAGE\"]";
 
-    // Step 4: Invalid email error message
-    // Using contains for robustness and handling potential smart quotes
-    private final String invalidEmailErrorXpath = "//android.view.View[contains(@content-desc, \"We couldn\") and contains(@content-desc, \"find an account\")]";
+    // Step 4: Invalid email error message (iOS)
+    // name == "We couldn’t find an account with that email. Try a different one or sign up to get started."
+    private final String invalidEmailErrorXpath = "//XCUIElementTypeStaticText[@name=\"We couldn’t find an account with that email. Try a different one or sign up to get started.\"]";
 
-    // Step 7: Enter Verification Code page
-    private final String verificationCodePageXpath = "//android.view.View[@content-desc=\"ENTER VERIFICATION CODE\"]";
+    // Step 7: Enter Verification Code page (iOS)
+    private final String verificationCodePageXpath = "//XCUIElementTypeStaticText[@name=\"ENTER VERIFICATION CODE\"]";
 
-    // Step 8: Verify button
-    private final String verifyBtnXpath = "//android.widget.Button[@content-desc=\"VERIFY\"]";
+    // Step 8: Verify button (iOS)
+    private final String verifyBtnXpath = "//XCUIElementTypeButton[@name=\"VERIFY\"]";
 
-    // Step 9: Failed to verify OTP dialog
-    private final String failedToVerifyOtpXpath = "//android.view.View[@content-desc=\"FAILED TO VERIFY OTP\"]";
+    // Step 9: Failed to verify OTP dialog (iOS)
+    private final String failedToVerifyOtpXpath = "//XCUIElementTypeStaticText[@name=\"FAILED TO VERIFY OTP\"]";
 
-    // Step 10: OTP error message
-    private final String otpErrorMessageXpath = "//android.view.View[@content-desc=\"Please try again later.\"]";
+    // Step 10: OTP error message (iOS)
+    private final String otpErrorMessageXpath = "//XCUIElementTypeStaticText[@name=\"Please try again later.\"]";
 
-    // Step 11: OK button
-    private final String okButtonXpath = "//android.widget.Button[@content-desc=\"OK\"]";
+    // Step 11: OK button (iOS)
+    private final String okButtonXpath = "//XCUIElementTypeButton[@name=\"OK\"]";
 
-    // Step 12: Get a new code link
-    private final String getNewCodeXpath = "//android.view.View[@content-desc=\"Get a new code\"]";
+    // Step 12: Get a new code link (iOS)
+    private final String getNewCodeXpath = "//XCUIElementTypeStaticText[@name=\"Get a new code\"]";
 
-    // Step 13: Resend Successful dialog
-    private final String resendSuccessfulDialogXpath = "//android.view.View[@content-desc=\"RESEND SUCCESSFUL\"]";
-    private final String resendSuccessMessageXpath = "//android.view.View[@content-desc=\"Verification code has been send successfully.\"]";
+    // Step 13: Resend Successful dialog (iOS)
+    private final String resendSuccessfulDialogXpath = "//XCUIElementTypeStaticText[@name=\"RESEND SUCCESSFUL\"]";
+    private final String resendSuccessMessageXpath = "//XCUIElementTypeStaticText[@name=\"Verification code has been send successfully.\"]";
 
-    // Step 16: Reset Password page
-    private final String resetPasswordPageXpath = "//android.view.View[@content-desc=\"RESET PASSWORD\"]";
+    // Step 16: Reset Password page (iOS)
+    private final String resetPasswordPageXpath = "//XCUIElementTypeStaticText[@name=\"RESET PASSWORD\"]";
 
-    // Step 17: Password fields - Parent View elements (method will find EditText
-    // child)
-    private final String enterPasswordXpath = "//android.view.View[@content-desc=\"Enter Password\"]";
-    private final String confirmPasswordXpath = "//android.view.View[@content-desc=\"Confirm Password\"]";
+    // Step 17: Password fields (iOS)
+    private final String enterPasswordXpath = "//XCUIElementTypeOther[@name=\"Enter Password\"]";
+    private final String confirmPasswordXpath = "//XCUIElementTypeOther[@name=\"Confirm Password\"]";
 
-    // Step 18, 22, 26: Reset Password button
-    private final String resetPasswordBtnXpath = "//android.widget.Button[@content-desc=\"RESET PASSWORD\"]";
+    // Step 18, 22, 26: Reset Password button (iOS)
+    private final String resetPasswordBtnXpath = "//XCUIElementTypeButton[@name=\"RESET PASSWORD\"]";
 
-    // Step 19: Password validation error
-    private final String passwordValidationErrorXpath = "//android.view.View[@content-desc=\"Use at least 8 characters with uppercase, lowercase, number, and special symbol.\"]";
+    // Step 19: Password validation error (iOS)
+    private final String passwordValidationErrorXpath = "//XCUIElementTypeStaticText[@name=\"Use at least 8 characters with uppercase, lowercase, number, and special symbol.\"]";
 
-    // Step 23: Passwords do not match error
-    private final String passwordMismatchErrorXpath = "//android.view.View[@content-desc=\"Passwords do not match\"]";
+    // Step 23: Passwords do not match error (iOS)
+    private final String passwordMismatchErrorXpath = "//XCUIElementTypeStaticText[@name=\"Passwords do not match\"]";
 
-    // Step 27: Sign In page
-    private final String signInPageXpath = "//android.view.View[@content-desc=\"SIGN IN\"]";
+    // Step 27: Sign In page (iOS)
+    private final String signInPageXpath = "//XCUIElementTypeStaticText[@name=\"SIGN IN\"]";
 
     // ==================== HELPER METHODS ====================
 
@@ -83,20 +82,24 @@ public class ForgotPasswordPage {
         try {
             if (id != null && !id.isEmpty())
                 return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
-        } catch (TimeoutException ignored) {
-        }
+        } catch (TimeoutException ignored) {}
         try {
             if (xpath != null && !xpath.isEmpty())
                 return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
-        } catch (TimeoutException ignored) {
-        }
+        } catch (TimeoutException ignored) {}
         try {
             if (accessibilityId != null && !accessibilityId.isEmpty())
-                return wait.until(
-                        ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId(accessibilityId)));
-        } catch (TimeoutException ignored) {
-        }
-
+                return wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId(accessibilityId)));
+        } catch (TimeoutException ignored) {}
+        // iOS fallback: try by name if XPath fails
+        try {
+            if (xpath != null && xpath.contains("@name=")) {
+                String name = xpath.replaceAll(".*@name=\\\"(.*?)\\\".*", "$1");
+                if (!name.isEmpty()) {
+                    return wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId(name)));
+                }
+            }
+        } catch (TimeoutException ignored) {}
         throw new RuntimeException(
                 "Element not found with ID: " + id + ", XPath: " + xpath + ", AccessID: " + accessibilityId);
     }
@@ -124,35 +127,15 @@ public class ForgotPasswordPage {
      */
     private void enterPasswordField(String xpath, String text) throws InterruptedException {
         WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(15));
-
-        // Check if XPath already points to EditText (contains
-        // "/android.widget.EditText")
-        if (xpath.endsWith("/android.widget.EditText")) {
-            // Direct EditText - click, clear, and send keys
-            WebElement editText = longWait.until(
-                    ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
-            editText.click();
-            Thread.sleep(500);
-            editText.clear();
-            Thread.sleep(500);
-            editText.sendKeys(text);
-        } else {
-            // Parent View element - click parent, then find EditText child
-            WebElement parentView = longWait.until(
-                    ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
-            parentView.click();
-            Thread.sleep(500);
-
-            // Find the EditText child within the parent View
-            String editTextXpath = xpath + "/android.widget.EditText";
-            WebElement editText = longWait.until(
-                    ExpectedConditions.elementToBeClickable(By.xpath(editTextXpath)));
-
-            // Clear and enter text in the EditText
-            editText.clear();
-            Thread.sleep(500);
-            editText.sendKeys(text);
-        }
+        // Always use iOS password field
+        String iosPasswordFieldXpath = "//XCUIElementTypeTextField";
+        WebElement passwordField = longWait.until(
+                ExpectedConditions.elementToBeClickable(By.xpath(iosPasswordFieldXpath)));
+        passwordField.click();
+        Thread.sleep(500);
+        passwordField.clear();
+        Thread.sleep(500);
+        passwordField.sendKeys(text);
     }
 
     // ==================== PAGE METHODS ====================
@@ -186,20 +169,38 @@ public class ForgotPasswordPage {
      * Returns a message indicating no error was shown if element not found
      */
     /**
-     * Step 4: Get runtime error message for invalid email
+     * Step 4: Get runtime error message for invalid email (iOS)
      * Waits up to 10 seconds for the error message to appear
-     * Returns the content-desc attribute of the error view
+     * Returns the name attribute of the error view for reporting
      */
     public String getInvalidEmailErrorMessage() {
+        String iosErrorName = "We couldn’t find an account with that email. Try a different one or sign up to get started.";
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             WebElement errorMsg = wait.until(
                     ExpectedConditions.visibilityOfElementLocated(By.xpath(invalidEmailErrorXpath)));
-            return errorMsg.getAttribute("content-desc");
+            // Try to get the 'name' attribute (iOS)
+            String name = errorMsg.getAttribute("name");
+            if (name != null && !name.isEmpty()) {
+                return name;
+            } else {
+                // Fallback: get text
+                return errorMsg.getText();
+            }
         } catch (Exception e) {
-            // Error message might not appear if email format is actually valid
-            // or if the error appears in a different format
-            return "No error message displayed: " + e.getMessage();
+            // Fallback: try to find by name directly
+            try {
+                WebElement errorMsg = wait.until(
+                        ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId(iosErrorName)));
+                String name = errorMsg.getAttribute("name");
+                if (name != null && !name.isEmpty()) {
+                    return name;
+                } else {
+                    return errorMsg.getText();
+                }
+            } catch (Exception ex) {
+                return "No error message displayed: " + ex.getMessage();
+            }
         }
     }
 
@@ -208,6 +209,7 @@ public class ForgotPasswordPage {
      */
     public void enterValidEmail(String email) throws InterruptedException {
         clickClearAndSendKeys(emailInputXpath, email);
+        Thread.sleep(5000); // Wait 5 seconds after entering valid email
     }
 
     /**
@@ -227,7 +229,8 @@ public class ForgotPasswordPage {
      * Uses the specific XPath for the OTP input field
      */
     public void enterOtpCode(String otpCode) throws InterruptedException {
-        String otpFieldXpath = "//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[1]";
+        // iOS OTP field XPath (provided)
+        String otpFieldXpath = "//XCUIElementTypeApplication[@name=\"AB Chopra\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeTextField[1]";
 
         WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(15));
         WebElement otpField = longWait.until(
@@ -249,9 +252,9 @@ public class ForgotPasswordPage {
     public void clearOtpCode() throws InterruptedException {
         WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));
 
-        // Clear field 6 using index-based XPath
+        // Clear field 6 using iOS XPath
         try {
-            String field6Xpath = "//android.widget.FrameLayout[@resource-id=\"android:id/content\"]/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.EditText[6]";
+            String field6Xpath = "//XCUIElementTypeApplication[@name=\"AB Chopra\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeTextField[6]";
             WebElement field6 = shortWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(field6Xpath)));
             field6.click();
             Thread.sleep(200);
@@ -262,10 +265,10 @@ public class ForgotPasswordPage {
             System.out.println("⚠ Skipped OTP field 6 (not found)");
         }
 
-        // Clear fields 5 to 1 using text attribute
+        // Clear fields 5 to 1 using iOS XPath indices
         for (int i = 5; i >= 1; i--) {
             try {
-                String fieldXpath = "//android.widget.EditText[@text=\"" + i + "\"]";
+                String fieldXpath = "//XCUIElementTypeApplication[@name=\"AB Chopra\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeTextField[" + i + "]";
                 WebElement field = shortWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(fieldXpath)));
                 field.click();
                 Thread.sleep(200);
@@ -302,11 +305,31 @@ public class ForgotPasswordPage {
      * Step 10: Get OTP error message
      */
     public String getOtpErrorMessage() {
+        String iosOtpErrorName = "Please try again later.";
         try {
             WebElement errorElement = waitForElement(otpErrorMessageXpath, 5);
-            return errorElement.getAttribute("content-desc");
+            // Try to get the 'name' attribute (iOS)
+            String name = errorElement.getAttribute("name");
+            if (name != null && !name.isEmpty()) {
+                return name;
+            } else {
+                // Fallback: get text
+                return errorElement.getText();
+            }
         } catch (Exception e) {
-            return "No OTP error message displayed";
+            // Fallback: try to find by name directly
+            try {
+                WebElement errorElement = wait.until(
+                        ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId(iosOtpErrorName)));
+                String name = errorElement.getAttribute("name");
+                if (name != null && !name.isEmpty()) {
+                    return name;
+                } else {
+                    return errorElement.getText();
+                }
+            } catch (Exception ex) {
+                return "No OTP error message displayed: " + ex.getMessage();
+            }
         }
     }
 
@@ -342,8 +365,33 @@ public class ForgotPasswordPage {
      * Step 13: Get resend success message
      */
     public String getResendSuccessMessage() {
-        WebElement messageElement = findElementWithFallback(null, resendSuccessMessageXpath, null);
-        return messageElement.getAttribute("content-desc");
+        String iosResendSuccessName = "Verification code has been send successfully.";
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            WebElement messageElement = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(By.xpath(resendSuccessMessageXpath)));
+            String name = messageElement.getAttribute("name");
+            if (name != null && !name.isEmpty()) {
+                return name;
+            } else {
+                return messageElement.getText();
+            }
+        } catch (Exception e) {
+            // Fallback: try to find by name directly
+            try {
+                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+                WebElement messageElement = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId(iosResendSuccessName)));
+                String name = messageElement.getAttribute("name");
+                if (name != null && !name.isEmpty()) {
+                    return name;
+                } else {
+                    return messageElement.getText();
+                }
+            } catch (Exception ex) {
+                return "No resend success message displayed: " + ex.getMessage();
+            }
+        }
     }
 
     /**

@@ -9,10 +9,33 @@
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Retried</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
 <tr><th colspan="8">Surefire suite</th></tr>
-<tr><td><a href="#t0">Surefire test</a></td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">144,286</td><td></td><td></td></tr>
+<tr><td><a href="#t0">Surefire test</a></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">97,879</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Surefire suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Surefire test &#8212; passed</th></tr><tr class="passedeven"><td rowspan="1">com.automation.tests.AbChopraHouseTest</td><td><a href="#m0">testAbChopraHouse_Case1</a></td><td rowspan="1">1769209025021</td><td rowspan="1">133032</td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Surefire suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Surefire test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">com.automation.tests.ForgotPasswordTest</td><td><a href="#m0">testForgotPasswordFlow</a></td><td rowspan="1">1769217914204</td><td rowspan="1">82893</td></tr></tbody>
 </table>
-<h2>Surefire test</h2><h3 id="m0">com.automation.tests.AbChopraHouseTest#testAbChopraHouse_Case1</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h2>Surefire test</h2><h3 id="m0">com.automation.tests.ForgotPasswordTest#testForgotPasswordFlow</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.StaleElementReferenceException: The previously found element &quot;TextField at {{50.0, 348.0}, {278.0, 22.0}}&quot; is not present in the current view anymore. Make sure the application UI has the expected state. Original error: No matches found for Elements matching predicate &apos;fb_uid IN {&quot;16010000-0000-0000-470D-000000000000&quot;}&apos; from input {(
+    TextField
+)}
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+Build info: version: &apos;4.13.0&apos;, revision: &apos;ba948ece5b*&apos;
+System info: os.name: &apos;Mac OS X&apos;, os.arch: &apos;aarch64&apos;, os.version: &apos;14.5&apos;, java.version: &apos;25.0.1&apos;
+Driver info: io.appium.java_client.ios.IOSDriver
+Command: [343cc7f3-9eff-4f05-b4cb-5d9a11e871aa, clearElement {id=16010000-0000-0000-470D-000000000000}]
+Capabilities {appium:automationName: XCUITest, appium:bundleId: com.houseofepigenetics.abch..., appium:databaseEnabled: false, appium:deviceName: iPhone 13, appium:javascriptEnabled: true, appium:locationContextEnabled: false, appium:networkConnectionEnabled: false, appium:newCommandTimeout: 3600, appium:noReset: true, appium:platformVersion: 18.7, appium:takesScreenshot: true, appium:udid: 00008110-001425322E9B601E, appium:useNewWDA: false, appium:usePrebuiltWDA: true, appium:webDriverAgentUrl: http://localhost:8100, appium:webStorageEnabled: false, platformName: IOS}
+Element: [[IOSDriver:  on IOS (343cc7f3-9eff-4f05-b4cb-5d9a11e871aa)] -&gt; xpath: //XCUIElementTypeTextField]
+Session ID: 343cc7f3-9eff-4f05-b4cb-5d9a11e871aa
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
+	at io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:250)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:602)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:224)
+	at org.openqa.selenium.remote.RemoteWebElement.clear(RemoteWebElement.java:130)
+	at com.automation.pages.ForgotPasswordPage.enterPasswordField(ForgotPasswordPage.java:136)
+	at com.automation.pages.ForgotPasswordPage.enterPasswords(ForgotPasswordPage.java:414)
+	at com.automation.tests.ForgotPasswordTest.testForgotPasswordFlow(ForgotPasswordTest.java:247)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+... Removed 33 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
 </body>
 </html>
