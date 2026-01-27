@@ -12,6 +12,167 @@ import java.time.Duration;
 import java.util.List;
 
 public class ForgotPasswordPage {
+            /**
+             * Robustly clear a text field on iOS by sending backspaces for each character.
+             * Works for XCUIElementTypeTextField and custom fields.
+             */
+            /**
+             * Clear a text field on iOS by sending TAB to focus, then 5 backspaces.
+             */
+            public void clearTextFieldIOS(WebElement element) {
+                element.sendKeys(org.openqa.selenium.Keys.TAB);
+                for (int i = 0; i < 5; i++) {
+                    element.sendKeys("\u232B"); // BACKSPACE unicode
+                }
+            }
+        // ==================== HELPER METHODS ====================
+
+        public WebElement findElementWithFallback(String id, String xpath, String accessibilityId) {
+            try {
+                if (id != null && !id.isEmpty())
+                    return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
+            } catch (TimeoutException ignored) {}
+            try {
+                if (xpath != null && !xpath.isEmpty())
+                    return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+            } catch (TimeoutException ignored) {}
+            try {
+                if (accessibilityId != null && !accessibilityId.isEmpty())
+                    return wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId(accessibilityId)));
+            } catch (TimeoutException ignored) {}
+            // iOS fallback: try by name if XPath fails
+            try {
+                if (xpath != null && xpath.contains("@name=")) {
+                    String name = xpath.replaceAll(".*@name=\\\"(.*?)\\\".*", "$1");
+                    if (!name.isEmpty()) {
+                        return wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId(name)));
+                    }
+                }
+            } catch (TimeoutException ignored) {}
+            throw new RuntimeException(
+                    "Element not found with ID: " + id + ", XPath: " + xpath + ", AccessID: " + accessibilityId);
+        }
+
+        public WebElement waitForElement(String xpath, int timeoutSeconds) {
+            WebDriverWait customWait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+            return customWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+        }
+
+        public void clickClearAndSendKeys(String xpath, String text) throws InterruptedException {
+            WebElement element = findElementWithFallback(null, xpath, null);
+            element.click();
+            Thread.sleep(500);
+            element.clear();
+            Thread.sleep(500);
+            element.sendKeys(text);
+        }
+
+        // ==================== PAGE METHODS ====================
+
+        public void clickForgotPassword() {
+            WebElement btn = findElementWithFallback(null, forgotPasswordBtnXpath, "Forgot Password?");
+            btn.click();
+        }
+
+        public void enterInvalidEmail(String email) throws InterruptedException {
+            clickClearAndSendKeys(emailInputXpath, email);
+        }
+
+        public void clickSendMessage() {
+            WebElement btn = findElementWithFallback(null, sendMessageBtnXpath, "SEND MESSAGE");
+            btn.click();
+        }
+
+        public String getInvalidEmailErrorMessage() {
+            String iosErrorName = "We couldn’t find an account with that email. Try a different one or sign up to get started.";
+            try {
+                WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+                WebElement errorMsg = wait.until(
+                        ExpectedConditions.visibilityOfElementLocated(By.xpath(invalidEmailErrorXpath)));
+                String name = errorMsg.getAttribute("name");
+                if (name != null && !name.isEmpty()) {
+                    return name;
+                } else {
+                    return errorMsg.getText();
+                }
+            } catch (Exception e) {
+                try {
+                    WebElement errorMsg = wait.until(
+                            ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId(iosErrorName)));
+                    String name = errorMsg.getAttribute("name");
+                    if (name != null && !name.isEmpty()) {
+                        return name;
+                    } else {
+                        return errorMsg.getText();
+                    }
+                } catch (Exception ex) {
+                    return "No error message displayed: " + ex.getMessage();
+                }
+            }
+        }
+
+        public void enterValidEmail(String email) throws InterruptedException {
+            clickClearAndSendKeys(emailInputXpath, email);
+            Thread.sleep(5000);
+        }
+
+        public void enterOtpCode(String otpCode) throws InterruptedException {
+            String otpFieldXpath = "//XCUIElementTypeApplication[@name=\"AB Chopra\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeTextField[1]";
+            WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(15));
+            WebElement otpField = longWait.until(
+                    ExpectedConditions.elementToBeClickable(By.xpath(otpFieldXpath)));
+            otpField.click();
+            Thread.sleep(500);
+            otpField.clear();
+            Thread.sleep(500);
+            otpField.sendKeys(otpCode);
+            Thread.sleep(500);
+        }
+
+        public boolean isVerificationCodePageDisplayed() {
+            try {
+                WebElement page = findElementWithFallback(null, verificationCodePageXpath, "ENTER VERIFICATION CODE");
+                return page.isDisplayed();
+            } catch (Exception e) {
+                return false;
+            }
+        }
+
+        public void clickVerifyButton() {
+            WebElement btn = findElementWithFallback(null, verifyBtnXpath, "VERIFY");
+            btn.click();
+        }
+
+        public boolean isFailedToVerifyOtpDialogDisplayed() {
+            try {
+                WebElement dialog = findElementWithFallback(null, failedToVerifyOtpXpath, "FAILED TO VERIFY OTP");
+                return dialog.isDisplayed();
+            } catch (Exception e) {
+                return false;
+            }
+        }
+
+        public void clearOtpCode() throws InterruptedException {
+            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));
+            try {
+                String field6Xpath = "//XCUIElementTypeApplication[@name=\"AB Chopra\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeTextField[6]";
+                WebElement field6 = shortWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(field6Xpath)));
+                field6.click();
+                Thread.sleep(200);
+                field6.clear();
+                Thread.sleep(200);
+            } catch (Exception e) {}
+            for (int i = 5; i >= 1; i--) {
+                try {
+                    String fieldXpath = "//XCUIElementTypeApplication[@name=\"AB Chopra\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeTextField[" + i + "]";
+                    WebElement field = shortWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(fieldXpath)));
+                    field.click();
+                    Thread.sleep(200);
+                    field.clear();
+                    Thread.sleep(200);
+                } catch (Exception e) {}
+            }
+        }
     private AppiumDriver driver;
     private WebDriverWait wait;
 
@@ -60,254 +221,9 @@ public class ForgotPasswordPage {
     // Step 16: Reset Password page (iOS)
     private final String resetPasswordPageXpath = "//XCUIElementTypeStaticText[@name=\"RESET PASSWORD\"]";
 
-    // Step 17: Password fields (iOS)
-    private final String enterPasswordXpath = "//XCUIElementTypeOther[@name=\"Enter Password\"]";
-    private final String confirmPasswordXpath = "//XCUIElementTypeOther[@name=\"Confirm Password\"]";
-
-    // Step 18, 22, 26: Reset Password button (iOS)
-    private final String resetPasswordBtnXpath = "//XCUIElementTypeButton[@name=\"RESET PASSWORD\"]";
-
-    // Step 19: Password validation error (iOS)
-    private final String passwordValidationErrorXpath = "//XCUIElementTypeStaticText[@name=\"Use at least 8 characters with uppercase, lowercase, number, and special symbol.\"]";
-
-    // Step 23: Passwords do not match error (iOS)
-    private final String passwordMismatchErrorXpath = "//XCUIElementTypeStaticText[@name=\"Passwords do not match\"]";
-
-    // Step 27: Sign In page (iOS)
-    private final String signInPageXpath = "//XCUIElementTypeStaticText[@name=\"SIGN IN\"]";
+    // ...existing code...
 
     // ==================== HELPER METHODS ====================
-
-    private WebElement findElementWithFallback(String id, String xpath, String accessibilityId) {
-        try {
-            if (id != null && !id.isEmpty())
-                return wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
-        } catch (TimeoutException ignored) {}
-        try {
-            if (xpath != null && !xpath.isEmpty())
-                return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
-        } catch (TimeoutException ignored) {}
-        try {
-            if (accessibilityId != null && !accessibilityId.isEmpty())
-                return wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId(accessibilityId)));
-        } catch (TimeoutException ignored) {}
-        // iOS fallback: try by name if XPath fails
-        try {
-            if (xpath != null && xpath.contains("@name=")) {
-                String name = xpath.replaceAll(".*@name=\\\"(.*?)\\\".*", "$1");
-                if (!name.isEmpty()) {
-                    return wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId(name)));
-                }
-            }
-        } catch (TimeoutException ignored) {}
-        throw new RuntimeException(
-                "Element not found with ID: " + id + ", XPath: " + xpath + ", AccessID: " + accessibilityId);
-    }
-
-    private WebElement waitForElement(String xpath, int timeoutSeconds) {
-        WebDriverWait customWait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
-        return customWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
-    }
-
-    private void clickClearAndSendKeys(String xpath, String text) throws InterruptedException {
-        WebElement element = findElementWithFallback(null, xpath, null);
-        element.click();
-        Thread.sleep(500);
-        element.clear();
-        Thread.sleep(500);
-        element.sendKeys(text);
-    }
-
-    /**
-     * Robust password field interaction with explicit wait
-     * Handles both parent View elements and direct EditText elements
-     * - For Enter Password: clicks parent View, then finds EditText child
-     * - For Confirm Password: directly interacts with EditText if XPath points to
-     * it
-     */
-    private void enterPasswordField(String xpath, String text) throws InterruptedException {
-        WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        // Always click the parent view first (Enter Password)
-        String parentViewXpath = "//XCUIElementTypeOther[@name=\"Enter Password\"]";
-        try {
-            WebElement parentView = longWait.until(
-                ExpectedConditions.elementToBeClickable(By.xpath(parentViewXpath)));
-            parentView.click();
-            Thread.sleep(500);
-        } catch (Exception e) {
-            // If parent view not found, continue to secure text field
-        }
-        // Now interact with the first secure text field
-        String iosPasswordFieldXpath = "//XCUIElementTypeSecureTextField";
-        WebElement passwordField = longWait.until(
-            ExpectedConditions.elementToBeClickable(By.xpath(iosPasswordFieldXpath)));
-        passwordField.clear();
-        Thread.sleep(500);
-        passwordField.sendKeys(text);
-    }
-
-    // ==================== PAGE METHODS ====================
-
-    /**
-     * Step 1: Click Forgot Password button
-     */
-    public void clickForgotPassword() {
-        WebElement btn = findElementWithFallback(null, forgotPasswordBtnXpath, "Forgot Password?");
-        btn.click();
-    }
-
-    /**
-     * Step 2: Enter invalid email (click, clear, send keys)
-     */
-    public void enterInvalidEmail(String email) throws InterruptedException {
-        clickClearAndSendKeys(emailInputXpath, email);
-    }
-
-    /**
-     * Step 3: Click Send Message button
-     */
-    public void clickSendMessage() {
-        WebElement btn = findElementWithFallback(null, sendMessageBtnXpath, "SEND MESSAGE");
-        btn.click();
-    }
-
-    /**
-     * Step 4: Get runtime error message for invalid email
-     * Waits up to 5 seconds for the error message to appear
-     * Returns a message indicating no error was shown if element not found
-     */
-    /**
-     * Step 4: Get runtime error message for invalid email (iOS)
-     * Waits up to 10 seconds for the error message to appear
-     * Returns the name attribute of the error view for reporting
-     */
-    public String getInvalidEmailErrorMessage() {
-        String iosErrorName = "We couldn’t find an account with that email. Try a different one or sign up to get started.";
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            WebElement errorMsg = wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(By.xpath(invalidEmailErrorXpath)));
-            // Try to get the 'name' attribute (iOS)
-            String name = errorMsg.getAttribute("name");
-            if (name != null && !name.isEmpty()) {
-                return name;
-            } else {
-                // Fallback: get text
-                return errorMsg.getText();
-            }
-        } catch (Exception e) {
-            // Fallback: try to find by name directly
-            try {
-                WebElement errorMsg = wait.until(
-                        ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId(iosErrorName)));
-                String name = errorMsg.getAttribute("name");
-                if (name != null && !name.isEmpty()) {
-                    return name;
-                } else {
-                    return errorMsg.getText();
-                }
-            } catch (Exception ex) {
-                return "No error message displayed: " + ex.getMessage();
-            }
-        }
-    }
-
-    /**
-     * Step 5: Enter valid email (click, clear, send keys)
-     */
-    public void enterValidEmail(String email) throws InterruptedException {
-        clickClearAndSendKeys(emailInputXpath, email);
-        Thread.sleep(5000); // Wait 5 seconds after entering valid email
-    }
-
-    /**
-     * Step 7: Verify Enter Verification Code page is displayed
-     */
-    public boolean isVerificationCodePageDisplayed() {
-        try {
-            WebElement page = findElementWithFallback(null, verificationCodePageXpath, "ENTER VERIFICATION CODE");
-            return page.isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    /**
-     * Step 7a: Enter OTP verification code
-     * Uses the specific XPath for the OTP input field
-     */
-    public void enterOtpCode(String otpCode) throws InterruptedException {
-        // iOS OTP field XPath (provided)
-        String otpFieldXpath = "//XCUIElementTypeApplication[@name=\"AB Chopra\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeTextField[1]";
-
-        WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        WebElement otpField = longWait.until(
-                ExpectedConditions.elementToBeClickable(By.xpath(otpFieldXpath)));
-
-        otpField.click();
-        Thread.sleep(500);
-        otpField.clear();
-        Thread.sleep(500);
-        otpField.sendKeys(otpCode);
-        Thread.sleep(500);
-    }
-
-    /**
-     * Step 12a: Clear all OTP verification code fields
-     * Clicks and clears all 6 EditText fields
-     * Field 6 uses index, fields 1-5 use text attribute
-     */
-    public void clearOtpCode() throws InterruptedException {
-        WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));
-
-        // Clear field 6 using iOS XPath
-        try {
-            String field6Xpath = "//XCUIElementTypeApplication[@name=\"AB Chopra\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeTextField[6]";
-            WebElement field6 = shortWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(field6Xpath)));
-            field6.click();
-            Thread.sleep(200);
-            field6.clear();
-            Thread.sleep(200);
-            System.out.println("✓ Cleared OTP field 6");
-        } catch (Exception e) {
-            System.out.println("⚠ Skipped OTP field 6 (not found)");
-        }
-
-        // Clear fields 5 to 1 using iOS XPath indices
-        for (int i = 5; i >= 1; i--) {
-            try {
-                String fieldXpath = "//XCUIElementTypeApplication[@name=\"AB Chopra\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeTextField[" + i + "]";
-                WebElement field = shortWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(fieldXpath)));
-                field.click();
-                Thread.sleep(200);
-                field.clear();
-                Thread.sleep(200);
-                System.out.println("✓ Cleared OTP field " + i);
-            } catch (Exception e) {
-                System.out.println("⚠ Skipped OTP field " + i + " (not found)");
-            }
-        }
-    }
-
-    /**
-     * Step 8: Click Verify button (with invalid OTP)
-     */
-    public void clickVerifyButton() {
-        WebElement btn = findElementWithFallback(null, verifyBtnXpath, "VERIFY");
-        btn.click();
-    }
-
-    /**
-     * Step 9: Check if Failed to Verify OTP dialog is displayed
-     */
-    public boolean isFailedToVerifyOtpDialogDisplayed() {
-        try {
-            WebElement dialog = findElementWithFallback(null, failedToVerifyOtpXpath, "FAILED TO VERIFY OTP");
-            return dialog.isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
-    }
 
     /**
      * Step 10: Get OTP error message
@@ -408,281 +324,6 @@ public class ForgotPasswordPage {
     public boolean isResetPasswordPageDisplayed() {
         try {
             WebElement page = findElementWithFallback(null, resetPasswordPageXpath, "RESET PASSWORD");
-            return page.isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    /**
-     * Step 17: Enter passwords (click, clear, send keys)
-     * Uses robust password field interaction with explicit waits
-     */
-    public void enterPasswords(String password, String confirmPassword) throws InterruptedException {
-        enterPasswordField(enterPasswordXpath, password);
-        Thread.sleep(500);
-        enterPasswordField(confirmPasswordXpath, confirmPassword);
-    }
-
-    /**
-     * Step 20: Enter wrong password in first field (click, clear, send keys)
-     * Uses Enter Password parent View to find EditText child
-     */
-    public void enterWrongPassword1(String password) throws InterruptedException {
-        WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(15));
-
-        // Click parent View first
-        WebElement enterPasswordView = longWait.until(
-                ExpectedConditions.elementToBeClickable(By.xpath(enterPasswordXpath)));
-        enterPasswordView.click();
-        Thread.sleep(500);
-
-        // Find the EditText child within Enter Password View
-        String enterPasswordEditTextXpath = enterPasswordXpath + "/android.widget.EditText";
-        WebElement passwordField = longWait.until(
-                ExpectedConditions.elementToBeClickable(By.xpath(enterPasswordEditTextXpath)));
-        passwordField.clear();
-        Thread.sleep(500);
-        passwordField.sendKeys(password);
-        Thread.sleep(500);
-    }
-
-    /**
-     * Step 21: Enter wrong password in second field (click, clear, send keys)
-     * Directly interacts with EditText child without waiting for parent View
-     */
-    /**
-     * Step 21: Enter wrong password in second field (click, clear, send keys)
-     * Uses fallback strategy: tries specific XPath first, then second EditText
-     */
-    public void enterWrongPassword2(String password) throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        // Dismiss keyboard first
-        try {
-            ((io.appium.java_client.android.AndroidDriver) driver).hideKeyboard();
-            Thread.sleep(500);
-        } catch (Exception ignored) {
-        }
-
-        WebElement confirmPasswordField;
-        try {
-            confirmPasswordField = wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(
-                            By.xpath(confirmPasswordXpath + "/android.widget.EditText")));
-        } catch (org.openqa.selenium.TimeoutException e) {
-            // Fallback: Confirm Password is the second EditText
-            confirmPasswordField = wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(
-                            By.xpath("(//android.widget.EditText)[2]")));
-        }
-
-        confirmPasswordField.click();
-        Thread.sleep(500);
-        confirmPasswordField.clear();
-        Thread.sleep(500);
-        confirmPasswordField.sendKeys(password);
-        Thread.sleep(500);
-    }
-
-    /**
-     * Step 24: Enter correct password in first field (click, clear, send keys)
-     * Uses Enter Password parent View to find EditText child
-     */
-    public void enterCorrectPassword1(String password) throws InterruptedException {
-        WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(15));
-
-        // Click parent View first
-        WebElement enterPasswordView = longWait.until(
-                ExpectedConditions.elementToBeClickable(By.xpath(enterPasswordXpath)));
-        enterPasswordView.click();
-        Thread.sleep(500);
-
-        // Find the EditText child within Enter Password View
-        String enterPasswordEditTextXpath = enterPasswordXpath + "/android.widget.EditText";
-        WebElement passwordField = longWait.until(
-                ExpectedConditions.elementToBeClickable(By.xpath(enterPasswordEditTextXpath)));
-        passwordField.clear();
-        Thread.sleep(500);
-        passwordField.sendKeys(password);
-        Thread.sleep(500);
-    }
-
-    /**
-     * Step 25: Enter correct password in second field (click, clear, send keys)
-     * Directly interacts with EditText child without waiting for parent View
-     */
-    /**
-     * Step 25: Enter correct password in second field (click, clear, send keys)
-     * Uses fallback strategy: tries specific XPath first, then second EditText
-     */
-    public void enterCorrectPassword2(String password) throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        // Dismiss keyboard first
-        try {
-            ((io.appium.java_client.android.AndroidDriver) driver).hideKeyboard();
-            Thread.sleep(500);
-        } catch (Exception ignored) {
-        }
-
-        WebElement confirmPasswordField;
-        try {
-            confirmPasswordField = wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(
-                            By.xpath(confirmPasswordXpath + "/android.widget.EditText")));
-        } catch (org.openqa.selenium.TimeoutException e) {
-            // Fallback: Confirm Password is the second EditText
-            confirmPasswordField = wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(
-                            By.xpath("(//android.widget.EditText)[2]")));
-        }
-
-        confirmPasswordField.click();
-        Thread.sleep(500);
-        confirmPasswordField.clear();
-        Thread.sleep(500);
-        confirmPasswordField.sendKeys(password);
-        Thread.sleep(500);
-    }
-
-    /**
-     * Step 18, 22, 26: Click Reset Password button
-     */
-    /**
-     * Step 18, 22, 26: Click Reset Password button
-     */
-    public void clickResetPasswordButton() {
-        try {
-            ((io.appium.java_client.android.AndroidDriver) driver).hideKeyboard();
-            Thread.sleep(500);
-        } catch (Exception ignored) {
-        }
-
-        // Try to scroll to the button using UiScrollable
-        try {
-            driver.findElement(AppiumBy.androidUIAutomator(
-                    "new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView("
-                            + "new UiSelector().description(\"RESET PASSWORD\"));"));
-            Thread.sleep(500);
-        } catch (Exception ignored) {
-            // If scrolling fails or not needed, continue to click
-        }
-
-        WebElement btn = findElementWithFallback(null, resetPasswordBtnXpath, "RESET PASSWORD");
-        btn.click();
-    }
-
-    /**
-     * Step 19: Get password validation error message
-     * Returns "Passwords do not match" error if validation error not found
-     */
-    public String getPasswordValidationError() {
-        try {
-            // First try to find the password validation error
-            WebElement errorElement = waitForElement(passwordValidationErrorXpath, 3);
-            return errorElement.getAttribute("content-desc");
-        } catch (Exception e) {
-            // If not found, try to find "Passwords do not match" error
-            try {
-                WebElement mismatchElement = waitForElement(passwordMismatchErrorXpath, 2);
-                return mismatchElement.getAttribute("content-desc");
-            } catch (Exception e2) {
-                return "No password error message displayed";
-            }
-        }
-    }
-
-    /**
-     * Step 23: Get password mismatch error message
-     * Checks for rule validation errors first (using content-desc contains)
-     * Then checks for specific mismatch error
-     */
-    public String getPasswordMismatchError() {
-        // First check for password rule validation message
-        try {
-            List<WebElement> ruleErrors = driver.findElements(
-                    By.xpath("//android.view.View[contains(@content-desc,'Use at least 8 characters')]"));
-
-            if (!ruleErrors.isEmpty()) {
-                // Rule error found
-                return ruleErrors.get(0).getAttribute("content-desc");
-            }
-        } catch (Exception ignored) {
-        }
-
-        // If no rule error, check for mismatch error
-        try {
-            WebElement errorElement = waitForElement(passwordMismatchErrorXpath, 5);
-            return errorElement.getAttribute("content-desc");
-        } catch (Exception e) {
-            return "No password mismatch error displayed";
-        }
-    }
-
-    /**
-     * Dismiss password error overlay by clicking and clearing password field
-     * This makes the password fields accessible after an error is displayed
-     */
-    public void dismissPasswordError() {
-        try {
-            // Try to find any visible password EditText field with bullet characters
-            String[] possiblePasswordTexts = { "••••", "•••", "••", "•", "••••••••", "••••••" };
-
-            for (String passwordText : possiblePasswordTexts) {
-                try {
-                    String passwordFieldXpath = "//android.widget.EditText[@text='" + passwordText + "']";
-                    WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(2));
-                    WebElement passwordField = shortWait.until(
-                            ExpectedConditions.elementToBeClickable(By.xpath(passwordFieldXpath)));
-
-                    // Click and clear the field to dismiss error
-                    passwordField.click();
-                    Thread.sleep(300);
-                    passwordField.clear();
-                    Thread.sleep(300);
-                    return; // Successfully dismissed error
-                } catch (Exception ignored) {
-                    // Try next password text pattern
-                }
-            }
-
-            // If no password field with bullets found, try clicking password parent Views
-            // Try Enter Password first
-            try {
-                WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(2));
-                WebElement enterPasswordView = shortWait.until(
-                        ExpectedConditions.elementToBeClickable(By.xpath(enterPasswordXpath)));
-                enterPasswordView.click();
-                Thread.sleep(300);
-                return; // Successfully dismissed by clicking Enter Password
-            } catch (Exception ignored) {
-                // Try Confirm Password instead
-            }
-
-            // Try Confirm Password
-            try {
-                WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(2));
-                WebElement confirmPasswordView = shortWait.until(
-                        ExpectedConditions.elementToBeClickable(By.xpath(confirmPasswordXpath)));
-                confirmPasswordView.click();
-                Thread.sleep(300);
-            } catch (Exception ignored) {
-                // Error might already be dismissed or not present
-            }
-        } catch (Exception e) {
-            // Error dismissal failed, but continue anyway
-            System.out.println("Could not dismiss password error - continuing anyway");
-        }
-    }
-
-    /**
-     * Step 27: Verify Sign In page is displayed
-     * XPath: //android.view.View[@content-desc="SIGN IN"]
-     */
-    public boolean isSignInPageDisplayed() {
-        try {
-            WebElement page = findElementWithFallback(null, signInPageXpath, "SIGN IN");
             return page.isDisplayed();
         } catch (Exception e) {
             return false;

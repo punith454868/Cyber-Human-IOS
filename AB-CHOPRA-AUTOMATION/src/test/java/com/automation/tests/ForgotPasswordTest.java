@@ -5,6 +5,8 @@ import com.automation.pages.ForgotPasswordPage;
 import com.automation.pages.SignInPage;
 import com.aventstack.extentreports.Status;
 
+import org.openqa.selenium.WebElement;
+
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -242,102 +244,86 @@ public class ForgotPasswordTest extends BaseTest {
         Assert.assertTrue(isResetPasswordPageDisplayed, "RESET PASSWORD page should be displayed");
         test.log(Status.PASS, "✓ Step 18: RESET PASSWORD page verified");
 
-        // ==================== STEP 19: Enter Mismatched Passwords ====================
-        test.log(Status.INFO, "Step 19: Entering mismatched passwords (1234 and 123466)");
-        forgotPasswordPage.enterPasswords("1234", "123466");
-        test.log(Status.PASS, "✓ Step 19: Mismatched passwords entered");
-        Thread.sleep(1000);
+            // ==================== STEP 19: Enter Password (Hum) ====================
+            test.log(Status.INFO, "Step 19: Entering password 'Hum' in Enter Password field");
+            forgotPasswordPage.clickClearAndSendKeys("//XCUIElementTypeOther[@name=\"Enter Password\"]", "Hum");
+            test.log(Status.PASS, "✓ Step 19: Password 'Hum' entered in Enter Password field");
+            Thread.sleep(1000);
 
-        // ==================== STEP 20: Click Reset Password Button
-        // ====================
-        test.log(Status.INFO, "Step 20: Clicking RESET PASSWORD button");
-        forgotPasswordPage.clickResetPasswordButton();
-        test.log(Status.PASS, "✓ Step 20: RESET PASSWORD button clicked");
-        Thread.sleep(3000);
+            // ==================== STEP 20: Enter Confirm Password (Human) ====================
+            test.log(Status.INFO, "Step 20: Entering password 'Human' in Confirm Password field");
+            forgotPasswordPage.clickClearAndSendKeys("//XCUIElementTypeOther[@name=\"Confirm Password\"]", "Human");
+            test.log(Status.PASS, "✓ Step 20: Password 'Human' entered in Confirm Password field");
+            Thread.sleep(1000);
 
-        // ==================== STEP 21: Get Password Validation Error
-        // ====================
-        test.log(Status.INFO, "Step 21: Capturing password validation error message");
-        String passwordValidationError = forgotPasswordPage.getPasswordValidationError();
-        test.log(Status.INFO, "📋 Password Validation Error: " + passwordValidationError);
-        if (passwordValidationError.contains("No password error")) {
-            test.log(Status.WARNING, "⚠ Expected password error message not found - continuing with test");
-        } else {
-            test.log(Status.PASS, "✓ Step 21: Password validation error captured and displayed in report");
-        }
-        Thread.sleep(2000);
+            // ==================== STEP 21: Click Reset Password Button ====================
+            test.log(Status.INFO, "Step 21: Clicking RESET PASSWORD button");
+            forgotPasswordPage.findElementWithFallback(null, "//XCUIElementTypeButton[@name=\"RESET PASSWORD\"]", "RESET PASSWORD").click();
+            test.log(Status.PASS, "✓ Step 21: RESET PASSWORD button clicked");
+            Thread.sleep(2000);
 
-        // Dismiss error message by clicking and clearing password field
-        test.log(Status.INFO, "Dismissing error message to make password fields accessible");
-        forgotPasswordPage.dismissPasswordError();
-        Thread.sleep(1000);
+            // ==================== STEP 22: Get 'Passwords do not match' Error ====================
+            test.log(Status.INFO, "Step 22: Capturing error message for password mismatch");
+            String pwdMismatchError = forgotPasswordPage.waitForElement("//XCUIElementTypeStaticText[@name=\"Passwords do not match\"]", 5).getAttribute("name");
+            test.log(Status.INFO, "📋 Error Message: " + pwdMismatchError);
+            test.log(Status.PASS, "✓ Step 22: Password mismatch error message captured");
+            Thread.sleep(1000);
 
-        // ==================== STEP 22: Enter Wrong Password in First Field
-        // ====================
-        test.log(Status.INFO, "Step 22: Entering wrong password in first field (123)");
-        forgotPasswordPage.enterWrongPassword1("123");
-        test.log(Status.PASS, "✓ Step 22: Wrong password entered in first field (123)");
-        Thread.sleep(1000);
+            // ==================== STEP 23: Enter Password (ABC) ====================
+            test.log(Status.INFO, "Step 23: Entering password 'Human' in Enter Password field");
+            forgotPasswordPage.clickClearAndSendKeys("//XCUIElementTypeApplication[@name=\"AB Chopra\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeOther[1]/XCUIElementTypeOther", "an");
+            test.log(Status.PASS, "✓ Step 23: Password 'Human' entered in Enter Password field");
+            Thread.sleep(1000);
 
-        // ==================== STEP 23: Enter Wrong Password in Second Field
-        // ====================
-        test.log(Status.INFO, "Step 23: Entering wrong password in second field (123)");
-        forgotPasswordPage.enterWrongPassword2("123");
-        test.log(Status.PASS, "✓ Step 23: Wrong password entered in second field (123)");
-        Thread.sleep(1000);
 
-        // ==================== STEP 24: Click Reset Password Button
-        // ====================
-        test.log(Status.INFO, "Step 24: Clicking RESET PASSWORD button");
-        forgotPasswordPage.clickResetPasswordButton();
-        test.log(Status.PASS, "✓ Step 24: RESET PASSWORD button clicked");
-        Thread.sleep(3000);
+            // ==================== STEP 25: Click Reset Password Button ====================
+            test.log(Status.INFO, "Step 25: Clicking RESET PASSWORD button");
+            forgotPasswordPage.findElementWithFallback(null, "//XCUIElementTypeButton[@name=\"RESET PASSWORD\"]", "RESET PASSWORD").click();
+            test.log(Status.PASS, "✓ Step 25: RESET PASSWORD button clicked");
+            Thread.sleep(2000);
 
-        // ==================== STEP 25: Get Password Mismatch Error
-        // ====================
-        test.log(Status.INFO, "Step 25: Capturing 'Passwords do not match' error message");
-        String passwordMismatchError = forgotPasswordPage.getPasswordMismatchError();
-        test.log(Status.INFO, "📋 Error Message: " + passwordMismatchError);
-        if (passwordMismatchError.contains("No password mismatch")) {
-            test.log(Status.WARNING, "⚠ Expected 'Passwords do not match' error not found - continuing with test");
-        } else {
-            test.log(Status.PASS, "✓ Step 25: 'Passwords do not match' error captured and displayed in report");
-        }
-        Thread.sleep(2000);
+            // ==================== STEP 26: Get Password Policy Error ====================
+            test.log(Status.INFO, "Step 26: Capturing error message for password policy");
+            String pwdPolicyError = forgotPasswordPage.waitForElement("//XCUIElementTypeStaticText[@name=\"Use at least 8 characters with uppercase, lowercase, number, and special symbol.\"]", 5).getAttribute("name");
+            test.log(Status.INFO, "📋 Error Message: " + pwdPolicyError);
+            test.log(Status.PASS, "✓ Step 26: Password policy error message captured");
+            Thread.sleep(1000);
 
-        // Dismiss error message by clicking and clearing password field
-        test.log(Status.INFO, "Dismissing error message to make password fields accessible");
-        forgotPasswordPage.dismissPasswordError();
-        Thread.sleep(1000);
+            // ==================== STEP 27: Enter Password (Human@2026) ====================
+            test.log(Status.INFO, "Step 27: Entering password 'Human@2026' in Enter Password field");
+            forgotPasswordPage.clickClearAndSendKeys("//XCUIElementTypeApplication[@name=\"AB Chopra\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeOther[1]/XCUIElementTypeOther", "@2026");
+            test.log(Status.PASS, "✓ Step 27: Password 'Human@2026' entered in Enter Password field");
+            Thread.sleep(1000);
 
-        // ==================== STEP 26: Enter Correct Password in First Field
-        // ====================
-        test.log(Status.INFO, "Step 26: Entering correct password in first field (Testing@2026)");
-        forgotPasswordPage.enterCorrectPassword1("Testing@2026");
-        test.log(Status.PASS, "✓ Step 26: Correct password entered in first field (Testing@2026)");
-        Thread.sleep(1000);
+            // ==================== STEP 28: Enter Confirm Password (Human@2026) ====================
+            test.log(Status.INFO, "Step 28: Entering password 'Human@2026' in Confirm Password field");
+            forgotPasswordPage.clickClearAndSendKeys("//XCUIElementTypeApplication[@name=\"AB Chopra\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]/XCUIElementTypeOther[3]/XCUIElementTypeOther[2]/XCUIElementTypeOther", "@2026");
+            test.log(Status.PASS, "✓ Step 28: Password 'Human@2026' entered in Confirm Password field");
+            Thread.sleep(1000);
 
-        // ==================== STEP 27: Enter Correct Password in Second Field
-        // ====================
-        test.log(Status.INFO, "Step 27: Entering correct password in second field (Testing@2026)");
-        forgotPasswordPage.enterCorrectPassword2("Testing@2026");
-        test.log(Status.PASS, "✓ Step 27: Correct password entered in second field (Testing@2026)");
-        Thread.sleep(1000);
+            // ==================== STEP 29: Click Reset Password Button ====================
+            test.log(Status.INFO, "Step 29: Clicking RESET PASSWORD button");
+            forgotPasswordPage.findElementWithFallback(null, "//XCUIElementTypeButton[@name=\"RESET PASSWORD\"]", "RESET PASSWORD").click();
+            test.log(Status.PASS, "✓ Step 29: RESET PASSWORD button clicked");
+            Thread.sleep(3000);
 
-        // ==================== STEP 28: Click Reset Password Button
-        // ====================
-        test.log(Status.INFO, "Step 28: Clicking RESET PASSWORD button");
-        forgotPasswordPage.clickResetPasswordButton();
-        test.log(Status.PASS, "✓ Step 28: RESET PASSWORD button clicked");
-        Thread.sleep(5000);
-
-        // ==================== STEP 29: Verify Sign In Page ====================
-        test.log(Status.INFO, "Step 29: Verifying application is on SIGN IN page");
-        boolean isSignInPageDisplayed = forgotPasswordPage.isSignInPageDisplayed();
-        Assert.assertTrue(isSignInPageDisplayed, "SIGN IN page should be displayed");
-        test.log(Status.PASS, "✓ Step 29: SIGN IN page verified");
-        test.log(Status.INFO, "📧 Please check the email for password reset confirmation");
-
-        test.log(Status.PASS, "Forgot Password Flow Test completed successfully");
+            // ==================== STEP 30: Verify SIGN IN Page ====================
+            test.log(Status.INFO, "Step 30: Verifying SIGN IN page is displayed");
+            boolean isSignInPageDisplayed = false;
+            try {
+                isSignInPageDisplayed = forgotPasswordPage.waitForElement("//XCUIElementTypeStaticText[@name=\"SIGN IN\"]", 10).isDisplayed();
+            } catch (Exception e) {
+                // fallback: try by name
+                try {
+                    WebElement signInElement = forgotPasswordPage.findElementWithFallback(null, null, "SIGN IN");
+                    isSignInPageDisplayed = signInElement.isDisplayed();
+                } catch (Exception ex) {
+                    isSignInPageDisplayed = false;
+                }
+            }
+            Assert.assertTrue(isSignInPageDisplayed, "SIGN IN page should be displayed after password reset");
+            test.log(Status.PASS, "✓ Step 30: SIGN IN page verified");
+            test.log(Status.INFO, "Please check the email");
+        // ...existing code...
     }
 }
