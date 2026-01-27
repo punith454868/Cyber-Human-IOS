@@ -127,12 +127,20 @@ public class ForgotPasswordPage {
      */
     private void enterPasswordField(String xpath, String text) throws InterruptedException {
         WebDriverWait longWait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        // Always use iOS password field
-        String iosPasswordFieldXpath = "//XCUIElementTypeTextField";
+        // Always click the parent view first (Enter Password)
+        String parentViewXpath = "//XCUIElementTypeOther[@name=\"Enter Password\"]";
+        try {
+            WebElement parentView = longWait.until(
+                ExpectedConditions.elementToBeClickable(By.xpath(parentViewXpath)));
+            parentView.click();
+            Thread.sleep(500);
+        } catch (Exception e) {
+            // If parent view not found, continue to secure text field
+        }
+        // Now interact with the first secure text field
+        String iosPasswordFieldXpath = "//XCUIElementTypeSecureTextField";
         WebElement passwordField = longWait.until(
-                ExpectedConditions.elementToBeClickable(By.xpath(iosPasswordFieldXpath)));
-        passwordField.click();
-        Thread.sleep(500);
+            ExpectedConditions.elementToBeClickable(By.xpath(iosPasswordFieldXpath)));
         passwordField.clear();
         Thread.sleep(500);
         passwordField.sendKeys(text);

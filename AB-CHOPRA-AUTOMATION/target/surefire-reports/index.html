@@ -129,30 +129,18 @@
                   <a name="testForgotPasswordFlow">
                   </a> <!-- testForgotPasswordFlow -->
                   <span class="method-name">testForgotPasswordFlow</span>
-                  <div class="stack-trace">org.openqa.selenium.StaleElementReferenceException: The previously found element &quot;TextField at {{50.0, 348.0}, {278.0, 22.0}}&quot; is not present in the current view anymore. Make sure the application UI has the expected state. Original error: No matches found for Elements matching predicate &apos;fb_uid IN {&quot;16010000-0000-0000-470D-000000000000&quot;}&apos; from input {(
-    TextField
-)}
-For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#stale-element-reference-exception
+                  <div class="stack-trace">org.openqa.selenium.TimeoutException: Expected condition failed: waiting for element to be clickable: By.xpath: //XCUIElementTypeOther[@name=&quot;Enter Password&quot;] (tried for 15 second(s) with 500 milliseconds interval)
 Build info: version: &apos;4.13.0&apos;, revision: &apos;ba948ece5b*&apos;
 System info: os.name: &apos;Mac OS X&apos;, os.arch: &apos;aarch64&apos;, os.version: &apos;14.5&apos;, java.version: &apos;25.0.1&apos;
 Driver info: io.appium.java_client.ios.IOSDriver
-Command: [343cc7f3-9eff-4f05-b4cb-5d9a11e871aa, clearElement {id=16010000-0000-0000-470D-000000000000}]
 Capabilities {appium:automationName: XCUITest, appium:bundleId: com.houseofepigenetics.abch..., appium:databaseEnabled: false, appium:deviceName: iPhone 13, appium:javascriptEnabled: true, appium:locationContextEnabled: false, appium:networkConnectionEnabled: false, appium:newCommandTimeout: 3600, appium:noReset: true, appium:platformVersion: 18.7, appium:takesScreenshot: true, appium:udid: 00008110-001425322E9B601E, appium:useNewWDA: false, appium:usePrebuiltWDA: true, appium:webDriverAgentUrl: http://localhost:8100, appium:webStorageEnabled: false, platformName: IOS}
-Element: [[IOSDriver:  on IOS (343cc7f3-9eff-4f05-b4cb-5d9a11e871aa)] -&gt; xpath: //XCUIElementTypeTextField]
-Session ID: 343cc7f3-9eff-4f05-b4cb-5d9a11e871aa
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
-	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
-	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
-	at io.appium.java_client.remote.AppiumCommandExecutor.execute(AppiumCommandExecutor.java:250)
-	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:602)
-	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:224)
-	at org.openqa.selenium.remote.RemoteWebElement.clear(RemoteWebElement.java:130)
-	at com.automation.pages.ForgotPasswordPage.enterPasswordField(ForgotPasswordPage.java:136)
-	at com.automation.pages.ForgotPasswordPage.enterPasswords(ForgotPasswordPage.java:414)
-	at com.automation.tests.ForgotPasswordTest.testForgotPasswordFlow(ForgotPasswordTest.java:247)
+Session ID: 682e61d9-34a8-49ab-a841-2b849e796d44
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:230)
+	at com.automation.pages.ForgotPasswordPage.enterWrongPassword1(ForgotPasswordPage.java:435)
+	at com.automation.tests.ForgotPasswordTest.testForgotPasswordFlow(ForgotPasswordTest.java:278)
 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
-... Removed 33 stack frames
+... Removed 30 stack frames
 </div> <!-- stack-trace -->
                 </div> <!-- method-content -->
               </div> <!-- method -->
@@ -213,12 +201,12 @@ data.addRows(1);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'testForgotPasswordFlow')
 data.setCell(0, 2, 'com.automation.tests.ForgotPasswordTest')
-data.setCell(0, 3, 82893);
+data.setCell(0, 3, 195815);
 window.suiteTableData['Surefire_suite']= { tableData: data, tableDiv: 'times-div-Surefire_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 1 minutes</span>
+              <span class="suite-total-time">Total running time: 3 minutes</span>
               <div id="times-div-Surefire_suite">
               </div> <!-- times-div-Surefire_suite -->
             </div> <!-- times-div -->
@@ -255,21 +243,21 @@ return data;
               </div> <!-- configuration-method before -->
               <div class="configuration-method before">
                 <span class="method-name">navigateToSignInPageBeforeTest</span>
-                <span class="method-start">8470 ms</span>
+                <span class="method-start">7646 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <img src="failed.png">
                 </img>
                 <span class="method-name">testForgotPasswordFlow</span>
-                <span class="method-start">11736 ms</span>
+                <span class="method-start">11542 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown([TestResult name=testForgotPasswordFlow status=FAILURE method=ForgotPasswordTest.testForgotPasswordF...)</span>
-                <span class="method-start">94638 ms</span>
+                <span class="method-start">207370 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-suite after">
                 <span class="method-name">tearDownReport</span>
-                <span class="method-start">98008 ms</span>
+                <span class="method-start">210816 ms</span>
               </div> <!-- configuration-suite after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
