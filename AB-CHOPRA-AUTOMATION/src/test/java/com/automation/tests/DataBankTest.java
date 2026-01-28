@@ -13,9 +13,9 @@ public class DataBankTest extends BaseTest {
      * ==================== DATA BANK TEST CASE 1 ====================
      * 
      * Common Steps (1, 2 & 3):
-     * 1. Verify DAILY PRIORITY heading on home page
-     * 2. Click Wellbeing Dashboard
-     * 3. Click DATA BANK and verify it's displayed
+     * 1. Verify DAILY PRIORITY heading on home page (name: "DAILY PRIORITY", xpath: //XCUIElementTypeStaticText[@name="DAILY PRIORITY"])
+     * 2. Click Wellbeing Dashboard (name: "WELLBEING DASHBOARD HOME", xpath: //XCUIElementTypeImage[@name="WELLBEING DASHBOARD HOME"])
+     * 3. Click DATA BANK and verify it's displayed (name: "DATA BANK", xpath: //XCUIElementTypeStaticText[@name="DATA BANK"])
      * 
      * Test-Specific Steps:
      * 4. Click PACKAGES & PRICING
@@ -55,34 +55,107 @@ public class DataBankTest extends BaseTest {
         HomePage homePage = new HomePage(driver);
         DataBankPage dataBankPage = new DataBankPage(driver);
 
-        // ✅ COMMON STEP 1: Verify DAILY PRIORITY heading is displayed on home page
-        test.log(Status.INFO, "Step 1: Verifying DAILY PRIORITY heading on home page");
-        boolean isHomePageDisplayed = homePage.isHomePageDisplayed();
+
+        // Step 1: Verify DAILY PRIORITY heading is displayed on home page (iOS XPath)
+        test.log(Status.INFO, "Step 1: Verifying DAILY PRIORITY heading on home page (iOS)");
+        boolean isHomePageDisplayed = driver.findElements(
+            org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[@name='DAILY PRIORITY']")
+        ).size() > 0;
         if (!isHomePageDisplayed) {
             test.log(Status.FAIL, "DAILY PRIORITY heading not found on home page");
             Assert.fail("Home page validation failed - DAILY PRIORITY heading not displayed");
         }
-        test.log(Status.PASS, "✓ Step 1: DAILY PRIORITY heading is displayed on home page");
+        test.log(Status.PASS, "✓ DAILY PRIORITY heading is displayed on home page");
 
-        // ✅ COMMON STEP 2: Click Wellbeing Dashboard (if not already there)
-        test.log(Status.INFO, "Step 2: Clicking Wellbeing Dashboard");
+        // Step 2: Click Wellbeing Dashboard (iOS, robust fallback logic)
+        test.log(Status.INFO, "Step 2: Clicking Wellbeing Dashboard (iOS, robust)");
+        org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(driver, java.time.Duration.ofSeconds(10));
+        boolean dashboardClicked = false;
         try {
-            homePage.clickWellbeingDashboard();
-            test.log(Status.PASS, "✓ Step 2: Wellbeing Dashboard clicked");
+            org.openqa.selenium.WebElement wellbeingDashboard = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable(
+                org.openqa.selenium.By.xpath("//XCUIElementTypeImage[@name='WELLBEING DASHBOARD HOME'] | //XCUIElementTypeImage[contains(@name, 'WELLBEING')]")
+            ));
+            wellbeingDashboard.click();
+            test.log(Status.INFO, "✓ Clicked WELLBEING DASHBOARD HOME by xpath");
+            Thread.sleep(1500);
+            dashboardClicked = true;
         } catch (Exception e) {
-            test.log(Status.INFO, "Wellbeing Dashboard not found, assuming already on dashboard");
+            test.log(Status.WARNING, "⚠ WELLBEING DASHBOARD HOME not found by xpath: " + e.getMessage());
+            // Try by accessibility id (Appium)
+            try {
+                org.openqa.selenium.WebElement dashboardByAccId = driver.findElement(io.appium.java_client.MobileBy.AccessibilityId("WELLBEING DASHBOARD HOME"));
+                dashboardByAccId.click();
+                test.log(Status.INFO, "✓ Clicked WELLBEING DASHBOARD HOME by accessibility id");
+                Thread.sleep(1500);
+                dashboardClicked = true;
+            } catch (Exception ex1) {
+                test.log(Status.WARNING, "⚠ WELLBEING DASHBOARD HOME not found by accessibility id: " + ex1.getMessage());
+                // Try by name
+                try {
+                    org.openqa.selenium.WebElement dashboardByName = driver.findElement(org.openqa.selenium.By.name("WELLBEING DASHBOARD HOME"));
+                    dashboardByName.click();
+                    test.log(Status.INFO, "✓ Clicked WELLBEING DASHBOARD HOME by name");
+                    Thread.sleep(1500);
+                    dashboardClicked = true;
+                } catch (Exception ex2) {
+                    test.log(Status.WARNING, "⚠ WELLBEING DASHBOARD HOME not found by name: " + ex2.getMessage());
+                }
+            }
+        }
+        if (!dashboardClicked) {
+            test.log(Status.INFO, "Wellbeing Dashboard not found by any locator, assuming already on dashboard");
         }
 
-        // ✅ COMMON STEP 3: Click DATA BANK and verify
-        test.log(Status.INFO, "Step 3: Clicking DATA BANK");
-        dataBankPage.clickAndVerifyDataBank();
-        test.log(Status.PASS, "✓ Step 3: DATA BANK clicked and verified");
-        Thread.sleep(3000);
-        // Verify Data Bank page is displayed
-        Assert.assertTrue(dataBankPage.isDataBankPageDisplayed(),
-                "Data Bank page should be displayed");
-        test.log(Status.PASS, "✓ Verified: Data Bank page is displayed");
-        Thread.sleep(3000); // Wait 3 seconds for page to load
+        // Step 3: Click DATA BANK and verify it's displayed (robust logic)
+        test.log(Status.INFO, "Step 3: Clicking DATA BANK and verifying it's displayed (iOS, robust)");
+        boolean dataBankClicked = false;
+        try {
+            org.openqa.selenium.WebElement dataBankByXpath = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable(
+                org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[@name='DATA BANK']")
+            ));
+            dataBankByXpath.click();
+            test.log(Status.INFO, "✓ Clicked DATA BANK by xpath");
+            Thread.sleep(1500);
+            dataBankClicked = true;
+        } catch (Exception e) {
+            test.log(Status.WARNING, "⚠ DATA BANK not found by xpath: " + e.getMessage());
+            // Try by name
+            try {
+                org.openqa.selenium.WebElement dataBankByName = driver.findElement(org.openqa.selenium.By.name("DATA BANK"));
+                dataBankByName.click();
+                test.log(Status.INFO, "✓ Clicked DATA BANK by name");
+                Thread.sleep(1500);
+                dataBankClicked = true;
+            } catch (Exception ex1) {
+                test.log(Status.WARNING, "⚠ DATA BANK not found by name: " + ex1.getMessage());
+            }
+        }
+        // Verify DATA BANK is displayed
+        boolean isDataBankDisplayed = false;
+        try {
+            isDataBankDisplayed = driver.findElements(
+                org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[@name='DATA BANK']")
+            ).size() > 0;
+        } catch (Exception e) {
+            test.log(Status.WARNING, "⚠ DATA BANK not found for verification: " + e.getMessage());
+        }
+        if (!isDataBankDisplayed) {
+            try {
+                isDataBankDisplayed = driver.findElements(
+                    org.openqa.selenium.By.name("DATA BANK")
+                ).size() > 0;
+            } catch (Exception ex2) {
+                test.log(Status.WARNING, "⚠ DATA BANK not found by name for verification: " + ex2.getMessage());
+            }
+        }
+        if (!isDataBankDisplayed) {
+            test.log(Status.FAIL, "DATA BANK not displayed after click");
+            Assert.fail("DATA BANK validation failed - not displayed");
+        } else {
+            test.log(Status.PASS, "✓ DATA BANK is displayed after click");
+        }
+
+        // ...existing code...
 
         // ✅ TEST CASE 1 - STEP 4: Click PACKAGES & PRICING
         test.log(Status.INFO, "Step 4: Clicking PACKAGES & PRICING");
@@ -318,33 +391,107 @@ public class DataBankTest extends BaseTest {
         HomePage homePage = new HomePage(driver);
         DataBankPage dataBankPage = new DataBankPage(driver);
 
-        // ✅ COMMON STEP 1: Verify DAILY PRIORITY heading is displayed on home page
-        test.log(Status.INFO, "Step 1: Verifying DAILY PRIORITY heading on home page");
-        boolean isHomePageDisplayed = homePage.isHomePageDisplayed();
+
+        // Step 1: Verify DAILY PRIORITY heading is displayed on home page (iOS XPath)
+        test.log(Status.INFO, "Step 1: Verifying DAILY PRIORITY heading on home page (iOS)");
+        boolean isHomePageDisplayed = driver.findElements(
+            org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[@name='DAILY PRIORITY']")
+        ).size() > 0;
         if (!isHomePageDisplayed) {
             test.log(Status.FAIL, "DAILY PRIORITY heading not found on home page");
             Assert.fail("Home page validation failed - DAILY PRIORITY heading not displayed");
         }
-        test.log(Status.PASS, "✓ Step 1: DAILY PRIORITY heading is displayed on home page");
+        test.log(Status.PASS, "✓ DAILY PRIORITY heading is displayed on home page");
 
-        // ✅ COMMON STEP 2: Click Wellbeing Dashboard (if not already there)
-        test.log(Status.INFO, "Step 2: Clicking Wellbeing Dashboard");
+        // Step 2: Click Wellbeing Dashboard (iOS, robust fallback logic)
+        test.log(Status.INFO, "Step 2: Clicking Wellbeing Dashboard (iOS, robust)");
+        org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(driver, java.time.Duration.ofSeconds(10));
+        boolean dashboardClicked = false;
         try {
-            homePage.clickWellbeingDashboard();
-            test.log(Status.PASS, "✓ Step 2: Wellbeing Dashboard clicked");
+            org.openqa.selenium.WebElement wellbeingDashboard = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable(
+                org.openqa.selenium.By.xpath("//XCUIElementTypeImage[@name='WELLBEING DASHBOARD HOME'] | //XCUIElementTypeImage[contains(@name, 'WELLBEING')]")
+            ));
+            wellbeingDashboard.click();
+            test.log(Status.INFO, "✓ Clicked WELLBEING DASHBOARD HOME by xpath");
+            Thread.sleep(1500);
+            dashboardClicked = true;
         } catch (Exception e) {
-            test.log(Status.INFO, "Wellbeing Dashboard not found, assuming already on dashboard");
+            test.log(Status.WARNING, "⚠ WELLBEING DASHBOARD HOME not found by xpath: " + e.getMessage());
+            // Try by accessibility id (Appium)
+            try {
+                org.openqa.selenium.WebElement dashboardByAccId = driver.findElement(io.appium.java_client.MobileBy.AccessibilityId("WELLBEING DASHBOARD HOME"));
+                dashboardByAccId.click();
+                test.log(Status.INFO, "✓ Clicked WELLBEING DASHBOARD HOME by accessibility id");
+                Thread.sleep(1500);
+                dashboardClicked = true;
+            } catch (Exception ex1) {
+                test.log(Status.WARNING, "⚠ WELLBEING DASHBOARD HOME not found by accessibility id: " + ex1.getMessage());
+                // Try by name
+                try {
+                    org.openqa.selenium.WebElement dashboardByName = driver.findElement(org.openqa.selenium.By.name("WELLBEING DASHBOARD HOME"));
+                    dashboardByName.click();
+                    test.log(Status.INFO, "✓ Clicked WELLBEING DASHBOARD HOME by name");
+                    Thread.sleep(1500);
+                    dashboardClicked = true;
+                } catch (Exception ex2) {
+                    test.log(Status.WARNING, "⚠ WELLBEING DASHBOARD HOME not found by name: " + ex2.getMessage());
+                }
+            }
+        }
+        if (!dashboardClicked) {
+            test.log(Status.INFO, "Wellbeing Dashboard not found by any locator, assuming already on dashboard");
         }
 
-        // ✅ COMMON STEP 3: Click DATA BANK and verify
-        test.log(Status.INFO, "Step 3: Clicking DATA BANK");
-        dataBankPage.clickAndVerifyDataBank();
-        test.log(Status.PASS, "✓ Step 3: DATA BANK clicked and verified");
+        // Step 3: Click DATA BANK and verify it's displayed (robust logic)
+        test.log(Status.INFO, "Step 3: Clicking DATA BANK and verifying it's displayed (iOS, robust)");
+        boolean dataBankClicked = false;
+        try {
+            org.openqa.selenium.WebElement dataBankByXpath = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable(
+                org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[@name='DATA BANK']")
+            ));
+            dataBankByXpath.click();
+            test.log(Status.INFO, "✓ Clicked DATA BANK by xpath");
+            Thread.sleep(1500);
+            dataBankClicked = true;
+        } catch (Exception e) {
+            test.log(Status.WARNING, "⚠ DATA BANK not found by xpath: " + e.getMessage());
+            // Try by name
+            try {
+                org.openqa.selenium.WebElement dataBankByName = driver.findElement(org.openqa.selenium.By.name("DATA BANK"));
+                dataBankByName.click();
+                test.log(Status.INFO, "✓ Clicked DATA BANK by name");
+                Thread.sleep(1500);
+                dataBankClicked = true;
+            } catch (Exception ex1) {
+                test.log(Status.WARNING, "⚠ DATA BANK not found by name: " + ex1.getMessage());
+            }
+        }
+        // Verify DATA BANK is displayed
+        boolean isDataBankDisplayed = false;
+        try {
+            isDataBankDisplayed = driver.findElements(
+                org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[@name='DATA BANK']")
+            ).size() > 0;
+        } catch (Exception e) {
+            test.log(Status.WARNING, "⚠ DATA BANK not found for verification: " + e.getMessage());
+        }
+        if (!isDataBankDisplayed) {
+            try {
+                isDataBankDisplayed = driver.findElements(
+                    org.openqa.selenium.By.name("DATA BANK")
+                ).size() > 0;
+            } catch (Exception ex2) {
+                test.log(Status.WARNING, "⚠ DATA BANK not found by name for verification: " + ex2.getMessage());
+            }
+        }
+        if (!isDataBankDisplayed) {
+            test.log(Status.FAIL, "DATA BANK not displayed after click");
+            Assert.fail("DATA BANK validation failed - not displayed");
+        } else {
+            test.log(Status.PASS, "✓ DATA BANK is displayed after click");
+        }
 
-        // Verify Data Bank page is displayed
-        Assert.assertTrue(dataBankPage.isDataBankPageDisplayed(),
-                "Data Bank page should be displayed");
-        test.log(Status.PASS, "✓ Verified: Data Bank page is displayed");
+        // ...existing code...
 
         // ✅ TEST CASE 2 - STEP 4: Click UPLOAD DATA
         test.log(Status.INFO, "Step 4: Clicking UPLOAD DATA");
@@ -476,33 +623,107 @@ public class DataBankTest extends BaseTest {
         HomePage homePage = new HomePage(driver);
         DataBankPage dataBankPage = new DataBankPage(driver);
 
-        // ✅ COMMON STEP 1: Verify DAILY PRIORITY heading is displayed on home page
-        test.log(Status.INFO, "Step 1: Verifying DAILY PRIORITY heading on home page");
-        boolean isHomePageDisplayed = homePage.isHomePageDisplayed();
+
+        // Step 1: Verify DAILY PRIORITY heading is displayed on home page (iOS XPath)
+        test.log(Status.INFO, "Step 1: Verifying DAILY PRIORITY heading on home page (iOS)");
+        boolean isHomePageDisplayed = driver.findElements(
+            org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[@name='DAILY PRIORITY']")
+        ).size() > 0;
         if (!isHomePageDisplayed) {
             test.log(Status.FAIL, "DAILY PRIORITY heading not found on home page");
             Assert.fail("Home page validation failed - DAILY PRIORITY heading not displayed");
         }
-        test.log(Status.PASS, "✓ Step 1: DAILY PRIORITY heading is displayed on home page");
+        test.log(Status.PASS, "✓ DAILY PRIORITY heading is displayed on home page");
 
-        // ✅ COMMON STEP 2: Click Wellbeing Dashboard (if not already there)
-        test.log(Status.INFO, "Step 2: Clicking Wellbeing Dashboard");
+        // Step 2: Click Wellbeing Dashboard (iOS, robust fallback logic)
+        test.log(Status.INFO, "Step 2: Clicking Wellbeing Dashboard (iOS, robust)");
+        org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(driver, java.time.Duration.ofSeconds(10));
+        boolean dashboardClicked = false;
         try {
-            homePage.clickWellbeingDashboard();
-            test.log(Status.PASS, "✓ Step 2: Wellbeing Dashboard clicked");
+            org.openqa.selenium.WebElement wellbeingDashboard = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable(
+                org.openqa.selenium.By.xpath("//XCUIElementTypeImage[@name='WELLBEING DASHBOARD HOME'] | //XCUIElementTypeImage[contains(@name, 'WELLBEING')]")
+            ));
+            wellbeingDashboard.click();
+            test.log(Status.INFO, "✓ Clicked WELLBEING DASHBOARD HOME by xpath");
+            Thread.sleep(1500);
+            dashboardClicked = true;
         } catch (Exception e) {
-            test.log(Status.INFO, "Wellbeing Dashboard not found, assuming already on dashboard");
+            test.log(Status.WARNING, "⚠ WELLBEING DASHBOARD HOME not found by xpath: " + e.getMessage());
+            // Try by accessibility id (Appium)
+            try {
+                org.openqa.selenium.WebElement dashboardByAccId = driver.findElement(io.appium.java_client.MobileBy.AccessibilityId("WELLBEING DASHBOARD HOME"));
+                dashboardByAccId.click();
+                test.log(Status.INFO, "✓ Clicked WELLBEING DASHBOARD HOME by accessibility id");
+                Thread.sleep(1500);
+                dashboardClicked = true;
+            } catch (Exception ex1) {
+                test.log(Status.WARNING, "⚠ WELLBEING DASHBOARD HOME not found by accessibility id: " + ex1.getMessage());
+                // Try by name
+                try {
+                    org.openqa.selenium.WebElement dashboardByName = driver.findElement(org.openqa.selenium.By.name("WELLBEING DASHBOARD HOME"));
+                    dashboardByName.click();
+                    test.log(Status.INFO, "✓ Clicked WELLBEING DASHBOARD HOME by name");
+                    Thread.sleep(1500);
+                    dashboardClicked = true;
+                } catch (Exception ex2) {
+                    test.log(Status.WARNING, "⚠ WELLBEING DASHBOARD HOME not found by name: " + ex2.getMessage());
+                }
+            }
+        }
+        if (!dashboardClicked) {
+            test.log(Status.INFO, "Wellbeing Dashboard not found by any locator, assuming already on dashboard");
         }
 
-        // ✅ COMMON STEP 3: Click DATA BANK and verify
-        test.log(Status.INFO, "Step 3: Clicking DATA BANK");
-        dataBankPage.clickAndVerifyDataBank();
-        test.log(Status.PASS, "✓ Step 3: DATA BANK clicked and verified");
+        // Step 3: Click DATA BANK and verify it's displayed (robust logic)
+        test.log(Status.INFO, "Step 3: Clicking DATA BANK and verifying it's displayed (iOS, robust)");
+        boolean dataBankClicked = false;
+        try {
+            org.openqa.selenium.WebElement dataBankByXpath = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable(
+                org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[@name='DATA BANK']")
+            ));
+            dataBankByXpath.click();
+            test.log(Status.INFO, "✓ Clicked DATA BANK by xpath");
+            Thread.sleep(1500);
+            dataBankClicked = true;
+        } catch (Exception e) {
+            test.log(Status.WARNING, "⚠ DATA BANK not found by xpath: " + e.getMessage());
+            // Try by name
+            try {
+                org.openqa.selenium.WebElement dataBankByName = driver.findElement(org.openqa.selenium.By.name("DATA BANK"));
+                dataBankByName.click();
+                test.log(Status.INFO, "✓ Clicked DATA BANK by name");
+                Thread.sleep(1500);
+                dataBankClicked = true;
+            } catch (Exception ex1) {
+                test.log(Status.WARNING, "⚠ DATA BANK not found by name: " + ex1.getMessage());
+            }
+        }
+        // Verify DATA BANK is displayed
+        boolean isDataBankDisplayed = false;
+        try {
+            isDataBankDisplayed = driver.findElements(
+                org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[@name='DATA BANK']")
+            ).size() > 0;
+        } catch (Exception e) {
+            test.log(Status.WARNING, "⚠ DATA BANK not found for verification: " + e.getMessage());
+        }
+        if (!isDataBankDisplayed) {
+            try {
+                isDataBankDisplayed = driver.findElements(
+                    org.openqa.selenium.By.name("DATA BANK")
+                ).size() > 0;
+            } catch (Exception ex2) {
+                test.log(Status.WARNING, "⚠ DATA BANK not found by name for verification: " + ex2.getMessage());
+            }
+        }
+        if (!isDataBankDisplayed) {
+            test.log(Status.FAIL, "DATA BANK not displayed after click");
+            Assert.fail("DATA BANK validation failed - not displayed");
+        } else {
+            test.log(Status.PASS, "✓ DATA BANK is displayed after click");
+        }
 
-        // Verify Data Bank page is displayed
-        Assert.assertTrue(dataBankPage.isDataBankPageDisplayed(),
-                "Data Bank page should be displayed");
-        test.log(Status.PASS, "✓ Verified: Data Bank page is displayed");
+        // ...existing code...
 
         // ✅ TEST CASE 3 - STEP 4: Click DEVICES
         test.log(Status.INFO, "Step 4: Clicking DEVICES");
@@ -634,43 +855,107 @@ public class DataBankTest extends BaseTest {
         HomePage homePage = new HomePage(driver);
         DataBankPage dataBankPage = new DataBankPage(driver);
 
-        // ✅ COMMON STEP 1: Verify DAILY PRIORITY heading is displayed on home page
-        test.log(Status.INFO, "Step 1: Verifying DAILY PRIORITY heading on home page");
-        boolean isHomePageDisplayed = homePage.isHomePageDisplayed();
+
+        // Step 1: Verify DAILY PRIORITY heading is displayed on home page (iOS XPath)
+        test.log(Status.INFO, "Step 1: Verifying DAILY PRIORITY heading on home page (iOS)");
+        boolean isHomePageDisplayed = driver.findElements(
+            org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[@name='DAILY PRIORITY']")
+        ).size() > 0;
         if (!isHomePageDisplayed) {
-            test.log(Status.INFO,
-                    "DAILY PRIORITY heading not found - app is already on Data Bank page from previous test, continuing...");
-        } else {
-            test.log(Status.PASS, "✓ Step 1: DAILY PRIORITY heading is displayed on home page");
+            test.log(Status.FAIL, "DAILY PRIORITY heading not found on home page");
+            Assert.fail("Home page validation failed - DAILY PRIORITY heading not displayed");
         }
+        test.log(Status.PASS, "✓ DAILY PRIORITY heading is displayed on home page");
 
-        // ✅ COMMON STEP 2: Click Wellbeing Dashboard (if not already there)
-        test.log(Status.INFO, "Step 2: Clicking Wellbeing Dashboard");
+        // Step 2: Click Wellbeing Dashboard (iOS, robust fallback logic)
+        test.log(Status.INFO, "Step 2: Clicking Wellbeing Dashboard (iOS, robust)");
+        org.openqa.selenium.support.ui.WebDriverWait wait = new org.openqa.selenium.support.ui.WebDriverWait(driver, java.time.Duration.ofSeconds(10));
+        boolean dashboardClicked = false;
         try {
-            homePage.clickWellbeingDashboard();
-            test.log(Status.PASS, "✓ Step 2: Wellbeing Dashboard clicked");
+            org.openqa.selenium.WebElement wellbeingDashboard = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable(
+                org.openqa.selenium.By.xpath("//XCUIElementTypeImage[@name='WELLBEING DASHBOARD HOME'] | //XCUIElementTypeImage[contains(@name, 'WELLBEING')]")
+            ));
+            wellbeingDashboard.click();
+            test.log(Status.INFO, "✓ Clicked WELLBEING DASHBOARD HOME by xpath");
+            Thread.sleep(1500);
+            dashboardClicked = true;
         } catch (Exception e) {
-            test.log(Status.INFO, "Wellbeing Dashboard not found, assuming already on dashboard");
+            test.log(Status.WARNING, "⚠ WELLBEING DASHBOARD HOME not found by xpath: " + e.getMessage());
+            // Try by accessibility id (Appium)
+            try {
+                org.openqa.selenium.WebElement dashboardByAccId = driver.findElement(io.appium.java_client.MobileBy.AccessibilityId("WELLBEING DASHBOARD HOME"));
+                dashboardByAccId.click();
+                test.log(Status.INFO, "✓ Clicked WELLBEING DASHBOARD HOME by accessibility id");
+                Thread.sleep(1500);
+                dashboardClicked = true;
+            } catch (Exception ex1) {
+                test.log(Status.WARNING, "⚠ WELLBEING DASHBOARD HOME not found by accessibility id: " + ex1.getMessage());
+                // Try by name
+                try {
+                    org.openqa.selenium.WebElement dashboardByName = driver.findElement(org.openqa.selenium.By.name("WELLBEING DASHBOARD HOME"));
+                    dashboardByName.click();
+                    test.log(Status.INFO, "✓ Clicked WELLBEING DASHBOARD HOME by name");
+                    Thread.sleep(1500);
+                    dashboardClicked = true;
+                } catch (Exception ex2) {
+                    test.log(Status.WARNING, "⚠ WELLBEING DASHBOARD HOME not found by name: " + ex2.getMessage());
+                }
+            }
+        }
+        if (!dashboardClicked) {
+            test.log(Status.INFO, "Wellbeing Dashboard not found by any locator, assuming already on dashboard");
         }
 
-        // ✅ COMMON STEP 3: Click DATA BANK and verify (or verify if already there)
-        test.log(Status.INFO, "Step 3: Checking if DATA BANK page is displayed");
-
-        // Check if we're already on the Data Bank page (by looking for REPORTS tab)
-        if (dataBankPage.isAlreadyOnDataBankPage()) {
-            test.log(Status.INFO, "Already on DATA BANK page from previous test, skipping click");
-            test.log(Status.PASS, "✓ Step 3: DATA BANK page is already displayed");
+        // Step 3: Click DATA BANK and verify it's displayed (robust logic)
+        test.log(Status.INFO, "Step 3: Clicking DATA BANK and verifying it's displayed (iOS, robust)");
+        boolean dataBankClicked = false;
+        try {
+            org.openqa.selenium.WebElement dataBankByXpath = wait.until(org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable(
+                org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[@name='DATA BANK']")
+            ));
+            dataBankByXpath.click();
+            test.log(Status.INFO, "✓ Clicked DATA BANK by xpath");
+            Thread.sleep(1500);
+            dataBankClicked = true;
+        } catch (Exception e) {
+            test.log(Status.WARNING, "⚠ DATA BANK not found by xpath: " + e.getMessage());
+            // Try by name
+            try {
+                org.openqa.selenium.WebElement dataBankByName = driver.findElement(org.openqa.selenium.By.name("DATA BANK"));
+                dataBankByName.click();
+                test.log(Status.INFO, "✓ Clicked DATA BANK by name");
+                Thread.sleep(1500);
+                dataBankClicked = true;
+            } catch (Exception ex1) {
+                test.log(Status.WARNING, "⚠ DATA BANK not found by name: " + ex1.getMessage());
+            }
+        }
+        // Verify DATA BANK is displayed
+        boolean isDataBankDisplayed = false;
+        try {
+            isDataBankDisplayed = driver.findElements(
+                org.openqa.selenium.By.xpath("//XCUIElementTypeStaticText[@name='DATA BANK']")
+            ).size() > 0;
+        } catch (Exception e) {
+            test.log(Status.WARNING, "⚠ DATA BANK not found for verification: " + e.getMessage());
+        }
+        if (!isDataBankDisplayed) {
+            try {
+                isDataBankDisplayed = driver.findElements(
+                    org.openqa.selenium.By.name("DATA BANK")
+                ).size() > 0;
+            } catch (Exception ex2) {
+                test.log(Status.WARNING, "⚠ DATA BANK not found by name for verification: " + ex2.getMessage());
+            }
+        }
+        if (!isDataBankDisplayed) {
+            test.log(Status.FAIL, "DATA BANK not displayed after click");
+            Assert.fail("DATA BANK validation failed - not displayed");
         } else {
-            // Not on Data Bank page, need to click it
-            test.log(Status.INFO, "Step 3: Clicking DATA BANK");
-            dataBankPage.clickAndVerifyDataBank();
-            test.log(Status.PASS, "✓ Step 3: DATA BANK clicked and verified");
+            test.log(Status.PASS, "✓ DATA BANK is displayed after click");
         }
 
-        // Verify Data Bank page is displayed
-        Assert.assertTrue(dataBankPage.isDataBankPageDisplayed(),
-                "Data Bank page should be displayed");
-        test.log(Status.PASS, "✓ Verified: Data Bank page is displayed");
+        // ...existing code...
 
         // ✅ TEST CASE 4 - STEP 4: Click REPORTS
         test.log(Status.INFO, "Step 4: Clicking REPORTS");
